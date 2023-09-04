@@ -1,15 +1,21 @@
 
 @import "BlenderMenubar.css";
 @import "BlenderTabs.css";
+@import "../control/data-block-menu/BlenderDataBlockMenu.css";
 
 :root {
-    --base-background-color: rgb(29, 29, 29);
+    --background-color-dark: rgb(29, 29, 29);
+    --background-color-light: rgb(55, 55, 55);
+    --background-color-light-bright: rgb(75, 75, 75);
     --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     --font-size: 12px;
     --font-color: rgb(201, 201, 201);
     --text-shadow: none;
     --component-border-color: rgb(29, 29, 29);
     --component-border-radius: 6px;
+    --menubar-border: 1px solid rgb(70, 70, 70);
+    --menubar-border-radius: 6px;
+    --opacity-disabled: 0.3;
 }
 
 html,body {
@@ -18,6 +24,7 @@ html,body {
     display: flex;
     height: 100%;
     width: 100%;
+    background-color: var(--background-color-dark);
 }
 
 #rootPanel {
@@ -26,9 +33,10 @@ html,body {
     width: 100%;
 }
 
-#topBarPanel {
+#topbarPanel {
     height: 30px;
     display: flex;
+    align-items: end;
 }
 
 #areasPanel {
@@ -38,4 +46,12 @@ html,body {
 
 #statusBarPanel {
     height: 30px;
+}
+
+.NobucaPanel {
+    display: flex;
+}
+
+#areasPanel > .NobucaPanel {
+    width: 100%;
 }

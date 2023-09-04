@@ -1,0 +1,99 @@
+
+.BlenderDataBlockMenu {
+    display: flex;
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    margin-top: 2px;
+    margin-right: 4px;
+    background-color: var(--background-color-light);
+    user-select: none;
+    align-items: center;
+    height: 22px;
+}
+
+.BlenderDataBlockMenuPart {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    cursor: pointer;
+}
+
+.BlenderDataBlockMenuPart:hover {
+    background-color: var(--background-color-light-bright);
+}
+
+.BlenderDataBlockMenuPart.disabled {
+    opacity: var(--opacity-disabled);
+}
+
+.BlenderDataBlockMenuExpandButtonTypeIcon {
+    display: flex;
+    width: 14px;
+    height: 14px;
+    padding-left: 4px;
+}
+
+.BlenderDataBlockMenuExpandButtonDownIcon {
+    display: flex;
+    width: 9px;
+    height: 5px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.BlenderDataBlockMenuSeparator {
+    display: flex;
+    height: 100%;
+    border-left: var(--menubar-border);
+}
+
+.BlenderDataBlockMenuName {
+    display: flex;
+    background-color: var(--background-color-dark);
+    align-items: center;
+}
+
+.BlenderDataBlockMenuNameInput {
+    display: flex;
+    margin: 2px;
+    padding-right: 4px;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: var(--background-color-dark);
+    color: var(--font-color);
+    font-family: var(--font-family);
+	font-size: var(--font-size);
+	text-shadow: var(--text-shadow);
+}
+
+.BlenderDataBlockMenuNamePin {
+    display: flex;
+    width: 14px;
+    height: 14px;
+    padding-right: 4px;
+    opacity: var(--opacity-disabled);
+    cursor: pointer;
+}
+
+.BlenderDataBlockMenuNamePin:hover {
+    opacity: 1.0;
+}
+
+.BlenderDataBlockMenuNewButtonIcon {
+    display: flex;
+    width: 18px;
+    height: 18px;
+    padding-right: 4px;
+    padding-left: 4px;
+    cursor: pointer;
+}
+
+.BlenderDataBlockMenuDeleteButtonIcon {
+    display: flex;
+    width: 8px;
+    height: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    cursor: pointer;
+}

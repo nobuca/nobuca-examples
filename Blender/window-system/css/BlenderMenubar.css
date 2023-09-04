@@ -1,6 +1,6 @@
 .NobucaMenubar {
     display: flex;
-    background-color: var(--base-background-color);
+    background-color: var(--background-color-dark);
     align-items: center;
 }
 
@@ -24,12 +24,12 @@
     display: flex;
     flex-grow: 1;
     border-radius: 4px;
-    border: 1px solid var(--base-background-color);
+    border: 1px solid var(--background-color-dark);
     height: 18px;
 }
 
 .NobucaMenubarItemContents.disabled {
-    opacity: 0.6;
+    opacity: var(--opacity-disabled);
 }
 
 .NobucaMenubarItemIcon img {
@@ -56,7 +56,7 @@
     font-family: var(--font-family);
     font-size: var(--font-size);
     user-select: none;
-    opacity: 0.6;
+    opacity: var(--opacity-disabled);
 }
 
 .NobucaMenubarItemChildrenMark {
@@ -67,7 +67,7 @@
     font-family: var(--font-family);
     font-size: var(--font-size);
     user-select: none;
-    opacity: 0.6;
+    opacity: var(--opacity-disabled);
     min-width: 12px;
 }
 
@@ -88,8 +88,8 @@
     position: absolute;
     top: 23px;
     min-width: 200px;
-    background-color: var(--base-background-color);
-    border: 1px solid rgb(36, 36, 36);
+    background-color: var(--background-color-dark);
+    border: var(--menubar-border);
     opacity: 1;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;

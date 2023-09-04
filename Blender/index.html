@@ -6,13 +6,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="./css/Blender.css" rel="stylesheet">
+  <link href="./window-system/css/Blender.css" rel="stylesheet">
 </head>
 
 <body>
   <!-- Nobuca JS -->
   <script type="module">
+    import NobucaFactory from "../../nobuca-core/factory/NobucaFactory.js";
     import BlenderAppModel from "./BlenderAppModel.js";
+    import BlenderAppView from "./BlenderAppView.js";
+    import BlenderDataBlockMenuView from "./window-system/control/data-block-menu/BlenderDataBlockMenuView.js";
+    NobucaFactory.registerViewConstructorForModelClassName("BlenderAppModel",
+      function (model) { return new BlenderAppView(model); });
+    NobucaFactory.registerViewConstructorForModelClassName("BlenderDataBlockMenuModel",
+      function (model) { return new BlenderDataBlockMenuView(model); });
     new BlenderAppModel();
   </script>
 </body>

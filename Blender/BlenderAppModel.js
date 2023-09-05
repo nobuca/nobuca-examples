@@ -2,11 +2,13 @@ import NobucaAppModel from "../../nobuca-core/app/NobucaAppModel.js";
 import NobucaPanelModel from "../../nobuca-core/panel/NobucaPanelModel.js";
 import BlenderTopbarModel  from "./window-system/topbar/BlenderTopbarModel.js";
 import BlenderWorkspaceModel  from "./window-system/workspace/BlenderWorkspaceModel.js";
+import NobucaPanelSplitLeftRightModel from "../../nobuca-core/panel-split/NobucaPanelSplitLeftRightModel.js";
+import NobucaPanelSplitTopBottomModel from "../../nobuca-core/panel-split/NobucaPanelSplitTopBottomModel.js";
 import Blender3dViewportEditorModel  from "./window-system/editor/Blender3dViewportEditorModel.js";
 import BlenderOutlinerEditorModel  from "./window-system/editor/BlenderOutlinerEditorModel.js";
 import BlenderPropertiesEditorModel  from "./window-system/editor/BlenderPropertiesEditorModel.js";
 import BlenderTimelineEditorModel  from "./window-system/editor/BlenderTimelineEditorModel.js";
-import BlenderAreaEditorModel  from "./window-system/area/BlenderAreaEditorModel.js";
+import BlenderAreaModel from "./window-system/area/BlenderAreaModel.js";
 
 export default class BlenderAppModel extends NobucaAppModel {
 
@@ -26,16 +28,9 @@ export default class BlenderAppModel extends NobucaAppModel {
 
     createWorkspaces() {
         this.workspaces = [];
-        
-        var workspaceLayout = new BlenderWorkspaceModel();
-        this.workspaces.push(workspaceLayout);
-        workspaceLayout.setId("layout");
-        workspaceLayout.setTitle("Layout");
-        workspaceLayout.addArea(new BlenderAreaEditorModel(new Blender3dViewportEditorModel()));
-        workspaceLayout.addArea(new BlenderAreaEditorModel(new BlenderOutlinerEditorModel()));
-        workspaceLayout.addArea(new BlenderAreaEditorModel(new BlenderPropertiesEditorModel()));
-        workspaceLayout.addArea(new BlenderAreaEditorModel(new BlenderTimelineEditorModel()));
 
+        this.createWorkspaceLayout();
+ 
         var workspaceModeling = new BlenderWorkspaceModel();
         this.workspaces.push(workspaceModeling);
         workspaceModeling.setId("modeling");
@@ -92,6 +87,46 @@ export default class BlenderAppModel extends NobucaAppModel {
         workspaceAdd.setTitle("+");
     }
 
+    createWorkspaceLayout() {
+        var workspace = new BlenderWorkspaceModel();
+        this.getWorkspaces().push(workspace);
+        workspace.setId("layout");
+        workspace.setTitle("Layout");
+
+        var areaColumnLeft = new NobucaPanelModel();
+        areaColumnLeft.setId("areaColumnLeft");
+
+        var areaColumnRight = new NobucaPanelModel();
+        areaColumnRight.setId("areaColumnRight");
+
+        var splitLeftRight = new NobucaPanelSplitLeftRightModel(areaColumnLeft, areaColumnRight, .7);
+        workspace.addChild(splitLeftRight);
+
+        var areaColumnLeftTop = new NobucaPanelModel();
+        areaColumnLeftTop.setId("areaColumnLeftTop");
+        areaColumnLeftTop.addChild(new Blender3dViewportEditorModel());
+
+        var areaColumnLeftBottom = new NobucaPanelModel();
+        areaColumnLeftBottom.setId("areaColumnLeftBottom");
+        areaColumnLeftBottom.addChild(new BlenderTimelineEditorModel());
+
+        var splitColumnLeftTopBottom = new NobucaPanelSplitTopBottomModel(areaColumnLeftTop, areaColumnLeftBottom, .7);
+        areaColumnLeft.addChild(splitColumnLeftTopBottom);
+
+        var areaColumnRightTop = new NobucaPanelModel();
+        areaColumnRightTop.setId("areaColumnLeftTop");
+        areaColumnRightTop.addChild(new BlenderOutlinerEditorModel());
+
+        var areaColumnRightBottom = new NobucaPanelModel();
+        areaColumnRightBottom.setId("areaColumnRightBottom");
+        areaColumnRightBottom.addChild(new BlenderPropertiesEditorModel());
+
+        var splitColumnRightTopBottom = new NobucaPanelSplitTopBottomModel(areaColumnRightTop, areaColumnRightBottom, .6);
+        areaColumnRight.addChild(splitColumnRightTopBottom);
+
+
+   }
+
     getWorkspaces() {
         return this.workspaces;
     }
@@ -128,6 +163,7 @@ export default class BlenderAppModel extends NobucaAppModel {
     activateWorkspace(workspaceId) {
         var workspace = this.getWorkspace(workspaceId);
         this.getAreasPanel().clear();
+        console.log("activateWorkspace");
         this.getAreasPanel().addChild(workspace);
     }
 }

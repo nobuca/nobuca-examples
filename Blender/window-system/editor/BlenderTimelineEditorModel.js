@@ -4,6 +4,7 @@ export default class BlenderTimelineEditorModel extends BlenderEditorModel {
 
     constructor() {
         super();
+        this.setId("BlenderTimelineEditorModel");
     }
 
 

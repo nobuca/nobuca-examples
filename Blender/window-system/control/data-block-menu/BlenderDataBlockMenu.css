@@ -5,6 +5,7 @@
     border-radius: var(--menubar-border-radius);
     margin-top: 2px;
     margin-right: 4px;
+    margin-left: 4px;
     background-color: var(--background-color-light);
     user-select: none;
     align-items: center;

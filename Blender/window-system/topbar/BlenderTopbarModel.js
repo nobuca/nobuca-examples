@@ -100,7 +100,10 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
     }
 
     createScenesAndLayers() {
-        this.addChild(new BlenderDataBlockMenuModel("scene"));
-        this.addChild(new BlenderDataBlockMenuModel("viewLayer"))
+        var scenesAndLayers = new NobucaPanelModel();
+        this.addChild(scenesAndLayers);
+        scenesAndLayers.setId("scenesAndLayers")
+        scenesAndLayers.addChild(new BlenderDataBlockMenuModel("scene"));
+        scenesAndLayers.addChild(new BlenderDataBlockMenuModel("viewLayer"))
     }
 }

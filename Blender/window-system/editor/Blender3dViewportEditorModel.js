@@ -4,7 +4,7 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
 
     constructor() {
         super();
-        this.setId("3dViewportEditor");
+        this.setId("Blender3dViewportEditorModel");
     }
 
 

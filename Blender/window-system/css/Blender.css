@@ -1,5 +1,6 @@
 
 @import "../control/data-block-menu/BlenderDataBlockMenu.css";
+@import "../editor/BlenderEditor.css";
 
 html,body {
     margin: 0;

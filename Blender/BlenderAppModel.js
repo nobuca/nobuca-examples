@@ -4,11 +4,7 @@ import BlenderTopbarModel  from "./window-system/topbar/BlenderTopbarModel.js";
 import BlenderWorkspaceModel  from "./window-system/workspace/BlenderWorkspaceModel.js";
 import NobucaPanelSplitLeftRightModel from "../../nobuca-core/panel-split/NobucaPanelSplitLeftRightModel.js";
 import NobucaPanelSplitTopBottomModel from "../../nobuca-core/panel-split/NobucaPanelSplitTopBottomModel.js";
-import Blender3dViewportEditorModel  from "./window-system/editor/Blender3dViewportEditorModel.js";
-import BlenderOutlinerEditorModel  from "./window-system/editor/BlenderOutlinerEditorModel.js";
-import BlenderPropertiesEditorModel  from "./window-system/editor/BlenderPropertiesEditorModel.js";
-import BlenderTimelineEditorModel  from "./window-system/editor/BlenderTimelineEditorModel.js";
-import BlenderAreaModel from "./window-system/area/BlenderAreaModel.js";
+import BlenderEditorContainerModel  from "./window-system/editor/BlenderEditorContainerModel.js";
 
 export default class BlenderAppModel extends NobucaAppModel {
 
@@ -104,27 +100,25 @@ export default class BlenderAppModel extends NobucaAppModel {
 
         var areaColumnLeftTop = new NobucaPanelModel();
         areaColumnLeftTop.setId("areaColumnLeftTop");
-        areaColumnLeftTop.addChild(new Blender3dViewportEditorModel());
+        areaColumnLeftTop.addChild(new BlenderEditorContainerModel("3dViewport"));
 
         var areaColumnLeftBottom = new NobucaPanelModel();
         areaColumnLeftBottom.setId("areaColumnLeftBottom");
-        areaColumnLeftBottom.addChild(new BlenderTimelineEditorModel());
+        areaColumnLeftBottom.addChild(new BlenderEditorContainerModel("timeline"));
 
         var splitColumnLeftTopBottom = new NobucaPanelSplitTopBottomModel(areaColumnLeftTop, areaColumnLeftBottom, .7);
         areaColumnLeft.addChild(splitColumnLeftTopBottom);
 
         var areaColumnRightTop = new NobucaPanelModel();
         areaColumnRightTop.setId("areaColumnLeftTop");
-        areaColumnRightTop.addChild(new BlenderOutlinerEditorModel());
+        areaColumnRightTop.addChild(new BlenderEditorContainerModel("outliner"));
 
         var areaColumnRightBottom = new NobucaPanelModel();
         areaColumnRightBottom.setId("areaColumnRightBottom");
-        areaColumnRightBottom.addChild(new BlenderPropertiesEditorModel());
+        areaColumnRightBottom.addChild(new BlenderEditorContainerModel("properties"));
 
         var splitColumnRightTopBottom = new NobucaPanelSplitTopBottomModel(areaColumnRightTop, areaColumnRightBottom, .6);
         areaColumnRight.addChild(splitColumnRightTopBottom);
-
-
    }
 
     getWorkspaces() {
@@ -163,7 +157,6 @@ export default class BlenderAppModel extends NobucaAppModel {
     activateWorkspace(workspaceId) {
         var workspace = this.getWorkspace(workspaceId);
         this.getAreasPanel().clear();
-        console.log("activateWorkspace");
         this.getAreasPanel().addChild(workspace);
     }
 }

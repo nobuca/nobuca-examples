@@ -1,0 +1,73 @@
+.BlenderEditor {
+    display: flex;
+    position: relative;
+}
+
+.BlenderEditorRegionMain {
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    display: flex;
+    position: absolute;
+    background-color: lightblue;
+}
+
+.BlenderEditorRegionsOtherThanMain {
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    display: flex;
+    position: absolute;
+}
+
+.BlenderEditorRegionHeader {
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    display: flex;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 14px;
+    min-width: 14px;
+}
+
+.BlenderEditorRegionToolbar {
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    display: flex;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 14px;
+    min-width: 14px;
+}
+
+.BlenderEditorRegionToolSettings {
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    display: flex;
+    position: absolute;
+    left: 0px;
+    height: 14px;
+    min-width: 14px;
+}
+
+.BlenderEditorRegionAdjustLastOperation {
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    display: flex;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 14px;
+    min-width: 14px;
+}
+
+.BlenderEditorRegionSidebar {
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    display: flex;
+    position: absolute;
+    top: 28px;
+    right: 0px;
+    height: 14px;
+    min-width: 14px;
+}

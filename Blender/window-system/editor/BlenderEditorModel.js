@@ -1,14 +1,15 @@
 import NobucaComponentModel from "../../../../nobuca-core/component/NobucaComponentModel.js";
 import NobucaPanelModel from "../../../../nobuca-core/panel/NobucaPanelModel.js";
+import BlenderEditorRegionHeaderModel from "./BlenderEditorRegionHeaderModel.js";
 
 export default class BlenderEditorModel extends NobucaComponentModel {
 
     constructor() {
         super();
-        this.createRegionHeaderPanel();
         this.createRegionMainPanel();
-        this.createRegionToolbarPanel();
+        this.createRegionHeader();
         this.createRegionToolSettingsPanel();
+        this.createRegionToolbarPanel();
         this.createRegionSidebarPanel();
         this.createRegionAdjustLastOperationPanel();
     }
@@ -17,12 +18,17 @@ export default class BlenderEditorModel extends NobucaComponentModel {
         return "BlenderEditorModel";
     }
 
-    createRegionHeaderPanel() {
-        this.regionHeaderPanel = new NobucaPanelModel();
+    createRegionHeader() {
+        this.regionHeader = new BlenderEditorRegionHeaderModel();
+        this.createRegionHeaderControls();
     }
 
-    getRegionHeaderPanel() {
-        return this.regionHeaderPanel;
+    createRegionHeaderControls() {
+        
+    }
+
+    getRegionHeader() {
+        return this.regionHeader;
     }
     
     createRegionMainPanel() {

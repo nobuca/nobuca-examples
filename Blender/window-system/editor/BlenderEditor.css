@@ -1,37 +1,52 @@
+.BlenderEditorContainer {
+    display: flex;
+    position: relative;
+}
+
 .BlenderEditor {
     display: flex;
     position: relative;
 }
 
 .BlenderEditorRegionMain {
-    border: var(--menubar-border);
-    border-radius: var(--menubar-border-radius);
+    background-color: rgb(53, 53, 53);
     display: flex;
     position: absolute;
-    background-color: lightblue;
+    border-bottom-left-radius: var(--menubar-border-radius);
+    border-bottom-right-radius: var(--menubar-border-radius);
 }
 
 .BlenderEditorRegionsOtherThanMain {
-    border: var(--menubar-border);
-    border-radius: var(--menubar-border-radius);
     display: flex;
     position: absolute;
 }
 
 .BlenderEditorRegionHeader {
-    border: var(--menubar-border);
-    border-radius: var(--menubar-border-radius);
+    border-top-left-radius: var(--menubar-border-radius);
+    border-top-right-radius: var(--menubar-border-radius);
     display: flex;
     position: absolute;
     top: 0px;
     left: 0px;
-    height: 14px;
+    height: 30px;
     min-width: 14px;
 }
 
+.BlenderEditorRegionHeader .NobucaMenubar {
+    background-color: transparent;
+}
+
+.BlenderEditorRegionHeader > .NobucaPanel {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-top: 3px;
+}
+
 .BlenderEditorRegionToolbar {
-    border: var(--menubar-border);
-    border-radius: var(--menubar-border-radius);
+    background-color: rgb(63, 63, 63);
     display: flex;
     position: absolute;
     top: 0px;
@@ -41,8 +56,7 @@
 }
 
 .BlenderEditorRegionToolSettings {
-    border: var(--menubar-border);
-    border-radius: var(--menubar-border-radius);
+    background-color: rgb(53, 53, 53);
     display: flex;
     position: absolute;
     left: 0px;
@@ -51,8 +65,7 @@
 }
 
 .BlenderEditorRegionAdjustLastOperation {
-    border: var(--menubar-border);
-    border-radius: var(--menubar-border-radius);
+    background-color: rgb(83, 83, 83);
     display: flex;
     position: absolute;
     bottom: 0px;
@@ -62,8 +75,7 @@
 }
 
 .BlenderEditorRegionSidebar {
-    border: var(--menubar-border);
-    border-radius: var(--menubar-border-radius);
+    background-color: rgb(93, 93, 93);
     display: flex;
     position: absolute;
     top: 28px;

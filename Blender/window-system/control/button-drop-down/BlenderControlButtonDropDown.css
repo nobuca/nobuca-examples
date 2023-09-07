@@ -1,0 +1,73 @@
+.BlenderControlButtonDropDown {
+    display: flex;
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    margin-top: 2px;
+    margin-right: 3px;
+    margin-left: 3px;
+    background-color: rgb(40, 40, 40);
+    user-select: none;
+    align-items: center;
+    height: 20px;
+    user-select: none;
+    box-shadow: 1px 1px 1px 0px rgb(0 0 0 / 40%);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.BlenderControlButtonDropDownContents {
+    display: flex;
+    align-items: center;
+    height: 20px;
+}
+
+.BlenderControlButtonDropDownContents:hover {
+    background-color: rgb(48, 48, 48);
+}
+
+.BlenderControlButtonDropDownImage {
+    padding-left: 4px;
+}
+
+.BlenderControlButtonDropDownImageEnabled,
+.BlenderControlButtonDropDownImageDisabled {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.BlenderControlButtonDropDownImageEnabled img,
+.BlenderControlButtonDropDownImageDisabled img {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.BlenderControlButtonDropDownImageDisabled {
+    background-color: rgb(84, 84, 84);
+}
+
+.BlenderControlButtonDropDownImageDisabled:hover {
+    background-color: rgb(101, 101, 101);
+}
+
+.BlenderControlButtonDropDownImageEnabled {
+    background-color: rgb(71, 114, 179);
+}
+
+.BlenderControlButtonDropDownTitle {
+    padding-left: 4px;
+    padding-right: 4px;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    color: var(--font-color);
+}
+
+.BlenderControlButtonDropDownChevron {
+    padding-left: 4px;
+    padding-right: 4px;
+    width: 7px;
+}
+
+.BlenderControlButtonDropDownChevron.disabled {
+    opacity: var(--opacity-disabled);
+}

@@ -1,0 +1,59 @@
+.BlenderControlButtonToggle {
+    display: flex;
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    margin-top: 2px;
+    margin-right: 2px;
+    margin-left: 2px;
+    background-color: rgb(40, 40, 40);
+    user-select: none;
+    align-items: center;
+    height: 20px;
+    user-select: none;
+    box-shadow: 1px 1px 1px 0px rgb(0 0 0 / 40%);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.BlenderControlButtonToggleItems {
+    display: flex;
+    align-items: center;
+    height: 20px;
+}
+
+.BlenderControlButtonToggleItem {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    background-color: rgb(84, 84, 84);
+    border-right: 1px solid rgb(61, 61, 61);
+}
+
+.BlenderControlButtonToggleItem:last-child {
+    border-right: none;
+}
+
+.BlenderControlButtonToggleItem:hover {
+    background-color: rgb(101, 101, 101);
+}
+
+.BlenderControlButtonToggleItem.toggled {
+    background-color: rgb(71, 114, 179);
+}
+
+.BlenderControlButtonToggleItemImage {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.BlenderControlButtonToggleDropDown {
+    display: flex;
+    align-items: center;
+    height: 20px;
+}
+
+.BlenderControlButtonToggleDropDownChevron {
+    padding-left: 6px;
+    padding-right: 6px;
+    width: 7px;
+}

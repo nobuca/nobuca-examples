@@ -1,8 +1,11 @@
-
+@import "../../../../nobuca-core/Nobuca.css";
 @import "../control/data-block-menu/BlenderDataBlockMenu.css";
 @import "../editor/BlenderEditor.css";
+@import "../control/button-drop-down/BlenderControlButtonDropDown.css";
+@import "../control/button-toggle/BlenderControlButtonToggle.css";
 
-html,body {
+html,
+body {
     margin: 0;
     padding: 0;
     display: flex;
@@ -26,6 +29,7 @@ html,body {
 #scenesAndLayers {
     display: flex;
     position: absolute;
+    top: 1px;
     right: 0;
     padding-left: 8px;
     background-color: var(--background-color-dark);
@@ -44,6 +48,6 @@ html,body {
     display: flex;
 }
 
-#areasPanel > .NobucaPanel {
+#areasPanel>.NobucaPanel {
     width: 100%;
 }

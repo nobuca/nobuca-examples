@@ -1,9 +1,10 @@
 import NobucaAppView from "../../nobuca-core/app/NobucaAppView.js";
 import NobucaFactory from "../../nobuca-core/factory/NobucaFactory.js";
+import BlenderControlButtonDropDownView from "./window-system/control/button-drop-down/BlenderControlButtonDropDownView.js";
+import BlenderControlButtonToggleView from "./window-system/control/button-toggle/BlenderControlButtonToggleView.js";
 import BlenderDataBlockMenuView from "./window-system/control/data-block-menu/BlenderDataBlockMenuView.js";
 import BlenderEditorContainerView from "./window-system/editor/BlenderEditorContainerView.js";
 import BlenderEditorView from "./window-system/editor/BlenderEditorView.js";
-import Blender3dViewportEditorView from "./window-system/editor/Blender3dViewportEditorView.js";
 
 export default class BlenderAppView extends NobucaAppView {
 
@@ -15,7 +16,9 @@ export default class BlenderAppView extends NobucaAppView {
             function(model) { return new BlenderEditorContainerView(model); });
         this.registerViewConstructorForModelClassName("BlenderEditorModel",
             function(model) { return new BlenderEditorView(model); });
-        this.registerViewConstructorForModelClassName("Blender3dViewportEditorModel",
-            function(model) { return new Blender3dViewportEditorView(model); });
+        this.registerViewConstructorForModelClassName("BlenderControlButtonDropDownModel",
+            function(model) { return new BlenderControlButtonDropDownView(model); });
+        this.registerViewConstructorForModelClassName("BlenderControlButtonToggleModel",
+            function(model) { return new BlenderControlButtonToggleView(model); });
     }
 }

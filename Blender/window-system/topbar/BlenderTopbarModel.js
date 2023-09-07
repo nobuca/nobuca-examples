@@ -70,8 +70,8 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
         windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowNewWindow", "<u>N</u>ew Window"));
         windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowNewWindow", "New <u>M</u>ain Window"));
         windowMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
-        var windowToogleFullscreenMenuItem = windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowToogleWindowFullscreen", "<u>T</u>oggle Window Fullscreen"));
-        windowToogleFullscreenMenuItem.setIconImageSrc("./window-system/icons/menu-item-icon-window-toggle-fullscreen.svg");
+        var windowtoggleFullscreenMenuItem = windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowtoggleWindowFullscreen", "<u>T</u>oggle Window Fullscreen"));
+        windowtoggleFullscreenMenuItem.setIconImageSrc("./window-system/icons/menu-item-icon-window-toggle-fullscreen.svg");
         windowMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
         windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowNextWorkspace", "Next <u>W</u>workspace"));
         windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowPreviousWorkspace", "<u>P</u>revious Wworkspace"));
@@ -82,8 +82,8 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
         windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowSaveScreenshot", "Save <u>S</u>creenshot"));
         windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowSaveScreenshotEditor", "Save Screenshot (<u>E</u>ditor)"));
         windowMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
-        var windowToogleSystemConsoleMenuItem = windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowToggleSystemConsole", "Toggle System <u>C</u>console"));
-        windowToogleSystemConsoleMenuItem.setIconImageSrc("./window-system/icons/menu-item-icon-window-toggle-system-console.svg");
+        var windowtoggleSystemConsoleMenuItem = windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowToggleSystemConsole", "Toggle System <u>C</u>console"));
+        windowtoggleSystemConsoleMenuItem.setIconImageSrc("./window-system/icons/menu-item-icon-window-toggle-system-console.svg");
         this.menubar.addMenuItem(new NobucaMenuItemModel("help", "Help"));
     }
     

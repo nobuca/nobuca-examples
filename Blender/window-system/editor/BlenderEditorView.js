@@ -48,6 +48,9 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.divRegionHeader = document.createElement("div");
         this.divRegionHeader.className = "BlenderEditorRegionHeader";
         this.getDivRegionsOtherThanMain().appendChild(this.divRegionHeader);
+
+        this.regionHeaderView = this.createNewViewForModel(this.getModel().getRegionHeader());
+        this.divRegionHeader.appendChild(this.regionHeaderView.getNativeElement());
     }
 
     getDivRegionHeader() {
@@ -96,39 +99,60 @@ export default class BlenderEditorView extends NobucaComponentView {
 
     updateContentsPositionAndSize() {
         var parent = this.getNativeElement().parentNode;
-        var parentHeight = parent.offsetHeight;
-        var parentWidth = parent.offsetWidth;
-        this.getNativeElement().style.height = parentHeight + "px";
-        this.getNativeElement().style.width = parentWidth + "px";
-        this.getDivRegionMain().style.height = parentHeight + "px";
-        this.getDivRegionMain().style.width = parentWidth + "px";
-        this.getDivRegionsOtherThanMain().style.height = parentHeight + "px";
-        this.getDivRegionsOtherThanMain().style.width = parentWidth + "px";
-        this.getDivRegionHeader().style.width = parentWidth + "px";
-        this.getDivRegionToolSettings().style.top = (this.getDivRegionHeader().offsetTop + this.getDivRegionHeader().offsetHeight) + "px"; 
-        this.getDivRegionToolSettings().style.width = parentWidth + "px";
+        var margin = 4;
+        var editorHeight = parent.offsetHeight - margin*2;
+        var editorWidth = parent.offsetWidth - margin*2;
+        this.getNativeElement().style.top = margin + "px";
+        this.getNativeElement().style.left = margin + "px";
+        this.getNativeElement().style.height = editorHeight + "px";
+        this.getNativeElement().style.width = editorWidth + "px";
+        this.getDivRegionMain().style.height = editorHeight + "px";
+        this.getDivRegionMain().style.width = editorWidth + "px";
+        this.getDivRegionsOtherThanMain().style.height = editorHeight + "px";
+        this.getDivRegionsOtherThanMain().style.width = editorWidth + "px";
+        
+        this.getDivRegionHeader().style.left = margin;
+        this.getDivRegionHeader().style.width = editorWidth + "px";
+
+        var toolSettingsTop = this.getDivRegionHeader().offsetTop;
+        toolSettingsTop += this.getDivRegionHeader().offsetHeight;
+        toolSettingsTop += margin;
+
+        this.getDivRegionToolSettings().style.top = toolSettingsTop + "px"; 
+        this.getDivRegionToolSettings().style.width = editorWidth + "px";
         this.getDivRegionToolbar().style.top = (this.getDivRegionToolSettings().offsetTop + this.getDivRegionToolSettings().offsetHeight) + "px"; 
         
-        var toolbarTop = parentHeight;
-        toolbarTop -= this.getDivRegionHeader().offsetHeight;
-        toolbarTop -= this.getDivRegionToolSettings().offsetHeight;
-        toolbarTop -= this.getDivRegionAdjustLastOperation().offsetHeight;
+        var toolbarTop = this.getDivRegionToolSettings().offsetTop;
+        toolbarTop += this.getDivRegionToolSettings().offsetHeight;
+        toolbarTop += margin;
+        var toolbarHeight = editorHeight;
+        toolbarHeight -= this.getDivRegionHeader().offsetHeight;
+        toolbarHeight -= this.getDivRegionToolSettings().offsetHeight;
+        toolbarHeight -= this.getDivRegionAdjustLastOperation().offsetHeight;
+        toolbarHeight -= margin * 3;
 
-        
-        this.getDivRegionToolbar().style.height = toolbarTop + "px"; 
+        this.getDivRegionToolbar().style.top = toolbarTop + "px"; 
+        this.getDivRegionToolbar().style.left = margin + "px"; 
+        this.getDivRegionToolbar().style.height = toolbarHeight + "px"; 
+
+        var adjutLastOperationTop = editorHeight;
+        adjutLastOperationTop -= margin;
+        adjutLastOperationTop -= this.getDivRegionAdjustLastOperation().offsetHeight;
 
         var adjutLastOperationLeft = this.getDivRegionToolbar().offsetLeft;
         adjutLastOperationLeft += this.getDivRegionToolbar().offsetWidth;
 
-        console.log("adjutLastOperationLeft", adjutLastOperationLeft);
-
+        this.getDivRegionAdjustLastOperation().style.top = adjutLastOperationTop + "px"; 
         this.getDivRegionAdjustLastOperation().style.left = adjutLastOperationLeft + "px"; 
 
-        var sidebarHeight = parentHeight;
+        var sidebarTop = this.getDivRegionToolbar().offsetTop;
+        var sidebarHeight = editorHeight;
         sidebarHeight -= this.getDivRegionHeader().offsetHeight;
         sidebarHeight -= this.getDivRegionToolSettings().offsetHeight;
+        sidebarHeight -= margin*2;
 
-        this.getDivRegionSidebar().style.top = this.getDivRegionToolbar().offsetTop + "px";
+        this.getDivRegionSidebar().style.top = sidebarTop + "px";
+        this.getDivRegionSidebar().style.right = margin + "px";
         this.getDivRegionSidebar().style.height = sidebarHeight + "px";
     }
 }

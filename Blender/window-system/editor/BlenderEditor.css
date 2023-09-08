@@ -55,6 +55,7 @@
     display: flex;
     padding-left: 8px;
     flex-direction: column;
+    min-width: 34px;
 }
 
 .BlenderEditorRegionToolSettings {

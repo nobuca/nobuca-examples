@@ -7,45 +7,87 @@ export default class BlenderControlToolbarView extends NobucaComponentView {
         div.className = "BlenderControlToolbar";
         this.setNativeElement(div);
 
-        this.divFirstLevelMenuItems = document.createElement("div");
-        this.divFirstLevelMenuItems.className = "BlenderControlToolbarFirstLevelMenuItems";
-        this.getNativeElement().appendChild(this.divFirstLevelMenuItems);
+        this.setExpandModeOneColumn();
+
+        this.divFirstLevelMenus = document.createElement("div");
+        this.divFirstLevelMenus.className = "BlenderControlToolbarFirstLevelMenus";
+        this.getNativeElement().appendChild(this.divFirstLevelMenus);
 
         this.divSecondLevelMenuItemsContainer = document.createElement("div");
         this.divSecondLevelMenuItemsContainer.className = "BlenderControlToolbarSecondLevelMenuItemsContainer";
         this.getNativeElement().appendChild(this.divSecondLevelMenuItemsContainer);
 
-        this.createFirstLevelMenuItems();
+        this.createFirstLevelMenus();
+
+        this.createExtender();
     }
 
-    getDivFirstLevelMenuItems() {
-        return this.divFirstLevelMenuItems;
+    isExpandModeOneColumn() {
+        return this.getNativeElement().getAttribute("expandMode") == "one-column";
+    }
+
+    setExpandModeOneColumn() {
+        this.getNativeElement().setAttribute("expandMode", "one-column");
+    }
+
+    isExpandModeTwoColumns() {
+        return this.getNativeElement().getAttribute("expandMode") == "two-columns";
+    }
+
+    setExpandModeTwoColumns() {
+        this.getNativeElement().setAttribute("expandMode", "two-columns");
+    }
+
+    isExpandModeExtended() {
+        return this.getNativeElement().getAttribute("expandMode") == "extended";
+    }
+
+    setExpandModeExtended() {
+        this.getNativeElement().setAttribute("expandMode", "extended");
+    }
+
+    getDivFirstLevelMenus() {
+        return this.divFirstLevelMenus;
     }
 
     getDivSecondLevelMenuItemsContainer() {
         return this.divSecondLevelMenuItemsContainer;
     }
 
-    createFirstLevelMenuItems() {
-
-        this.getModel()
-            .getMenuItems()
-            .forEach((menuItemModel) => {
-                this.createFirstLevelMenuItem(menuItemModel);
-            });
+    createFirstLevelMenus() {
+        this.getModel().getMenus().forEach((firstLevelMenuModel) => { this.createFirstLevelMenu(firstLevelMenuModel); });
     }
 
-    createFirstLevelMenuItem(firstLevelMenuItemModel) {
+    createFirstLevelMenu(firstLevelMenuModel) {
+        var divFirstLevelMenu = document.createElement("div");
+        divFirstLevelMenu.className = "BlenderControlToolbarFirstLevelMenu";
+        divFirstLevelMenu.draggable = false;
+        this.getDivFirstLevelMenus().appendChild(divFirstLevelMenu);
+        this.createFirstLevelMenuItems(divFirstLevelMenu, firstLevelMenuModel);
+    }
+
+    createFirstLevelMenuItems(divFirstLevelMenu, firstLevelMenuModel) {
+        firstLevelMenuModel.getMenuItems().forEach((firstLevelMenuItemModel) => { 
+            this.createFirstLevelMenuItem(divFirstLevelMenu, firstLevelMenuItemModel); 
+        });
+    }
+
+    createFirstLevelMenuItem(divFirstLevelMenu, firstLevelMenuItemModel) {
         var divFirstLevelMenuItem = document.createElement("div");
         divFirstLevelMenuItem.className = "BlenderControlToolbarFirstLevelMenuItem";
         divFirstLevelMenuItem.draggable = false;
-        this.getDivFirstLevelMenuItems().appendChild(divFirstLevelMenuItem);
+        divFirstLevelMenu.appendChild(divFirstLevelMenuItem);
 
         var imgItemIconImage = document.createElement("img");
-        imgItemIconImage.className = "BlenderControlToolbarMenuItemIconImage";
+        imgItemIconImage.className = "BlenderControlToolbarFirstLevelMenuItemIconImage";
         imgItemIconImage.src = firstLevelMenuItemModel.getIconImageSrc();
         imgItemIconImage.draggable = false;
         divFirstLevelMenuItem.appendChild(imgItemIconImage);
+
+        var divFirstLevelMenuItemText = document.createElement("div");
+        divFirstLevelMenuItemText.className = "BlenderControlToolbarFirstLevelMenuItemText";
+        divFirstLevelMenuItemText.innerHTML = firstLevelMenuItemModel.getText();
+        divFirstLevelMenuItem.appendChild(divFirstLevelMenuItemText);
 
         if (firstLevelMenuItemModel.getMenuItems().length > 0) {
             var imgItemImage = document.createElement("img");
@@ -172,4 +214,75 @@ export default class BlenderControlToolbarView extends NobucaComponentView {
             this.hideSecondLevelMenuItem(secondLevelMenuItemMouseOutTimer);
         }, 100));
     }
+
+    updateContentsPositionAndSize() {
+        console.log("updateContentsPositionAndSize");
+
+        var parentNode = this.getNativeElement().parentNode;
+
+        this.getNativeElement().style.height = parentNode.offsetHeight + "px";
+
+        this.getDivExtender().style.height = this.getNativeElement().offsetHeight + "px";
+    }
+
+
+    createExtender() {
+        this.divExtender = document.createElement("div");
+        this.divExtender.className = "BlenderControlToolbarExtender";
+        this.getNativeElement().appendChild(this.divExtender);
+
+        this.divExtender.addEventListener("mousedown", (event) => {
+            this.beginDrag(event.x, event.y);
+        });
+    }
+
+    getDivExtender() {
+        return this.divExtender;
+    }
+
+    beginDrag(x, y) {
+        BlenderControlToolbarView.dragging = this;
+        this.getNativeElement().classList.add("dragging");
+        this.offsetX = x - this.getDivFirstLevelMenus().offsetWidth;
+    }
+
+    drag(x, y) {
+        window.getSelection().removeAllRanges();
+
+        var parent = this.getNativeElement().parentNode;
+        var parentWidth = parent.offsetWidth;
+        var dividerWidth = 3;
+        var parentWidthWithoutDivider = parentWidth - dividerWidth;
+        var firstLevelMenuItemsWidth = x - this.offsetX;
+
+        if (firstLevelMenuItemsWidth < 32) return;
+
+        if (firstLevelMenuItemsWidth < 110) {
+            this.setExpandModeTwoColumns();
+        } else {
+            this.setExpandModeExtended();
+        }
+
+        console.log();
+
+        this.getDivFirstLevelMenus().style.width = firstLevelMenuItemsWidth + "px";
+    }
+
+    endDrag(x, y) {
+        this.getNativeElement().classList.remove("dragging");
+        BlenderControlToolbarView.dragging = null;
+    }
+
 }
+
+window.addEventListener("mousemove", (event) => {
+    if (BlenderControlToolbarView.dragging != null) {
+        BlenderControlToolbarView.dragging.drag(event.x, event.y);
+    }
+});
+
+window.addEventListener("mouseup", (event) => {
+    if (BlenderControlToolbarView.dragging != null) {
+        BlenderControlToolbarView.dragging.endDrag(event.x, event.y);
+    }
+});

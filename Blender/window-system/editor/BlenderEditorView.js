@@ -149,7 +149,9 @@ export default class BlenderEditorView extends NobucaComponentView {
         toolbarHeight -= margin * 3;
 
         this.getDivRegionToolbar().style.top = toolbarTop + "px"; 
-        
+        this.getDivRegionToolbar().style.height = toolbarHeight + "px"; 
+        this.getDivRegionToolbar().style.width = editorWidth + "px"; 
+      
         var adjutLastOperationTop = editorHeight;
         adjutLastOperationTop -= margin;
         adjutLastOperationTop -= this.getDivRegionAdjustLastOperation().offsetHeight;
@@ -168,5 +170,7 @@ export default class BlenderEditorView extends NobucaComponentView {
 
         this.getDivRegionSidebar().style.top = sidebarTop + "px";
         this.getDivRegionSidebar().style.right = margin + "px";
+
+        this.getRegionToolbarView().updateContentsPositionAndSize();
     }
 }

@@ -3,6 +3,18 @@
     flex-direction: row;
     margin-top: 2px;
     margin-bottom: 2px;
+    position: absolute;
+    left: 10px;
+    align-items: start;
+}
+
+.BlenderControlToolbarFirstLevelMenus {
+    display: flex;
+}
+
+.BlenderControlToolbarFirstLevelMenu {
+    display: flex;
+    flex-direction: column;
 }
 
 .BlenderControlToolbarFirstLevelMenuItems {
@@ -27,11 +39,13 @@
 }
 
 .BlenderControlToolbarFirstLevelMenuItem {
+    display: flex;
     background-color: rgb(40, 40, 40);
     height: 32px;
     cursor: pointer;
     border-bottom: var(--menubar-border);
     position: relative;
+    align-items: center;
 }
 
 .BlenderControlToolbarFirstLevelMenuItem:last-child {
@@ -46,8 +60,23 @@
     background-color: rgb(71, 114, 178);
 }
 
-.BlenderControlToolbarMenuItemIconImage {
+.BlenderControlToolbarFirstLevelMenuItemIconImage {
     height: 32px;
+}
+
+.BlenderControlToolbarFirstLevelMenuItemText {
+    color: var(--font-color);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    padding-left: 6px;
+    padding-right: 12px;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.BlenderControlToolbar[expandMode="one-column"] .BlenderControlToolbarFirstLevelMenuItemText,
+.BlenderControlToolbar[expandMode="two-columns"] .BlenderControlToolbarFirstLevelMenuItemText  {
+    display: none;
 }
 
 .BlenderControlToolbarMenuItemIsGroupImage {
@@ -96,7 +125,29 @@
     color: var(--font-color);
     font-family: var(--font-family);
     font-size: var(--font-size);
-    text-shadow: var(--text-shadow);
     padding-left: 6px;
     white-space: nowrap;
 }
+
+.BlenderControlToolbarExtender {
+    display: flex;
+    width: 3px;
+    cursor: col-resize;
+}
+
+
+.BlenderControlToolbar[expandMode="two-columns"] .BlenderControlToolbarFirstLevelMenus {
+    flex-wrap: wrap;
+}
+
+.BlenderControlToolbar[expandMode="two-columns"] .BlenderControlToolbarFirstLevelMenu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.BlenderControlToolbar[expandMode="extended"] .BlenderControlToolbarFirstLevelMenus {
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+

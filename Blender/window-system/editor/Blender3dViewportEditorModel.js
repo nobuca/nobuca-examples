@@ -5,6 +5,7 @@ import BlenderControlButtonDropDownModel from "../control/button-drop-down/Blend
 import BlenderControlButtonToggleItemModel from "../control/button-toggle/BlenderControlButtonToggleItemModel.js";
 import BlenderControlButtonToggleModel from "../control/button-toggle/BlenderControlButtonToggleModel.js";
 import BlenderControlToolbarModel from "../control/toolbar/BlenderControlToolbarModel.js";
+import NobucaMenuModel from "../../../../nobuca-core/menu/NobucaMenuModel.js";
 
 export default class Blender3dViewportEditorModel extends BlenderEditorModel {
 
@@ -166,18 +167,18 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         this.getRegionToolSettings().addChild(toggle);
     }
    
-    createRegionToolbarControls() {
-        this.createRegionToolbarSelectAndCursor();
-        this.createRegionToolbarTransform();
-        this.createRegionToolbarAnnotateAndMeasure();
-        this.createRegionToolbarAddMesh();
+    createRegionToolbarMenus() {
+        this.createRegionToolbarMenuSelectAndCursor();
+        this.createRegionToolbarMenuTransform();
+        this.createRegionToolbarMenuAnnotateAndMeasure();
+        this.createRegionToolbarMenuAddMesh();
     }
 
-    createRegionToolbarSelectAndCursor() {
-        var toolbar = new BlenderControlToolbarModel();
-        this.getRegionToolbar().addChild(toolbar);
+    createRegionToolbarMenuSelectAndCursor() {
+        var menu = new NobucaMenuModel();
+        this.getRegionToolbar().addMenu(menu);
 
-        var menuItemSelectBox = toolbar.addMenuItem(new NobucaMenuItemModel("selectBox"));
+        var menuItemSelectBox = menu.addMenuItem(new NobucaMenuItemModel("selectBox", "<u>S</u>elect Box"));
         menuItemSelectBox.setIconImageSrc("./window-system/icons/toolbar-icon-select-box.png");
 
         var menuItemTweak = menuItemSelectBox.addMenuItem(new NobucaMenuItemModel("tweak", "<u>T</u>weak"))
@@ -192,21 +193,21 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         var menuItemSelectLasso = menuItemSelectBox.addMenuItem(new NobucaMenuItemModel("selectCircle", "Select <u>L</u>asso"))
         menuItemSelectLasso.setIconImageSrc("./window-system/icons/toolbar-icon-select-lasso.png");
 
-        var menuItemCursor = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
+        var menuItemCursor = menu.addMenuItem(new NobucaMenuItemModel("cursor", "Cursor"));
         menuItemCursor.setIconImageSrc("./window-system/icons/toolbar-icon-cursor.png");
     }
 
-    createRegionToolbarTransform() {
-        var toolbar = new BlenderControlToolbarModel();
-        this.getRegionToolbar().addChild(toolbar);
+    createRegionToolbarMenuTransform() {
+        var menu = new NobucaMenuModel();
+        this.getRegionToolbar().addMenu(menu);
 
-        var menuItemMove = toolbar.addMenuItem(new NobucaMenuItemModel("move"));
+        var menuItemMove = menu.addMenuItem(new NobucaMenuItemModel("move", "Move"));
         menuItemMove.setIconImageSrc("./window-system/icons/toolbar-icon-move.png");
         
-        var menuItemRotate = toolbar.addMenuItem(new NobucaMenuItemModel("rotate"));
+        var menuItemRotate = menu.addMenuItem(new NobucaMenuItemModel("rotate", "Rotate"));
         menuItemRotate.setIconImageSrc("./window-system/icons/toolbar-icon-rotate.png");
                 
-        var menuItemScale = toolbar.addMenuItem(new NobucaMenuItemModel("scale"));
+        var menuItemScale = menu.addMenuItem(new NobucaMenuItemModel("scale", "Scale"));
         menuItemScale.setIconImageSrc("./window-system/icons/toolbar-icon-scale.png");
 
         var menuItemScale2 = menuItemScale.addMenuItem(new NobucaMenuItemModel("scale", "<u>S</u>cale"));
@@ -215,26 +216,26 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         var menuItemScaleCage = menuItemScale.addMenuItem(new NobucaMenuItemModel("scaleCage", "Scale <u>C</u>age"));
         menuItemScaleCage.setIconImageSrc("./window-system/icons/toolbar-icon-scale-cage.png");
                
-        var menuItemTransform = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
+        var menuItemTransform = menu.addMenuItem(new NobucaMenuItemModel("transform", "Tranform"));
         menuItemTransform.setIconImageSrc("./window-system/icons/toolbar-icon-transform.png");
     }
  
-    createRegionToolbarAnnotateAndMeasure() {
-        var toolbar = new BlenderControlToolbarModel();
-        this.getRegionToolbar().addChild(toolbar);
+    createRegionToolbarMenuAnnotateAndMeasure() {
+        var menu = new NobucaMenuModel();
+        this.getRegionToolbar().addMenu(menu);
 
-        var menuItemAnnotate = toolbar.addMenuItem(new NobucaMenuItemModel("annotate"));
+        var menuItemAnnotate = menu.addMenuItem(new NobucaMenuItemModel("annotate", "Annotate"));
         menuItemAnnotate.setIconImageSrc("./window-system/icons/toolbar-icon-annotate.png");
         
-        var menuItemMeasure = toolbar.addMenuItem(new NobucaMenuItemModel("measure"));
+        var menuItemMeasure = menu.addMenuItem(new NobucaMenuItemModel("measure", "Meassure"));
         menuItemMeasure.setIconImageSrc("./window-system/icons/toolbar-icon-measure.png");
     }
 
-    createRegionToolbarAddMesh() {
-        var toolbar = new BlenderControlToolbarModel();
-        this.getRegionToolbar().addChild(toolbar);
+    createRegionToolbarMenuAddMesh() {
+        var menu = new NobucaMenuModel();
+        this.getRegionToolbar().addMenu(menu);
 
-        var menuItemAddCube = toolbar.addMenuItem(new NobucaMenuItemModel("annotate"));
+        var menuItemAddCube = menu.addMenuItem(new NobucaMenuItemModel("annotate"));
         menuItemAddCube.setIconImageSrc("./window-system/icons/toolbar-icon-add-mesh-cube.png");
     
     }

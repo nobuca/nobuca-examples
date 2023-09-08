@@ -1,18 +1,22 @@
-import NobucaMenuModel from "../../../../../nobuca-core/menu/NobucaMenuModel.js";
+import NobucaComponentModel from "../../../../../nobuca-core/component/NobucaComponentModel.js";
 
-export default class BlenderControlToolbarModel extends NobucaMenuModel {
+export default class BlenderControlToolbarModel extends NobucaComponentModel {
+
+    constructor() {
+        super();
+        this.menus = [];
+    }
 
     getClassName() {
         return "BlenderControlToolbarModel";
     }
 
-    setImageSrc(imageSrc) {
-        this.imageSrc = imageSrc;
+    addMenu(menu) {
+        this.menus.push(menu);
     }
 
-    getImageSrc() {
-        return this.imageSrc;
+    getMenus() {
+        return this.menus;
     }
-
 
 }

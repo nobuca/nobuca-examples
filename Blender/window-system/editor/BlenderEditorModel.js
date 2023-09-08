@@ -1,5 +1,6 @@
 import NobucaComponentModel from "../../../../nobuca-core/component/NobucaComponentModel.js";
 import NobucaPanelModel from "../../../../nobuca-core/panel/NobucaPanelModel.js";
+import BlenderControlToolbarModel from "../control/toolbar/BlenderControlToolbarModel.js";
 import BlenderEditorRegionHeaderModel from "./BlenderEditorRegionHeaderModel.js";
 
 export default class BlenderEditorModel extends NobucaComponentModel {
@@ -36,11 +37,11 @@ export default class BlenderEditorModel extends NobucaComponentModel {
     }
 
     createRegionToolbar() {
-        this.regionToolbar = new NobucaPanelModel();
-        this.createRegionToolbarControls();
+        this.regionToolbar = new BlenderControlToolbarModel();
+        this.createRegionToolbarMenus();
     }
 
-    createRegionToolbarControls() {
+    createRegionToolbarMenus() {
         
     }
     

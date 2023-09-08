@@ -2,9 +2,9 @@
     display: flex;
     border: var(--menubar-border);
     border-radius: var(--menubar-border-radius);
-    margin-top: 2px;
-    margin-right: 2px;
-    margin-left: 2px;
+    margin-top: 3px;
+    margin-right: 3px;
+    margin-left: 3px;
     background-color: rgb(40, 40, 40);
     user-select: none;
     align-items: center;

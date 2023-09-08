@@ -1,0 +1,42 @@
+.BlenderControlSearch {
+    display: flex;
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    margin-top: 2px;
+    margin-right: 2px;
+    margin-left: 2px;
+    background-color: rgb(40, 40, 40);
+    user-select: none;
+    align-items: center;
+    height: 20px;
+    user-select: none;
+    box-shadow: 1px 1px 1px 0px rgb(0 0 0 / 40%);
+    overflow: hidden;
+}
+
+.BlenderControlSearchMagnifierIcon {
+    padding-left: 6px;
+    padding-right: 4px;
+    width: 14px;
+}
+
+.BlenderControlSearchText {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    color: var(--font-color);
+    background-color: rgb(40, 40, 40);
+    border: none;
+    outline: none;
+}
+
+.BlenderControlSearchClearIcon {
+    padding-left: 6px;
+    padding-right: 6px;
+    width: 7px;
+    cursor: pointer;
+}
+
+.BlenderControlSearchClearIcon.disabled {
+    opacity: 0;
+    cursor: default;
+}

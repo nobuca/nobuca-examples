@@ -6,16 +6,20 @@ export default class BlenderEditorModel extends NobucaComponentModel {
 
     constructor() {
         super();
-        this.createRegionMainPanel();
+        this.createRegionMain();
         this.createRegionHeader();
-        this.createRegionToolSettingsPanel();
-        this.createRegionToolbarPanel();
-        this.createRegionSidebarPanel();
-        this.createRegionAdjustLastOperationPanel();
+        this.createRegionToolSettings();
+        this.createRegionToolbar();
+        this.createRegionSidebar();
+        this.createRegionAdjustLastOperation();
     }
 
     getClassName() {
         return "BlenderEditorModel";
+    }
+
+    createRegionMain() {
+        this.regionMain = new NobucaPanelModel();
     }
 
     createRegionHeader() {
@@ -30,44 +34,46 @@ export default class BlenderEditorModel extends NobucaComponentModel {
     getRegionHeader() {
         return this.regionHeader;
     }
-    
-    createRegionMainPanel() {
-        this.regionMainPanel = new NobucaPanelModel();
+
+    createRegionToolbar() {
+        this.regionToolbar = new NobucaPanelModel();
+        this.createRegionToolbarControls();
     }
 
-    getRegionMainPanel() {
-        return this.regionMainPanel;
-    }
-
-    createRegionToolbarPanel() {
-        this.regionToolbarPanel = new NobucaPanelModel();
+    createRegionToolbarControls() {
+        
     }
     
-    getRegionToolbarPanel() {
-        return this.regionToolbarPanel;
+    getRegionToolbar() {
+        return this.regionToolbar;
     }
 
-    createRegionToolSettingsPanel() {
-        this.regionToolSettingsPanel = new NobucaPanelModel();
+    createRegionToolSettings() {
+        this.regionToolSettings = new NobucaPanelModel();
+        this.createRegionToolSettingsControls();
+    }
+
+    createRegionToolSettingsControls() {
+
     }
     
-    getRegionToolSettingsPanel() {
-        return this.regionToolSettingsPanel;
+    getRegionToolSettings() {
+        return this.regionToolSettings;
     }
 
-    createRegionSidebarPanel() {
+    createRegionSidebar() {
         this.regionSidebarPanel = new NobucaPanelModel();
     }
 
-    getRegionSidebarPanel() {
+    getRegionSidebar() {
         return this.regionSidebarPanel;
     }
 
-    createRegionAdjustLastOperationPanel() {
+    createRegionAdjustLastOperation() {
         this.regionAdjustLastOperationPanel = new NobucaPanelModel();
     }
 
-    getRegionAdjustLastOperationPanel() {
+    getRegionAdjustLastOperation() {
         return this.regionAdjustLastOperationPanel;
     }
 }

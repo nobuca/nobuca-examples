@@ -1,0 +1,34 @@
+
+
+.BlenderControlToolbar {
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.BlenderControlToolbarItem {
+    background-color: rgb(40,40,40);
+    height: 32px;
+    cursor: pointer;
+    border-bottom: var(--menubar-border);
+}
+
+.BlenderControlToolbarItem:last-child {
+    border-bottom: none;
+}
+
+.BlenderControlToolbarItem:hover {
+    background-color: rgb(48,48,48);
+}
+
+.BlenderControlToolbarItem:active {
+    background-color: rgb(71,114,178);
+}
+
+.BlenderControlToolbarItemImage {
+    height: 32px;
+}

@@ -50,31 +50,49 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.getDivRegionsOtherThanMain().appendChild(this.divRegionHeader);
 
         this.regionHeaderView = this.createNewViewForModel(this.getModel().getRegionHeader());
-        this.divRegionHeader.appendChild(this.regionHeaderView.getNativeElement());
+        this.getDivRegionHeader().appendChild(this.getRegionHeaderView().getNativeElement());
     }
 
     getDivRegionHeader() {
         return this.divRegionHeader;
     }
 
+    getRegionHeaderView() {
+        return this.regionHeaderView;
+    }
+
     createRegionToolbar() {
         this.divRegionToolbar = document.createElement("div");
         this.divRegionToolbar.className = "BlenderEditorRegionToolbar";
         this.getDivRegionsOtherThanMain().appendChild(this.divRegionToolbar);
+        
+        this.regionToolbarView = this.createNewViewForModel(this.getModel().getRegionToolbar());
+        this.getDivRegionToolbar().appendChild(this.getRegionToolbarView().getNativeElement());
     }
 
     getDivRegionToolbar() {
         return this.divRegionToolbar;
     }
 
+    getRegionToolbarView() {
+        return this.regionToolbarView;
+    }
+
     createRegionToolSettings() {
         this.divRegionToolSettings = document.createElement("div");
         this.divRegionToolSettings.className = "BlenderEditorRegionToolSettings";
         this.getDivRegionsOtherThanMain().appendChild(this.divRegionToolSettings);
+        
+        this.regionToolSettingsView = this.createNewViewForModel(this.getModel().getRegionToolSettings());
+        this.getDivRegionToolSettings().appendChild(this.getRegionToolSettingsView().getNativeElement());
     }
 
     getDivRegionToolSettings() {
         return this.divRegionToolSettings;
+    }
+
+    getRegionToolSettingsView() {
+        return this.regionToolSettingsView;
     }
 
     createRegionSidebar() {
@@ -99,7 +117,7 @@ export default class BlenderEditorView extends NobucaComponentView {
 
     updateContentsPositionAndSize() {
         var parent = this.getNativeElement().parentNode;
-        var margin = 4;
+        var margin = 8;
         var editorHeight = parent.offsetHeight - margin*2;
         var editorWidth = parent.offsetWidth - margin*2;
         this.getNativeElement().style.top = margin + "px";
@@ -120,8 +138,7 @@ export default class BlenderEditorView extends NobucaComponentView {
 
         this.getDivRegionToolSettings().style.top = toolSettingsTop + "px"; 
         this.getDivRegionToolSettings().style.width = editorWidth + "px";
-        this.getDivRegionToolbar().style.top = (this.getDivRegionToolSettings().offsetTop + this.getDivRegionToolSettings().offsetHeight) + "px"; 
-        
+                
         var toolbarTop = this.getDivRegionToolSettings().offsetTop;
         toolbarTop += this.getDivRegionToolSettings().offsetHeight;
         toolbarTop += margin;
@@ -132,9 +149,7 @@ export default class BlenderEditorView extends NobucaComponentView {
         toolbarHeight -= margin * 3;
 
         this.getDivRegionToolbar().style.top = toolbarTop + "px"; 
-        this.getDivRegionToolbar().style.left = margin + "px"; 
-        this.getDivRegionToolbar().style.height = toolbarHeight + "px"; 
-
+        
         var adjutLastOperationTop = editorHeight;
         adjutLastOperationTop -= margin;
         adjutLastOperationTop -= this.getDivRegionAdjustLastOperation().offsetHeight;

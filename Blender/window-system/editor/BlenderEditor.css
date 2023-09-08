@@ -46,22 +46,28 @@
 }
 
 .BlenderEditorRegionToolbar {
-    background-color: rgb(63, 63, 63);
     display: flex;
     position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 14px;
-    min-width: 14px;
+}
+
+.BlenderEditorRegionToolbar > .NobucaPanel {
+    display: flex;
+    padding-left: 8px;
+    flex-direction: column;
 }
 
 .BlenderEditorRegionToolSettings {
     background-color: rgb(53, 53, 53);
     display: flex;
     position: absolute;
-    left: 0px;
-    height: 14px;
-    min-width: 14px;
+}
+
+.BlenderEditorRegionToolSettings > .NobucaPanel {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 8px;
+    padding-left: 50px;
 }
 
 .BlenderEditorRegionAdjustLastOperation {

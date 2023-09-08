@@ -1,5 +1,7 @@
 import BlenderEditorModel from "./BlenderEditorModel.js";
 import BlenderControlButtonDropDownModel from "../control/button-drop-down/BlenderControlButtonDropDownModel.js"
+import BlenderControlSearchModel from "../control/search/BlenderControlSearchModel.js"
+import BlenderControlButtonModel from "../control/button/BlenderControlButtonModel.js"
 
 export default class BlenderOutlinerEditorModel extends BlenderEditorModel {
 
@@ -24,7 +26,8 @@ export default class BlenderOutlinerEditorModel extends BlenderEditorModel {
     }
 
     createRegionHeaderSearch() {
-
+        var search = new BlenderControlSearchModel();
+        this.getRegionHeader().getCenterSide().addChild(search);
     }
 
     createRegionHeaderFilterSelector() {
@@ -34,7 +37,7 @@ export default class BlenderOutlinerEditorModel extends BlenderEditorModel {
     }
 
     createRegionHeaderNewCollection() {
-        var control = new BlenderControlButtonDropDownModel();
+        var control = new BlenderControlButtonModel();
         control.setImageSrc("./window-system/icons/menu-item-icon-new-collection.svg");
         this.getRegionHeader().getRightSide().addChild(control);
     }

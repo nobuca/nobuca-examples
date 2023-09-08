@@ -3,6 +3,9 @@
 @import "../editor/BlenderEditor.css";
 @import "../control/button-drop-down/BlenderControlButtonDropDown.css";
 @import "../control/button-toggle/BlenderControlButtonToggle.css";
+@import "../control/search/BlenderControlSearch.css";
+@import "../control/button/BlenderControlButton.css";
+@import "../control/toolbar/BlenderControlToolbar.css";
 
 html,
 body {
@@ -24,6 +27,7 @@ body {
     height: 30px;
     display: flex;
     align-items: end;
+    z-index: 1;
 }
 
 #scenesAndLayers {

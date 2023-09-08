@@ -1,9 +1,10 @@
 import BlenderEditorModel from "./BlenderEditorModel.js";
 import NobucaMenubarModel from "../../../../nobuca-core/menubar/NobucaMenubarModel.js";
-import NobucaMenuItemModel from "../../../../nobuca-core/menu-item/NobucaMenuItemModel.js";
+import NobucaMenuItemModel from "../../../../nobuca-core/menu/NobucaMenuItemModel.js";
 import BlenderControlButtonDropDownModel from "../control/button-drop-down/BlenderControlButtonDropDownModel.js"
 import BlenderControlButtonToggleItemModel from "../control/button-toggle/BlenderControlButtonToggleItemModel.js";
 import BlenderControlButtonToggleModel from "../control/button-toggle/BlenderControlButtonToggleModel.js";
+import BlenderControlToolbarModel from "../control/toolbar/BlenderControlToolbarModel.js";
 
 export default class Blender3dViewportEditorModel extends BlenderEditorModel {
 
@@ -21,6 +22,10 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         this.createRegionHeaderXRayToggle();
         this.createRegionHeaderShaddingSelector();
     }
+
+    createRegionToolSettingsControls() {
+        this.createRegionToolSettingsSelectionModeSelector();
+    }   
 
     createRegionHeaderEditorSelector() {
         var control = new BlenderControlButtonDropDownModel();
@@ -111,20 +116,20 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
 
     createRegionHeaderShaddingSelector() {
         var toggle = new BlenderControlButtonToggleModel();
-        
+
         var toogleItemWireframe = new BlenderControlButtonToggleItemModel();
         toogleItemWireframe.setImageSrc("./window-system/icons/menu-item-icon-shading-wireframe.svg");
         toggle.addItem(toogleItemWireframe);
-        
+
         var toogleItemSolid = new BlenderControlButtonToggleItemModel();
         toogleItemSolid.setImageSrc("./window-system/icons/menu-item-icon-shading-solid.svg");
         toogleItemSolid.setToggled(true);
         toggle.addItem(toogleItemSolid);
-        
+
         var toogleItemMaterial = new BlenderControlButtonToggleItemModel();
         toogleItemMaterial.setImageSrc("./window-system/icons/menu-item-icon-shading-material.svg");
         toggle.addItem(toogleItemMaterial);
-        
+
         var toogleItemRender = new BlenderControlButtonToggleItemModel();
         toogleItemRender.setImageSrc("./window-system/icons/menu-item-icon-shading-render.svg");
         toggle.addItem(toogleItemRender);
@@ -132,5 +137,87 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         toggle.setDropDown(true);
 
         this.getRegionHeader().getRightSide().addChild(toggle);
+    }
+
+    createRegionToolSettingsSelectionModeSelector() {
+        var toggle = new BlenderControlButtonToggleModel();
+
+        var toogleItemNew = new BlenderControlButtonToggleItemModel();
+        toogleItemNew.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-new.svg");
+        toogleItemNew.setToggled(true);
+        toggle.addItem(toogleItemNew);
+
+        var toogleItemExtend = new BlenderControlButtonToggleItemModel();
+        toogleItemExtend.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-extend.svg");
+        toggle.addItem(toogleItemExtend);
+
+        var toogleItemSubtract = new BlenderControlButtonToggleItemModel();
+        toogleItemSubtract.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-subtract.svg");
+        toggle.addItem(toogleItemSubtract);
+
+        var toogleItemIntersect = new BlenderControlButtonToggleItemModel();
+        toogleItemIntersect.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-invert.svg");
+        toggle.addItem(toogleItemIntersect);
+
+        var toogleItemIntersect = new BlenderControlButtonToggleItemModel();
+        toogleItemIntersect.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-intersect.svg");
+        toggle.addItem(toogleItemIntersect);
+
+        this.getRegionToolSettings().addChild(toggle);
+    }
+   
+    createRegionToolbarControls() {
+        this.createRegionToolbarSelectAndCursor();
+        this.createRegionToolbarTransform();
+        this.createRegionToolbarAnnotateAndMeasure();
+        this.createRegionToolbarAddMesh();
+    }
+
+    createRegionToolbarSelectAndCursor() {
+        var toolbar = new BlenderControlToolbarModel();
+        this.getRegionToolbar().addChild(toolbar);
+
+        var menuItemSelect = toolbar.addMenuItem(new NobucaMenuItemModel("select"));
+        menuItemSelect.setIconImageSrc("./window-system/icons/toolbar-icon-select.png");
+        
+        var menuItemCursor = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
+        menuItemCursor.setIconImageSrc("./window-system/icons/toolbar-icon-cursor.png");
+    }
+
+    createRegionToolbarTransform() {
+        var toolbar = new BlenderControlToolbarModel();
+        this.getRegionToolbar().addChild(toolbar);
+
+        var menuItemMove = toolbar.addMenuItem(new NobucaMenuItemModel("select"));
+        menuItemMove.setIconImageSrc("./window-system/icons/toolbar-icon-move.png");
+        
+        var menuItemRotate = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
+        menuItemRotate.setIconImageSrc("./window-system/icons/toolbar-icon-rotate.png");
+                
+        var menuItemScale = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
+        menuItemScale.setIconImageSrc("./window-system/icons/toolbar-icon-scale.png");
+                
+        var menuItemTransform = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
+        menuItemTransform.setIconImageSrc("./window-system/icons/toolbar-icon-transform.png");
+    }
+ 
+    createRegionToolbarAnnotateAndMeasure() {
+        var toolbar = new BlenderControlToolbarModel();
+        this.getRegionToolbar().addChild(toolbar);
+
+        var menuItemAnnotate = toolbar.addMenuItem(new NobucaMenuItemModel("annotate"));
+        menuItemAnnotate.setIconImageSrc("./window-system/icons/toolbar-icon-annotate.png");
+        
+        var menuItemMeasure = toolbar.addMenuItem(new NobucaMenuItemModel("measure"));
+        menuItemMeasure.setIconImageSrc("./window-system/icons/toolbar-icon-measure.png");
+    }
+
+    createRegionToolbarAddMesh() {
+        var toolbar = new BlenderControlToolbarModel();
+        this.getRegionToolbar().addChild(toolbar);
+
+        var menuItemAddCube = toolbar.addMenuItem(new NobucaMenuItemModel("annotate"));
+        menuItemAddCube.setIconImageSrc("./window-system/icons/toolbar-icon-add-mesh-cube.png");
+    
     }
 }

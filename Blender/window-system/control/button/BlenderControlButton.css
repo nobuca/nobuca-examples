@@ -1,4 +1,4 @@
-.BlenderControlButtonDropDown {
+.BlenderControlButton {
     display: flex;
     border: var(--menubar-border);
     border-radius: var(--menubar-border-radius);
@@ -15,22 +15,24 @@
     overflow: hidden;
 }
 
-.BlenderControlButtonDropDownContents {
+.BlenderControlButtonContents {
     display: flex;
     align-items: center;
     height: 20px;
+    background-color: rgb(84, 84, 84);
 }
 
-.BlenderControlButtonDropDownContents:hover {
-    background-color: rgb(48, 48, 48);
+.BlenderControlButtonContents:hover {
+    background-color: rgb(101, 101, 101);
 }
 
-.BlenderControlButtonDropDownContents:active {
+.BlenderControlButtonContents:active {
     background-color: rgb(71, 114, 179);
 }
 
-.BlenderControlButtonDropDownImage {
-    padding-left: 4px;
+.BlenderControlButtonImage {
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .BlenderControlButtonDropDownImageEnabled,

@@ -1,5 +1,6 @@
 import BlenderEditorModel from "./BlenderEditorModel.js";
 import BlenderControlButtonDropDownModel from "../control/button-drop-down/BlenderControlButtonDropDownModel.js"
+import BlenderControlSearchModel from "../control/search/BlenderControlSearchModel.js"
 
 export default class BlenderPropertiesEditorModel extends BlenderEditorModel {
 
@@ -16,7 +17,8 @@ export default class BlenderPropertiesEditorModel extends BlenderEditorModel {
     }
 
     createRegionHeaderSearch() {
-
+        var search = new BlenderControlSearchModel();
+        this.getRegionHeader().getCenterSide().addChild(search);
     }
 
     createRegionHeaderSyncSelector() {

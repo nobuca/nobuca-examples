@@ -1,7 +1,7 @@
 import BlenderEditorModel from "./BlenderEditorModel.js";
 import BlenderControlButtonDropDownModel from "../control/button-drop-down/BlenderControlButtonDropDownModel.js"
 import NobucaMenubarModel from "../../../../nobuca-core/menubar/NobucaMenubarModel.js";
-import NobucaMenuItemModel from "../../../../nobuca-core/menu-item/NobucaMenuItemModel.js";
+import NobucaMenuItemModel from "../../../../nobuca-core/menu/NobucaMenuItemModel.js";
 
 export default class BlenderTimelineEditorModel extends BlenderEditorModel {
 

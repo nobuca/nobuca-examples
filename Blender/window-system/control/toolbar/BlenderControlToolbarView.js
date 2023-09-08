@@ -67,8 +67,8 @@ export default class BlenderControlToolbarView extends NobucaComponentView {
     }
 
     createFirstLevelMenuItems(divFirstLevelMenu, firstLevelMenuModel) {
-        firstLevelMenuModel.getMenuItems().forEach((firstLevelMenuItemModel) => { 
-            this.createFirstLevelMenuItem(divFirstLevelMenu, firstLevelMenuItemModel); 
+        firstLevelMenuModel.getMenuItems().forEach((firstLevelMenuItemModel) => {
+            this.createFirstLevelMenuItem(divFirstLevelMenu, firstLevelMenuItemModel);
         });
     }
 
@@ -216,7 +216,6 @@ export default class BlenderControlToolbarView extends NobucaComponentView {
     }
 
     updateContentsPositionAndSize() {
-        console.log("updateContentsPositionAndSize");
 
         var parentNode = this.getNativeElement().parentNode;
 
@@ -249,28 +248,30 @@ export default class BlenderControlToolbarView extends NobucaComponentView {
     drag(x, y) {
         window.getSelection().removeAllRanges();
 
-        var parent = this.getNativeElement().parentNode;
-        var parentWidth = parent.offsetWidth;
-        var dividerWidth = 3;
-        var parentWidthWithoutDivider = parentWidth - dividerWidth;
         var firstLevelMenuItemsWidth = x - this.offsetX;
 
         if (firstLevelMenuItemsWidth < 32) return;
 
-        if (firstLevelMenuItemsWidth < 110) {
+        this.getDivFirstLevelMenus().style.width = firstLevelMenuItemsWidth + "px";
+
+        if (firstLevelMenuItemsWidth <= 66) {
+            this.setExpandModeOneColumn();
+        } else if (firstLevelMenuItemsWidth <= 80) {
             this.setExpandModeTwoColumns();
         } else {
             this.setExpandModeExtended();
         }
-
-        console.log();
-
-        this.getDivFirstLevelMenus().style.width = firstLevelMenuItemsWidth + "px";
     }
 
     endDrag(x, y) {
         this.getNativeElement().classList.remove("dragging");
         BlenderControlToolbarView.dragging = null;
+
+        if (this.isExpandModeOneColumn()) {
+            this.getDivFirstLevelMenus().style.width = 32 + "px"
+        } else if (this.isExpandModeTwoColumns()) {
+            this.getDivFirstLevelMenus().style.width = 66 + "px"
+        }
     }
 
 }

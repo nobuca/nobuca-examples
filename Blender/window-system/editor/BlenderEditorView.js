@@ -117,7 +117,7 @@ export default class BlenderEditorView extends NobucaComponentView {
 
     updateContentsPositionAndSize() {
         var parent = this.getNativeElement().parentNode;
-        var margin = 8;
+        var margin = 1;
         var editorHeight = parent.offsetHeight - margin*2;
         var editorWidth = parent.offsetWidth - margin*2;
         this.getNativeElement().style.top = margin + "px";
@@ -168,6 +168,5 @@ export default class BlenderEditorView extends NobucaComponentView {
 
         this.getDivRegionSidebar().style.top = sidebarTop + "px";
         this.getDivRegionSidebar().style.right = margin + "px";
-        this.getDivRegionSidebar().style.height = sidebarHeight + "px";
     }
 }

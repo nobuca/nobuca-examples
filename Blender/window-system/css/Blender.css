@@ -55,3 +55,10 @@ body {
 #areasPanel>.NobucaPanel {
     width: 100%;
 }
+
+.NobucaPanelSplitLeftRightDivider,
+.NobucaPanelSplitLeftRightDivider:hover,
+.NobucaPanelSplitTopBottomDivider,
+.NobucaPanelSplitTopBottomDivider:hover {
+    background-color: transparent;
+}

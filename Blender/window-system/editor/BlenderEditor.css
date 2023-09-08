@@ -6,14 +6,17 @@
 .BlenderEditor {
     display: flex;
     position: relative;
+    overflow: hidden;    
+    border-top-left-radius: var(--menubar-border-radius);
+    border-top-right-radius: var(--menubar-border-radius);
+    border-bottom-left-radius: var(--menubar-border-radius);
+    border-bottom-right-radius: var(--menubar-border-radius);
 }
 
 .BlenderEditorRegionMain {
     background-color: rgb(53, 53, 53);
     display: flex;
     position: absolute;
-    border-bottom-left-radius: var(--menubar-border-radius);
-    border-bottom-right-radius: var(--menubar-border-radius);
 }
 
 .BlenderEditorRegionsOtherThanMain {
@@ -22,8 +25,6 @@
 }
 
 .BlenderEditorRegionHeader {
-    border-top-left-radius: var(--menubar-border-radius);
-    border-top-right-radius: var(--menubar-border-radius);
     display: flex;
     position: absolute;
     top: 0px;

@@ -58,7 +58,7 @@
 }
 
 .BlenderEditorRegionToolSettings {
-    background-color: rgb(53, 53, 53);
+    background-color: rgb(53, 53, 53, .5);
     display: flex;
     position: absolute;
 }

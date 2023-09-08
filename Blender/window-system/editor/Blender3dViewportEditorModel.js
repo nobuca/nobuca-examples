@@ -177,9 +177,21 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         var toolbar = new BlenderControlToolbarModel();
         this.getRegionToolbar().addChild(toolbar);
 
-        var menuItemSelect = toolbar.addMenuItem(new NobucaMenuItemModel("select"));
-        menuItemSelect.setIconImageSrc("./window-system/icons/toolbar-icon-select.png");
+        var menuItemSelectBox = toolbar.addMenuItem(new NobucaMenuItemModel("selectBox"));
+        menuItemSelectBox.setIconImageSrc("./window-system/icons/toolbar-icon-select-box.png");
+
+        var menuItemTweak = menuItemSelectBox.addMenuItem(new NobucaMenuItemModel("tweak", "<u>T</u>weak"))
+        menuItemTweak.setIconImageSrc("./window-system/icons/toolbar-icon-tweak.png");
         
+        var menuItemSelectBox2 = menuItemSelectBox.addMenuItem(new NobucaMenuItemModel("selectBox", "<u>S</u>elect Box"))
+        menuItemSelectBox2.setIconImageSrc("./window-system/icons/toolbar-icon-select-box.png");
+        
+        var menuItemSelectCircle = menuItemSelectBox.addMenuItem(new NobucaMenuItemModel("selectCircle", "Select <u>C</u>ircle"))
+        menuItemSelectCircle.setIconImageSrc("./window-system/icons/toolbar-icon-select-circle.png");
+
+        var menuItemSelectLasso = menuItemSelectBox.addMenuItem(new NobucaMenuItemModel("selectCircle", "Select <u>L</u>asso"))
+        menuItemSelectLasso.setIconImageSrc("./window-system/icons/toolbar-icon-select-lasso.png");
+
         var menuItemCursor = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
         menuItemCursor.setIconImageSrc("./window-system/icons/toolbar-icon-cursor.png");
     }
@@ -188,15 +200,21 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         var toolbar = new BlenderControlToolbarModel();
         this.getRegionToolbar().addChild(toolbar);
 
-        var menuItemMove = toolbar.addMenuItem(new NobucaMenuItemModel("select"));
+        var menuItemMove = toolbar.addMenuItem(new NobucaMenuItemModel("move"));
         menuItemMove.setIconImageSrc("./window-system/icons/toolbar-icon-move.png");
         
-        var menuItemRotate = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
+        var menuItemRotate = toolbar.addMenuItem(new NobucaMenuItemModel("rotate"));
         menuItemRotate.setIconImageSrc("./window-system/icons/toolbar-icon-rotate.png");
                 
-        var menuItemScale = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
+        var menuItemScale = toolbar.addMenuItem(new NobucaMenuItemModel("scale"));
         menuItemScale.setIconImageSrc("./window-system/icons/toolbar-icon-scale.png");
-                
+
+        var menuItemScale2 = menuItemScale.addMenuItem(new NobucaMenuItemModel("scale", "<u>S</u>cale"));
+        menuItemScale2.setIconImageSrc("./window-system/icons/toolbar-icon-scale.png");
+   
+        var menuItemScaleCage = menuItemScale.addMenuItem(new NobucaMenuItemModel("scaleCage", "Scale <u>C</u>age"));
+        menuItemScaleCage.setIconImageSrc("./window-system/icons/toolbar-icon-scale-cage.png");
+               
         var menuItemTransform = toolbar.addMenuItem(new NobucaMenuItemModel("cursor"));
         menuItemTransform.setIconImageSrc("./window-system/icons/toolbar-icon-transform.png");
     }

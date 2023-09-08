@@ -1,34 +1,102 @@
-
-
 .BlenderControlToolbar {
-    border: var(--menubar-border);
-    border-radius: var(--menubar-border-radius);
     display: flex;
-    overflow: hidden;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 2px;
     margin-bottom: 2px;
 }
 
-.BlenderControlToolbarItem {
-    background-color: rgb(40,40,40);
+.BlenderControlToolbarFirstLevelMenuItems {
+    display: flex;
+    flex-direction: column;
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    overflow: hidden;
+}
+
+.BlenderControlToolbarSecondLevelMenuItemsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.BlenderControlToolbarSecondLevelMenuItems {
+    display: flex;
+    flex-direction: column;
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    overflow: hidden;
+}
+
+.BlenderControlToolbarFirstLevelMenuItem {
+    background-color: rgb(40, 40, 40);
     height: 32px;
     cursor: pointer;
     border-bottom: var(--menubar-border);
+    position: relative;
 }
 
-.BlenderControlToolbarItem:last-child {
+.BlenderControlToolbarFirstLevelMenuItem:last-child {
     border-bottom: none;
 }
 
-.BlenderControlToolbarItem:hover {
-    background-color: rgb(48,48,48);
+.BlenderControlToolbarFirstLevelMenuItem:hover {
+    background-color: rgb(48, 48, 48);
 }
 
-.BlenderControlToolbarItem:active {
-    background-color: rgb(71,114,178);
+.BlenderControlToolbarFirstLevelMenuItem:active {
+    background-color: rgb(71, 114, 178);
 }
 
-.BlenderControlToolbarItemImage {
+.BlenderControlToolbarMenuItemIconImage {
     height: 32px;
+}
+
+.BlenderControlToolbarMenuItemIsGroupImage {
+    height: 6px;
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+}
+
+.BlenderControlToolbarSecondLevelMenuItems {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    margin-left: 3px;
+    background-color: rgb(24, 24, 24);
+}
+
+.BlenderControlToolbarSecondLevelMenuItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 4px;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding-right: 30px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: var(--menubar-border-radius);
+}
+
+.BlenderControlToolbarSecondLevelMenuItem:first-child {
+    margin-top: 4px;
+}
+
+.BlenderControlToolbarSecondLevelMenuItem:hover {
+    background-color: rgb(71, 114, 178);
+}
+
+.BlenderControlToolbarSecondLevelMenuItemIconImage {
+    height: 32px;
+}
+
+.BlenderControlToolbarSecondLevelMenuItemTitle {
+    color: var(--font-color);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    text-shadow: var(--text-shadow);
+    padding-left: 6px;
+    white-space: nowrap;
 }

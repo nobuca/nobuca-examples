@@ -19,6 +19,17 @@
     position: absolute;
 }
 
+.BlenderEditorRegionMain > .NobucaPanel {
+    width: 100%;
+}
+
+.BlenderEditorRegionMain > .NobucaPanel > .NobucaTree {
+    margin-top: 30px;
+    width: 100%;
+    background-image: url("../icons/outliner-tree-background.png");
+    background-repeat: repeat;
+}
+
 .BlenderEditorRegionsOtherThanMain {
     display: flex;
     position: absolute;
@@ -78,16 +89,11 @@
     position: absolute;
     bottom: 0px;
     left: 0px;
-    height: 14px;
-    min-width: 14px;
 }
 
 .BlenderEditorRegionSidebar {
     background-color: rgb(93, 93, 93);
     display: flex;
     position: absolute;
-    top: 28px;
     right: 0px;
-    height: 14px;
-    min-width: 14px;
 }

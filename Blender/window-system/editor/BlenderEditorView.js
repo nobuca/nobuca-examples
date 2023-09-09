@@ -15,24 +15,6 @@ export default class BlenderEditorView extends NobucaComponentView {
 
     createRegions() {
         this.createRegionMain();
-        this.createRegionsOtherThanMain();
-    }
-
-
-    createRegionMain() {
-        this.divRegionMain = document.createElement("div");
-        this.divRegionMain.className = "BlenderEditorRegionMain";
-        this.getNativeElement().appendChild(this.divRegionMain);
-    }
-
-    getDivRegionMain() {
-        return this.divRegionMain;
-    }
-
-    createRegionsOtherThanMain() {
-        this.divRegionsOtherThanMain = document.createElement("div");
-        this.divRegionsOtherThanMain.className = "BlenderEditorRegionsOtherThanMain";
-        this.getNativeElement().appendChild(this.divRegionsOtherThanMain);
         this.createRegionHeader();
         this.createRegionToolSettings();
         this.createRegionToolbar();
@@ -40,14 +22,27 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.createRegionAdjustLastOperation();
     }
 
-    getDivRegionsOtherThanMain() {
-        return this.divRegionsOtherThanMain;
+    createRegionMain() {
+        this.divRegionMain = document.createElement("div");
+        this.divRegionMain.className = "BlenderEditorRegionMain";
+        this.getNativeElement().appendChild(this.divRegionMain);
+        
+        this.regionMainView = this.createNewViewForModel(this.getModel().getRegionMain());
+        this.getDivRegionMain().appendChild(this.getRegionMainView().getNativeElement());
+    }
+
+    getDivRegionMain() {
+        return this.divRegionMain;
+    }
+
+    getRegionMainView() {
+        return this.regionMainView;
     }
 
     createRegionHeader() {
         this.divRegionHeader = document.createElement("div");
         this.divRegionHeader.className = "BlenderEditorRegionHeader";
-        this.getDivRegionsOtherThanMain().appendChild(this.divRegionHeader);
+        this.getNativeElement().appendChild(this.divRegionHeader);
 
         this.regionHeaderView = this.createNewViewForModel(this.getModel().getRegionHeader());
         this.getDivRegionHeader().appendChild(this.getRegionHeaderView().getNativeElement());
@@ -64,7 +59,7 @@ export default class BlenderEditorView extends NobucaComponentView {
     createRegionToolbar() {
         this.divRegionToolbar = document.createElement("div");
         this.divRegionToolbar.className = "BlenderEditorRegionToolbar";
-        this.getDivRegionsOtherThanMain().appendChild(this.divRegionToolbar);
+        this.getNativeElement().appendChild(this.divRegionToolbar);
         
         this.regionToolbarView = this.createNewViewForModel(this.getModel().getRegionToolbar());
         this.getDivRegionToolbar().appendChild(this.getRegionToolbarView().getNativeElement());
@@ -81,7 +76,7 @@ export default class BlenderEditorView extends NobucaComponentView {
     createRegionToolSettings() {
         this.divRegionToolSettings = document.createElement("div");
         this.divRegionToolSettings.className = "BlenderEditorRegionToolSettings";
-        this.getDivRegionsOtherThanMain().appendChild(this.divRegionToolSettings);
+        this.getNativeElement().appendChild(this.divRegionToolSettings);
         
         this.regionToolSettingsView = this.createNewViewForModel(this.getModel().getRegionToolSettings());
         this.getDivRegionToolSettings().appendChild(this.getRegionToolSettingsView().getNativeElement());
@@ -98,7 +93,7 @@ export default class BlenderEditorView extends NobucaComponentView {
     createRegionSidebar() {
         this.divRegionSidebar = document.createElement("div");
         this.divRegionSidebar.className = "BlenderEditorRegionSidebar";
-        this.getDivRegionsOtherThanMain().appendChild(this.divRegionSidebar);
+        this.getNativeElement().appendChild(this.divRegionSidebar);
     }
 
     getDivRegionSidebar() {
@@ -108,7 +103,7 @@ export default class BlenderEditorView extends NobucaComponentView {
     createRegionAdjustLastOperation() {
         this.divRegsionAdjustLastOperation = document.createElement("div");
         this.divRegsionAdjustLastOperation.className = "BlenderEditorRegionAdjustLastOperation";
-        this.getDivRegionsOtherThanMain().appendChild(this.divRegsionAdjustLastOperation);
+        this.getNativeElement().appendChild(this.divRegsionAdjustLastOperation);
     }
 
     getDivRegionAdjustLastOperation() {
@@ -126,8 +121,6 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.getNativeElement().style.width = editorWidth + "px";
         this.getDivRegionMain().style.height = editorHeight + "px";
         this.getDivRegionMain().style.width = editorWidth + "px";
-        this.getDivRegionsOtherThanMain().style.height = editorHeight + "px";
-        this.getDivRegionsOtherThanMain().style.width = editorWidth + "px";
         
         this.getDivRegionHeader().style.left = margin;
         this.getDivRegionHeader().style.width = editorWidth + "px";
@@ -150,7 +143,7 @@ export default class BlenderEditorView extends NobucaComponentView {
 
         this.getDivRegionToolbar().style.top = toolbarTop + "px"; 
         this.getDivRegionToolbar().style.height = toolbarHeight + "px"; 
-        this.getDivRegionToolbar().style.width = editorWidth + "px"; 
+        //this.getDivRegionToolbar().style.width = editorWidth + "px"; 
       
         var adjutLastOperationTop = editorHeight;
         adjutLastOperationTop -= margin;

@@ -27,6 +27,7 @@
     background-color: rgb(40, 40, 40);
     border: none;
     outline: none;
+    width: 70px;
 }
 
 .BlenderControlSearchClearIcon {

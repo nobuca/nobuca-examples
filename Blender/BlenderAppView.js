@@ -6,6 +6,7 @@ import BlenderDataBlockMenuView from "./window-system/control/data-block-menu/Bl
 import BlenderControlSearchView from "./window-system/control/search/BlenderControlSearchView.js";
 import BlenderControlButtonView from "./window-system/control/button/BlenderControlButtonView.js";
 import BlenderControlToolbarView from "./window-system/control/toolbar/BlenderControlToolbarView.js";
+import BlenderControlOutlinerView from "./window-system/control/outliner/BlenderControlOutlinerView.js";
 import BlenderEditorContainerView from "./window-system/editor/BlenderEditorContainerView.js";
 import BlenderEditorView from "./window-system/editor/BlenderEditorView.js";
 
@@ -29,5 +30,7 @@ export default class BlenderAppView extends NobucaAppView {
             function(model) { return new BlenderControlButtonView(model); });
         this.registerViewConstructorForModelClassName("BlenderControlToolbarModel",
             function(model) { return new BlenderControlToolbarView(model); });
+        this.registerViewConstructorForModelClassName("BlenderControlOutlinerModel",
+            function(model) { return new BlenderControlOutlinerView(model); });
     }
 }

@@ -9,7 +9,7 @@ export default class BlenderControlSearchView extends NobucaComponentView {
 
         var imgMagnifierIcon = document.createElement("img");
         imgMagnifierIcon.className = "BlenderControlSearchMagnifierIcon";
-        imgMagnifierIcon.src = "./window-system/icons/menu-item-icon-search.svg";
+        imgMagnifierIcon.src = "./window-system/icons/icon-search.svg";
         this.getNativeElement().appendChild(imgMagnifierIcon);
 
         var inputText = document.createElement("input");
@@ -19,7 +19,7 @@ export default class BlenderControlSearchView extends NobucaComponentView {
 
         this.imgClearIcon = document.createElement("img");
         this.imgClearIcon.className = "BlenderControlSearchClearIcon";
-        this.imgClearIcon.src = "./window-system/icons/menu-item-icon-cross.svg";
+        this.imgClearIcon.src = "./window-system/icons/icon-cross.svg";
         this.getNativeElement().appendChild(this.imgClearIcon);
 
         inputText.addEventListener("keyup", () => {

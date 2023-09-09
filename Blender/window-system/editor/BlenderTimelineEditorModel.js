@@ -14,7 +14,7 @@ export default class BlenderTimelineEditorModel extends BlenderEditorModel {
 
     createRegionHeaderEditorSelector() {
         var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/menu-item-icon-editor-timeline.svg");
+        control.setImageSrc("./window-system/icons/icon-editor-timeline.svg");
         this.getRegionHeader().getLeftSide().addChild(control);
     }
 

@@ -12,7 +12,7 @@ export default class BlenderPropertiesEditorModel extends BlenderEditorModel {
 
     createRegionHeaderEditorSelector() {
         var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/menu-item-icon-editor-properties.svg");
+        control.setImageSrc("./window-system/icons/icon-editor-properties.svg");
         this.getRegionHeader().getLeftSide().addChild(control);
     }
 

@@ -30,13 +30,13 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
 
     createRegionHeaderEditorSelector() {
         var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/menu-item-icon-editor-3dviewport.svg");
+        control.setImageSrc("./window-system/icons/icon-editor-3dviewport.svg");
         this.getRegionHeader().getLeftSide().addChild(control);
     }
 
     createRegionHeaderModeSelector() {
         var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/menu-item-icon-mode-object.svg");
+        control.setImageSrc("./window-system/icons/icon-mode-object.svg");
         control.setTitle("Object Mode")
         this.getRegionHeader().getLeftSide().addChild(control);
     }
@@ -52,38 +52,38 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
 
     createRegionHeaderOrientationSelector() {
         var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/menu-item-icon-orientation-global.svg");
+        control.setImageSrc("./window-system/icons/icon-orientation-global.svg");
         control.setTitle("Global");
         this.getRegionHeader().getCenterSide().addChild(control);
     }
 
     createRegionHeaderPivotSelector() {
         var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/menu-item-icon-transform-median-point.svg");
+        control.setImageSrc("./window-system/icons/icon-transform-median-point.svg");
         this.getRegionHeader().getCenterSide().addChild(control);
     }
 
     createRegionHeaderSnappingSelector() {
         var control = new BlenderControlButtonDropDownModel();
         control.setEnabledDisabledBehaviour(true);
-        control.setEnabledImageSrc("./window-system/icons/menu-item-icon-snapping-enabled.svg");
-        control.setDisabledImageSrc("./window-system/icons/menu-item-icon-snapping-disabled.svg");
-        control.setImageSrc("./window-system/icons/menu-item-icon-snapping-increment.svg");
+        control.setEnabledImageSrc("./window-system/icons/icon-snapping-enabled.svg");
+        control.setDisabledImageSrc("./window-system/icons/icon-snapping-disabled.svg");
+        control.setImageSrc("./window-system/icons/icon-snapping-increment.svg");
         this.getRegionHeader().getCenterSide().addChild(control);
     }
 
     createRegionHeaderProportionalEditingSelector() {
         var control = new BlenderControlButtonDropDownModel();
         control.setEnabledDisabledBehaviour(true);
-        control.setEnabledImageSrc("./window-system/icons/menu-item-icon-proportional-editing-enabled.svg");
-        control.setDisabledImageSrc("./window-system/icons/menu-item-icon-proportional-editing-disabled.svg");
-        control.setImageSrc("./window-system/icons/menu-item-icon-proportional-editing-sphere.svg");
+        control.setEnabledImageSrc("./window-system/icons/icon-proportional-editing-enabled.svg");
+        control.setDisabledImageSrc("./window-system/icons/icon-proportional-editing-disabled.svg");
+        control.setImageSrc("./window-system/icons/icon-proportional-editing-sphere.svg");
         this.getRegionHeader().getCenterSide().addChild(control);
     }
 
     createRegionHeaderVisibilitySelector() {
         var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/menu-item-icon-visibility-all.svg");
+        control.setImageSrc("./window-system/icons/icon-visibility-all.svg");
         this.getRegionHeader().getRightSide().addChild(control);
     }
 
@@ -92,8 +92,8 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         control.setEnabledDisabledBehaviour(true);
         control.setEnabled(true);
         control.setPreventDropDownWhenDisabled(true);
-        control.setEnabledImageSrc("./window-system/icons/menu-item-icon-gizmos.svg");
-        control.setDisabledImageSrc("./window-system/icons/menu-item-icon-gizmos.svg");
+        control.setEnabledImageSrc("./window-system/icons/icon-gizmos.svg");
+        control.setDisabledImageSrc("./window-system/icons/icon-gizmos.svg");
         this.getRegionHeader().getRightSide().addChild(control);
     }
 
@@ -102,15 +102,15 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         control.setEnabledDisabledBehaviour(true);
         control.setEnabled(true);
         control.setPreventDropDownWhenDisabled(true);
-        control.setEnabledImageSrc("./window-system/icons/menu-item-icon-overlays.svg");
-        control.setDisabledImageSrc("./window-system/icons/menu-item-icon-overlays.svg");
+        control.setEnabledImageSrc("./window-system/icons/icon-overlays.svg");
+        control.setDisabledImageSrc("./window-system/icons/icon-overlays.svg");
         this.getRegionHeader().getRightSide().addChild(control);
     }
 
     createRegionHeaderXRayToggle() {
         var toggle = new BlenderControlButtonToggleModel();
         var toogleItem = new BlenderControlButtonToggleItemModel();
-        toogleItem.setImageSrc("./window-system/icons/menu-item-icon-x-ray.svg");
+        toogleItem.setImageSrc("./window-system/icons/icon-x-ray.svg");
         toggle.addItem(toogleItem);
         this.getRegionHeader().getRightSide().addChild(toggle);
     }
@@ -119,20 +119,20 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         var toggle = new BlenderControlButtonToggleModel();
 
         var toogleItemWireframe = new BlenderControlButtonToggleItemModel();
-        toogleItemWireframe.setImageSrc("./window-system/icons/menu-item-icon-shading-wireframe.svg");
+        toogleItemWireframe.setImageSrc("./window-system/icons/icon-shading-wireframe.svg");
         toggle.addItem(toogleItemWireframe);
 
         var toogleItemSolid = new BlenderControlButtonToggleItemModel();
-        toogleItemSolid.setImageSrc("./window-system/icons/menu-item-icon-shading-solid.svg");
+        toogleItemSolid.setImageSrc("./window-system/icons/icon-shading-solid.svg");
         toogleItemSolid.setToggled(true);
         toggle.addItem(toogleItemSolid);
 
         var toogleItemMaterial = new BlenderControlButtonToggleItemModel();
-        toogleItemMaterial.setImageSrc("./window-system/icons/menu-item-icon-shading-material.svg");
+        toogleItemMaterial.setImageSrc("./window-system/icons/icon-shading-material.svg");
         toggle.addItem(toogleItemMaterial);
 
         var toogleItemRender = new BlenderControlButtonToggleItemModel();
-        toogleItemRender.setImageSrc("./window-system/icons/menu-item-icon-shading-render.svg");
+        toogleItemRender.setImageSrc("./window-system/icons/icon-shading-render.svg");
         toggle.addItem(toogleItemRender);
 
         toggle.setDropDown(true);
@@ -144,24 +144,24 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         var toggle = new BlenderControlButtonToggleModel();
 
         var toogleItemNew = new BlenderControlButtonToggleItemModel();
-        toogleItemNew.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-new.svg");
+        toogleItemNew.setImageSrc("./window-system/icons/icon-selection-mode-new.svg");
         toogleItemNew.setToggled(true);
         toggle.addItem(toogleItemNew);
 
         var toogleItemExtend = new BlenderControlButtonToggleItemModel();
-        toogleItemExtend.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-extend.svg");
+        toogleItemExtend.setImageSrc("./window-system/icons/icon-selection-mode-extend.svg");
         toggle.addItem(toogleItemExtend);
 
         var toogleItemSubtract = new BlenderControlButtonToggleItemModel();
-        toogleItemSubtract.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-subtract.svg");
+        toogleItemSubtract.setImageSrc("./window-system/icons/icon-selection-mode-subtract.svg");
         toggle.addItem(toogleItemSubtract);
 
         var toogleItemIntersect = new BlenderControlButtonToggleItemModel();
-        toogleItemIntersect.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-invert.svg");
+        toogleItemIntersect.setImageSrc("./window-system/icons/icon-selection-mode-invert.svg");
         toggle.addItem(toogleItemIntersect);
 
         var toogleItemIntersect = new BlenderControlButtonToggleItemModel();
-        toogleItemIntersect.setImageSrc("./window-system/icons/menu-item-icon-selection-mode-intersect.svg");
+        toogleItemIntersect.setImageSrc("./window-system/icons/icon-selection-mode-intersect.svg");
         toggle.addItem(toogleItemIntersect);
 
         this.getRegionToolSettings().addChild(toggle);

@@ -17,9 +17,9 @@ export default class BlenderDataBlockMenuView extends NobucaComponentView {
 
     getImageForType() {
         if (this.getModel().getType() == "scene")
-            return "./window-system/icons/menu-item-icon-data-block-scene.svg"
+            return "./window-system/icons/icon-data-block-scene.svg"
         if (this.getModel().getType() == "viewLayer")
-            return "./window-system/icons/menu-item-icon-data-block-view-layer.svg"
+            return "./window-system/icons/icon-data-block-view-layer.svg"
         return null;
     }
 
@@ -35,7 +35,7 @@ export default class BlenderDataBlockMenuView extends NobucaComponentView {
 
         var imgDown = document.createElement("img");
         imgDown.className = "BlenderDataBlockMenuExpandButtonDownIcon";
-        imgDown.src = "./window-system/icons/menu-item-icon-chevron-down.svg";
+        imgDown.src = "./window-system/icons/icon-chevron-down.svg";
         div.appendChild(imgDown);
     }
 
@@ -56,7 +56,7 @@ export default class BlenderDataBlockMenuView extends NobucaComponentView {
 
         var imgPin = document.createElement("img");
         imgPin.className = "BlenderDataBlockMenuNamePin";
-        imgPin.src = "./window-system/icons/menu-item-icon-pin.svg";
+        imgPin.src = "./window-system/icons/icon-pin.svg";
         div.appendChild(imgPin);
     }
 
@@ -67,7 +67,7 @@ export default class BlenderDataBlockMenuView extends NobucaComponentView {
 
         var imgNew = document.createElement("img");
         imgNew.className = "BlenderDataBlockMenuNewButtonIcon";
-        imgNew.src = "./window-system/icons/menu-item-icon-copy.svg";
+        imgNew.src = "./window-system/icons/icon-copy.svg";
         div.appendChild(imgNew);
     }
 
@@ -78,7 +78,7 @@ export default class BlenderDataBlockMenuView extends NobucaComponentView {
 
         var imgDelete = document.createElement("img");
         imgDelete.className = "BlenderDataBlockMenuDeleteButtonIcon";
-        imgDelete.src = "./window-system/icons/menu-item-icon-cross.svg";
+        imgDelete.src = "./window-system/icons/icon-cross.svg";
         div.appendChild(imgDelete);
     }
 

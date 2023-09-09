@@ -79,7 +79,7 @@ export default class BlenderControlButtonToggleView extends NobucaComponentView 
     
             var imgChevron = document.createElement("img");
             imgChevron.className = "BlenderControlButtonToggleDropDownChevron";
-            imgChevron.src = "./window-system/icons/menu-item-icon-chevron-down.svg";
+            imgChevron.src = "./window-system/icons/icon-chevron-down.svg";
             divDropDown.appendChild(imgChevron);
         }
     }

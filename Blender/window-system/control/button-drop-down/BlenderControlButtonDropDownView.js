@@ -59,7 +59,7 @@ export default class BlenderControlButtonDropDownView extends NobucaComponentVie
 
         this.imgChevron = document.createElement("img");
         this.imgChevron.className = "BlenderControlButtonDropDownChevron";
-        this.imgChevron.src = "./window-system/icons/menu-item-icon-chevron-down.svg";
+        this.imgChevron.src = "./window-system/icons/icon-chevron-down.svg";
         divContents.appendChild(this.imgChevron);
 
         this.updateView();

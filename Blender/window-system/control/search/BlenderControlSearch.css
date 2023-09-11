@@ -24,6 +24,7 @@
     font-family: var(--font-family);
     font-size: var(--font-size);
     color: var(--font-color);
+    text-shadow: var(--text-shadow);
     background-color: rgb(40, 40, 40);
     border: none;
     outline: none;

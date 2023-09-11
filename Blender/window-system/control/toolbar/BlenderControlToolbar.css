@@ -70,6 +70,7 @@
     color: var(--font-color);
     font-family: var(--font-family);
     font-size: var(--font-size);
+    text-shadow: var(--text-shadow);
     padding-left: 6px;
     padding-right: 12px;
     white-space: nowrap;
@@ -127,6 +128,7 @@
     color: var(--font-color);
     font-family: var(--font-family);
     font-size: var(--font-size);
+    text-shadow: var(--text-shadow);
     padding-left: 6px;
     white-space: nowrap;
 }

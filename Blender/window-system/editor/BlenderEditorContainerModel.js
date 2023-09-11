@@ -8,9 +8,8 @@ export default class BlenderEditorContainerModel extends NobucaComponentModel {
 
     constructor(type) {
         super();
-        this.activeEditorChangedEventEmitter = this.newEventEmitter();
-        this.createEditors();
-        this.changeActiveEditorByType(type);
+        this.activeEditorChangedEventEmitter = this.createEventEmitter();
+        this.setActiveEditor(this.creteEditor(type));
     }
 
     getClassName() {
@@ -21,29 +20,6 @@ export default class BlenderEditorContainerModel extends NobucaComponentModel {
         return this.activeEditorChangedEventEmitter;
     }
 
-    createEditors() {
-        this.editor3dViewport = new Blender3dViewportEditorModel();
-        this.editorOutliner = new BlenderOutlinerEditorModel();
-        this.editorProperties = new BlenderPropertiesEditorModel();
-        this.editorTimeline = new BlenderTimelineEditorModel();
-    }
-
-    getEditor3dViewport() {
-        return this.editor3dViewport;
-    }
-
-    getEditorOutliner() {
-        return this.editorOutliner;
-    }
-
-    getEditorProperties() {
-        return this.editorProperties;
-    }
-
-    getEditorTimeline() {
-        return this.editorTimeline;
-    }
-
     getActiveEditor() {
         return this.activeEditor;
     }
@@ -52,18 +28,13 @@ export default class BlenderEditorContainerModel extends NobucaComponentModel {
         this.activeEditor = activeEditor;
     }
 
-    getEditorByType(type) {
-        if (type == "3dViewport") return this.getEditor3dViewport();
-        if (type == "outliner") return this.getEditorOutliner();
-        if (type == "properties") return this.getEditorProperties();
-        if (type == "timeline") return this.getEditorTimeline();
+    creteEditor(type) {
+        if (type == "3dViewport") return new Blender3dViewportEditorModel();
+        if (type == "outliner") return new BlenderOutlinerEditorModel();
+        if (type == "properties") return new BlenderPropertiesEditorModel();
+        if (type == "timeline") return new BlenderTimelineEditorModel();
         return null;
     }
 
-    changeActiveEditorByType(type) {
-        var editor = this.getEditorByType(type);
-        if (editor == null) return;
-        this.setActiveEditor(editor);
-        this.getActiveEditorChangedEventEmitter().emit();
-    }
+    
 }

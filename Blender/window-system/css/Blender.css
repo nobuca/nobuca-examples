@@ -6,7 +6,7 @@
 @import "../control/search/BlenderControlSearch.css";
 @import "../control/button/BlenderControlButton.css";
 @import "../control/toolbar/BlenderControlToolbar.css";
-
+@import "../control/properties/BlenderControlProperties.css";
 html,
 body {
     margin: 0;
@@ -42,14 +42,17 @@ body {
 #areasPanel {
     display: flex;
     flex-grow: 1;
+    background-color: rgb(22, 22, 22);
 }
 
 #statusBarPanel {
     height: 30px;
+    background-color: rgb(22, 22, 22);
 }
 
 .NobucaPanel {
     display: flex;
+    user-select: none;
 }
 
 #areasPanel>.NobucaPanel {

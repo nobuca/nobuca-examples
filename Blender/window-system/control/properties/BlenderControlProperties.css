@@ -1,0 +1,95 @@
+.BlenderControlProperties {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    margin-top: 40px;
+    background-color: rgb(29, 29, 29);
+    user-select: none;
+}
+
+.BlenderControlPropertiesTabHandles {
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    overflow-y: auto;
+}
+
+.BlenderControlPropertiesTabHandles::-webkit-scrollbar {
+    width: 0px;
+}
+
+.BlenderControlPropertiesTabHandle {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-left: 4px;
+    margin-top: 4px;
+    border-top-left-radius: var(--menubar-border-radius);
+    border-bottom-left-radius: var(--menubar-border-radius);
+    user-select: none;
+    cursor: pointer;
+    opacity: .7;
+    box-shadow: 0px 2px 2px 0px rgb(0 0 0 / 40%);
+}
+
+.BlenderControlPropertiesTabHandle.active,
+.BlenderControlPropertiesTabHandle.active:hover {
+    background-color: rgb(48, 48, 48);
+    opacity: .7;
+}
+
+.BlenderControlPropertiesTabHandle:hover {
+    background-color: rgb(35, 35, 35);
+    opacity: 1;
+}
+
+.BlenderControlPropertiesTabBodies {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: rgb(48, 48, 48);
+    user-select: none;
+}
+
+.BlenderControlPropertiesTabBody {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.BlenderControlPropertiesTabBody > .NobucaPanel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px;
+    padding-right: 8px;
+    padding-left: 8px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.BlenderControlPropertiesTabBody > .NobucaPanel > .NobucaPanel {
+    display: flex;
+    width: 100%;
+}
+
+.BlenderControlPropertiesTabBody > .NobucaPanel > .NobucaPanel > .NobucaImage {
+    display: flex;
+    height: 16px;
+    padding: 8px;
+}
+
+.BlenderControlPropertiesTabBody > .NobucaPanel > .NobucaPanel > .NobucaPanel > .NobucaImage {
+    display: flex;
+    height: 32px;
+}
+
+.BlenderControlPropertiesTabBody > .NobucaPanel > .NobucaAccordion {
+    display: flex;
+    width: 100%;
+    padding-top: 10px;
+}

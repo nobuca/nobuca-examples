@@ -3,8 +3,6 @@
     border: var(--menubar-border);
     border-radius: var(--menubar-border-radius);
     margin-top: 2px;
-    margin-right: 3px;
-    margin-left: 3px;
     background-color: rgb(40, 40, 40);
     user-select: none;
     align-items: center;
@@ -19,6 +17,7 @@
     display: flex;
     align-items: center;
     height: 20px;
+    flex-grow: 1;
 }
 
 .BlenderControlButtonDropDownContents:hover {
@@ -64,7 +63,9 @@
     font-family: var(--font-family);
     font-size: var(--font-size);
     color: var(--font-color);
+    text-shadow: var(--text-shadow);
     white-space: nowrap;
+    flex-grow: 1;
 }
 
 .BlenderControlButtonDropDownChevron {

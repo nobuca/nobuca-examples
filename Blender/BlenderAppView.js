@@ -9,6 +9,7 @@ import BlenderControlToolbarView from "./window-system/control/toolbar/BlenderCo
 import BlenderControlOutlinerView from "./window-system/control/outliner/BlenderControlOutlinerView.js";
 import BlenderEditorContainerView from "./window-system/editor/BlenderEditorContainerView.js";
 import BlenderEditorView from "./window-system/editor/BlenderEditorView.js";
+import BlenderControlPropertiesView from "./window-system/control/properties/BlenderControlPropertiesView.js";
 
 export default class BlenderAppView extends NobucaAppView {
 
@@ -32,5 +33,7 @@ export default class BlenderAppView extends NobucaAppView {
             function(model) { return new BlenderControlToolbarView(model); });
         this.registerViewConstructorForModelClassName("BlenderControlOutlinerModel",
             function(model) { return new BlenderControlOutlinerView(model); });
+        this.registerViewConstructorForModelClassName("BlenderControlPropertiesModel",
+            function(model) { return new BlenderControlPropertiesView(model); });
     }
 }

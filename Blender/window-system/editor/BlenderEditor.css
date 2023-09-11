@@ -57,6 +57,10 @@
     padding-top: 3px;
 }
 
+.BlenderEditorRegionHeader > .NobucaPanel > .NobucaPanel {
+    column-gap: 6px;
+}
+
 .BlenderEditorRegionToolbar {
     display: flex;
     position: absolute;

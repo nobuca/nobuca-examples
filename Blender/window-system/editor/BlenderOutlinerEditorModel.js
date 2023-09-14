@@ -9,18 +9,15 @@ import NobucaTreeNodeTextModel from "../../../../nobuca-core/tree/NobucaTreeNode
 
 export default class BlenderOutlinerEditorModel extends BlenderEditorModel {
 
+    getEditorIconImageSrc() {
+        return "./window-system/icons/icon-editor-outliner.svg"
+    }
+
     createRegionHeaderControls() {
-        this.createRegionHeaderEditorSelector();
         this.createRegionHeaderDisplayModeSelector();
         this.createRegionHeaderSearch();
         this.createRegionHeaderFilterSelector();
         this.createRegionHeaderNewCollection();
-    }
-
-    createRegionHeaderEditorSelector() {
-        var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/icon-editor-outliner.svg");
-        this.getRegionHeader().getLeftSide().addChild(control);
     }
 
     createRegionHeaderDisplayModeSelector() {
@@ -71,8 +68,7 @@ export default class BlenderOutlinerEditorModel extends BlenderEditorModel {
         nodeCameraObject.addRightSideComponent(new NobucaTreeNodeTextModel("Camera"));
         nodeCameraObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-eye-opened.svg"));
         nodeCameraObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-small-camera.svg"));
-        nodeCameraObject.expand();
-
+ 
         var nodeCameraData = nodeCameraObject.addNode(new NobucaTreeNodeModel());
         nodeCameraData.addRightSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-big-camera-green.svg"));
         nodeCameraData.addRightSideComponent(new NobucaTreeNodeTextModel("Camera"));
@@ -82,12 +78,10 @@ export default class BlenderOutlinerEditorModel extends BlenderEditorModel {
         nodeMeshObject.addRightSideComponent(new NobucaTreeNodeTextModel("Cube"));
         nodeMeshObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-eye-opened.svg"));
         nodeMeshObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-small-camera.svg"));
-        nodeMeshObject.expand();
 
         var nodeMeshData = nodeMeshObject.addNode(new NobucaTreeNodeModel());
         nodeMeshData.addRightSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-mesh-green.svg"));
         nodeMeshData.addRightSideComponent(new NobucaTreeNodeTextModel("Cube"));
-        nodeMeshData.expand();
 
         var nodeMaterialData = nodeMeshData.addNode(new NobucaTreeNodeModel());
         nodeMaterialData.addRightSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-material-red.svg"));
@@ -98,7 +92,6 @@ export default class BlenderOutlinerEditorModel extends BlenderEditorModel {
         nodeLight.addRightSideComponent(new NobucaTreeNodeTextModel("Light"));
         nodeLight.addLeftSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-eye-opened.svg"));
         nodeLight.addLeftSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-small-camera.svg"));
-        nodeLight.expand();
 
         var nodeLightDataPoint = nodeLight.addNode(new NobucaTreeNodeModel("Light"));
         nodeLightDataPoint.addRightSideComponent(new NobucaTreeNodeIconModel("./window-system/icons/icon-light-point-green.svg"));

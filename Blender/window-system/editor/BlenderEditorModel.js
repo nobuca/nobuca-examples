@@ -2,6 +2,7 @@ import NobucaComponentModel from "../../../../nobuca-core/component/NobucaCompon
 import NobucaPanelModel from "../../../../nobuca-core/panel/NobucaPanelModel.js";
 import BlenderControlToolbarModel from "../control/toolbar/BlenderControlToolbarModel.js";
 import BlenderEditorRegionHeaderModel from "./BlenderEditorRegionHeaderModel.js";
+import BlenderControlButtonDropDownModel from "../control/button-drop-down/BlenderControlButtonDropDownModel.js"
 
 export default class BlenderEditorModel extends NobucaComponentModel {
 
@@ -33,7 +34,17 @@ export default class BlenderEditorModel extends NobucaComponentModel {
 
     createRegionHeader() {
         this.regionHeader = new BlenderEditorRegionHeaderModel();
+        this.createRegionHeaderEditorSelector();
         this.createRegionHeaderControls();
+    }
+
+    getEditorIconImageSrc() {
+    }
+
+    createRegionHeaderEditorSelector() {
+        var control = new BlenderControlButtonDropDownModel();
+        control.setImageSrc(this.getEditorIconImageSrc());
+        this.getRegionHeader().getLeftSide().addChild(control);
     }
 
     createRegionHeaderControls() {

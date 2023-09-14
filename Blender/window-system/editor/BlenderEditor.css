@@ -55,6 +55,12 @@
     height: 30px;
     min-width: 14px;
     background-color: rgb(53, 53, 53);
+    overflow-x: auto;
+}
+
+.BlenderEditorRegionHeader::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
 }
 
 .BlenderEditorRegionHeader .NobucaMenubar {

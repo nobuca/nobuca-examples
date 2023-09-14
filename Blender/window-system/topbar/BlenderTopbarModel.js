@@ -14,10 +14,19 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
         this.createMenubar();
         this.createWorkspaces();
         this.createScenesAndLayers();
+        this.createWorkspaceChangeRequestedEventEmitter();
     }
 
     getClassName() {
         return "BlenderTopbarModel";
+    }
+
+    createWorkspaceChangeRequestedEventEmitter() {
+        this.workspaceChangeRequestedEventEmitter = this.createEventEmitter();
+    }
+
+    getWorkspaceChangeRequestedEventEmitter() {
+        return this.workspaceChangeRequestedEventEmitter;
     }
 
     createMenubar() {
@@ -97,10 +106,17 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
 
     createWorkspaces() {
         this.workspaces = new NobucaTabsHeaderModel();
+        this.listenWorkspaceChangeRequest();
     }
 
     getWorkspaces() {
         return this.workspaces;
+    }
+
+    listenWorkspaceChangeRequest() {
+        this.getWorkspaces().getActiveTabChangeEventEmitter().subscribe((workspaceTab)=>{
+            this.getWorkspaceChangeRequestedEventEmitter().emit(workspaceTab.getId());
+        })
     }
 
     addWorkspace(workspace) {

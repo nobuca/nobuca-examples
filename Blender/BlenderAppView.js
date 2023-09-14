@@ -58,13 +58,15 @@ export default class BlenderAppView extends NobucaAppView {
         this.addRootPanelViewToDocumentBody(this.rootPanelView);
 
         this.topbarView = this.createNewViewForModel(this.getModel().getTopbar());
-        this.getRootPanelView().getNativeElement().appendChild(this.topbarView.getNativeElement());
+        this.getRootPanelView().getNativeElement().appendChild(this.getTopbarView().getNativeElement());
 
         this.areasView = this.createNewViewForModel(this.getModel().getAreas());
-        this.getRootPanelView().getNativeElement().appendChild(this.areasView.getNativeElement());
+        this.getRootPanelView().getNativeElement().appendChild(this.getAreasView().getNativeElement());
+
+        console.log("createRootPanelView");
 
         this.statusbarView = this.createNewViewForModel(this.getModel().getStatusbar());
-        this.getRootPanelView().getNativeElement().appendChild(this.statusbarView.getNativeElement());
+        this.getRootPanelView().getNativeElement().appendChild(this.getStatusView().getNativeElement());
 
         this.updateContentsPositionAndSize();
 
@@ -73,13 +75,48 @@ export default class BlenderAppView extends NobucaAppView {
         });
     }
 
+    getTopbarView() {
+        return this.topbarView;
+    }
+
+    getAreasView() {
+        return this.areasView;
+    }
+
+    getStatusView() {
+        return this.statusbarView;
+    }
+
     getRootPanelView() {
         return this.rootPanelView;
     }
 
     updateContentsPositionAndSize() {
-        this.topbarView.updateContentsPositionAndSize();
-        this.areasView.updateContentsPositionAndSize();
-        this.statusbarView.updateContentsPositionAndSize();
+
+        console.log("updateContentsPositionAndSize");
+
+        this.getRootPanelView().getNativeElement().style.height = window.innerHeight + "px";
+        this.getRootPanelView().getNativeElement().style.width = window.innerWidth + "px";
+
+        this.getTopbarView().updateContentsPositionAndSize();
+
+        var areasHeight = this.getRootPanelView().getNativeElement().offsetHeight;
+        areasHeight -= this.getTopbarView().getNativeElement().offsetHeight;
+        areasHeight -= this.getStatusView().getNativeElement().offsetHeight;
+
+        this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.height = areasHeight + "px";
+        this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
+        this.getAreasView().getChildViews()[0].getChildViews()[0].updateContentsPositionAndSize();
+
+        this.getStatusView().updateContentsPositionAndSize();
+    }
+
+    listenModel() {
+        this.getModel().getWorkspaceActivatedRequestedEventEmitter().subscribe(() => {
+            console.log("workspace activated");
+            this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
+            this.getAreasView().getChildViews()[0].getChildViews()[0].updateContentsPositionAndSize();
+    
+        });
     }
 }

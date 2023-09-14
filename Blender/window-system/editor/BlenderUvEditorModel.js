@@ -7,10 +7,10 @@ import BlenderControlButtonToggleModel from "../control/button-toggle/BlenderCon
 import NobucaMenuModel from "../../../../nobuca-core/menu/NobucaMenuModel.js";
 import NobucaPanelModel from "../../../../nobuca-core/panel/NobucaPanelModel.js";
 
-export default class Blender3dViewportEditorModel extends BlenderEditorModel {
-    
+export default class BlenderUvEditorModel extends BlenderEditorModel {
+
     getEditorIconImageSrc() {
-        return "./window-system/icons/icon-editor-3dviewport.svg"
+        return "./window-system/icons/icon-editor-uv.svg"
     }
 
     createRegionHeaderControls() {

@@ -3,6 +3,7 @@ import Blender3dViewportEditorModel from "./Blender3dViewportEditorModel.js";
 import BlenderOutlinerEditorModel  from "./BlenderOutlinerEditorModel.js";
 import BlenderPropertiesEditorModel  from "./BlenderPropertiesEditorModel.js";
 import BlenderTimelineEditorModel  from "./BlenderTimelineEditorModel.js";
+import BlenderUvEditorModel from "./BlenderUvEditorModel.js";
 
 export default class BlenderEditorContainerModel extends NobucaComponentModel {
 
@@ -33,6 +34,7 @@ export default class BlenderEditorContainerModel extends NobucaComponentModel {
         if (type == "outliner") return new BlenderOutlinerEditorModel();
         if (type == "properties") return new BlenderPropertiesEditorModel();
         if (type == "timeline") return new BlenderTimelineEditorModel();
+        if (type == "uv") return new BlenderUvEditorModel();
         return null;
     }
 

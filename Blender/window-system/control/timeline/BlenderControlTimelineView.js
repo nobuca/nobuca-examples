@@ -363,6 +363,12 @@ export default class BlenderControlTimelineView extends NobucaComponentView {
             this.setCenterFrame(100);
         }
 
+        var centerX = Math.floor(this.getDivBody().offsetWidth / 2);
+        //centerX -= Math.floor(this.getColumnWidth() / 2);
+        var scrollbarLeft = centerX;
+        scrollbarLeft -= Math.floor(this.getDivScrollbar().offsetWidth/2); 
+        this.getDivScrollbar().style.left = scrollbarLeft + "px";
+
         this.createNumbersAndColumns();
     }
 }

@@ -10,20 +10,17 @@ import BlenderControlTimelineModel from "../control/timeline/BlenderControlTimel
 
 export default class BlenderTimelineEditorModel extends BlenderEditorModel {
 
+    getEditorIconImageSrc() {
+        return "./window-system/icons/icon-editor-timeline.svg"
+    }
+
     createRegionHeaderControls() {
-        this.createRegionHeaderEditorSelector();
         this.createRegionHeaderPlayback();
         this.createRegionHeaderKeying();
         this.createRegionHeaderMenubar();
         this.createRegionHeaderAutoKeying();
         this.createRegionHeaderTransportControls();
         this.createRegionHeaderCurrentFrame();
-    }
-
-    createRegionHeaderEditorSelector() {
-        var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/icon-editor-timeline.svg");
-        this.getRegionHeader().getLeftSide().addChild(control);
     }
 
     createRegionHeaderPlayback() {

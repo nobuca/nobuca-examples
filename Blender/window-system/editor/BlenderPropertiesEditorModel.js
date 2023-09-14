@@ -12,16 +12,13 @@ import NobucaCheckboxModel from "../../../../nobuca-core/checkbox/NobucaCheckbox
 
 export default class BlenderPropertiesEditorModel extends BlenderEditorModel {
 
-    createRegionHeaderControls() {
-        this.createRegionHeaderEditorSelector();
-        this.createRegionHeaderSearch();
-        this.createRegionHeaderSyncSelector();
+    getEditorIconImageSrc() {
+        return "./window-system/icons/icon-editor-properties.svg"
     }
 
-    createRegionHeaderEditorSelector() {
-        var control = new BlenderControlButtonDropDownModel();
-        control.setImageSrc("./window-system/icons/icon-editor-properties.svg");
-        this.getRegionHeader().getLeftSide().addChild(control);
+    createRegionHeaderControls() {
+        this.createRegionHeaderSearch();
+        this.createRegionHeaderSyncSelector();
     }
 
     createRegionHeaderSearch() {

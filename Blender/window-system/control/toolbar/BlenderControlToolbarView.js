@@ -221,7 +221,7 @@ export default class BlenderControlToolbarView extends NobucaComponentView {
 
         this.getNativeElement().style.height = parentNode.offsetHeight + "px";
 
-        this.getDivExtender().style.height = this.getNativeElement().offsetHeight + "px";
+        this.getDivExtender().style.height = this.getDivFirstLevelMenus().offsetHeight + "px";
     }
 
 

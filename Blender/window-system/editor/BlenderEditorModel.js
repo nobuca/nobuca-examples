@@ -7,7 +7,7 @@ export default class BlenderEditorModel extends NobucaComponentModel {
 
     constructor() {
         super();
-        this.createRegionMain();
+        this.createRegionMainControl();
         this.createRegionHeader();
         this.createRegionToolSettings();
         this.createRegionToolbar();
@@ -19,16 +19,15 @@ export default class BlenderEditorModel extends NobucaComponentModel {
         return "BlenderEditorModel";
     }
 
-    createRegionMain() {
-        this.regionMain = new NobucaPanelModel();
-        this.createRegionMainControls();
+    setRegionMainControl(control) {
+        this.regionMainControl = control;
     }
 
-    getRegionMain() {
-        return this.regionMain;
+    getRegionMainControl() {
+        return this.regionMainControl;
     }
 
-    createRegionMainControls() {
+    createRegionMainControl() {
         
     }
 

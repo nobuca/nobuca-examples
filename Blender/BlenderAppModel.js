@@ -5,6 +5,7 @@ import BlenderWorkspaceModel  from "./window-system/workspace/BlenderWorkspaceMo
 import NobucaPanelSplitLeftRightModel from "../../nobuca-core/panel-split/NobucaPanelSplitLeftRightModel.js";
 import NobucaPanelSplitTopBottomModel from "../../nobuca-core/panel-split/NobucaPanelSplitTopBottomModel.js";
 import BlenderEditorContainerModel  from "./window-system/editor/BlenderEditorContainerModel.js";
+import BlenderStatusbarModel from "./window-system/statusbar/BlenderStatusbarModel.js";
 
 export default class BlenderAppModel extends NobucaAppModel {
 
@@ -12,9 +13,9 @@ export default class BlenderAppModel extends NobucaAppModel {
         super();
         this.setTitle("Blender");
         this.createWorkspaces();
-        this.createTopbarPanel();
-        this.createAreasPanel();
-        this.createStatusBarPanel();
+        this.createTopbar();
+        this.createAreas();
+        this.createStatusbar();
         this.activateWorkspace("layout");
     }
 
@@ -125,29 +126,33 @@ export default class BlenderAppModel extends NobucaAppModel {
         return this.workspaces;
     }
 
-    createTopbarPanel() {
-        this.topbarPanel = new BlenderTopbarModel();
-        this.getRootPanel().addChild(this.topbarPanel);
+    createTopbar() {
+        this.topbar = new BlenderTopbarModel();
 
         this.getWorkspaces().forEach(workspace => {
-            this.topbarPanel.addWorkspace(workspace); 
+            this.topbar.addWorkspace(workspace); 
         });
     }
 
-    createAreasPanel() {
-        this.areasPanel = new NobucaPanelModel();
-        this.areasPanel.setId("areasPanel");
-        this.getRootPanel().addChild(this.areasPanel);
+    getTopbar() {
+        return this.topbar;
     }
 
-    getAreasPanel() {
-        return this.areasPanel;
+    createAreas() {
+        this.areas = new NobucaPanelModel();
+        this.areas.setId("areasPanel");
     }
 
-    createStatusBarPanel() {
-        this.statusBarPanel = new NobucaPanelModel();
-        this.statusBarPanel.setId("statusBarPanel");
-        this.getRootPanel().addChild(this.statusBarPanel);
+    getAreas() {
+        return this.areas;
+    }
+
+    createStatusbar() {
+        this.statusbar = new BlenderStatusbarModel();
+    }
+
+    getStatusbar() {
+        return this.statusbar;
     }
 
     getWorkspace(workspaceId) {
@@ -155,8 +160,9 @@ export default class BlenderAppModel extends NobucaAppModel {
     }
 
     activateWorkspace(workspaceId) {
+        this.getTopbar().activateWorkspace(workspaceId);
         var workspace = this.getWorkspace(workspaceId);
-        this.getAreasPanel().clear();
-        this.getAreasPanel().addChild(workspace);
+        this.getAreas().clear();
+        this.getAreas().addChild(workspace);
     }
 }

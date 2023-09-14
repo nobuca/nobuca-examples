@@ -1,0 +1,118 @@
+.BlenderFieldNumber {
+    display: flex;
+    border: var(--menubar-border);
+    border-radius: var(--menubar-border-radius);
+    margin-top: 2px;
+    margin-right: 3px;
+    margin-left: 3px;
+    background-color: rgb(84, 84, 84);
+    align-items: center;
+    user-select: none;
+    box-shadow: 1px 1px 1px 0px rgb(0 0 0 / 40%);
+    cursor: pointer;
+    overflow: hidden;
+    height: 18px;
+    box-sizing: border-box;
+}
+
+.BlenderFieldNumberIncrement,
+.BlenderFieldNumberDecrement {
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    color: rgb(84, 84, 84);
+    padding-right: 4px;
+    padding-left: 4px;
+    height: 18px;
+    align-items: center;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.BlenderFieldNumberIncrement:hover,
+.BlenderFieldNumberDecrement:hover {
+    background-color: rgb(121, 121, 121);
+}
+
+.BlenderFieldNumber:hover .BlenderFieldNumberIncrement,
+.BlenderFieldNumber:hover .BlenderFieldNumberDecrement {
+    color: var(--font-color);
+    text-shadow: var(--text-shadow);
+}
+
+.BlenderFieldNumberNoEditable {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    color: var(--font-color);
+    text-shadow: var(--text-shadow);
+    background-color: rgb(84, 84, 84);
+    width: 70px;
+    cursor: ew-resize;
+    width: 100%;
+    display: flex;
+    height: 18px;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.BlenderFieldNumberNoEditable:hover {
+    background-color: rgb(121, 121, 121);
+    opacity: 1;
+}
+
+.BlenderFieldNumberLabel {
+    display: flex;
+    flex-grow: 1;
+    padding-left: 4px;
+    padding-right: 16px;
+}
+
+.BlenderFieldNumberValue {
+    padding-right: 4px;
+}
+
+.BlenderFieldNumberInput {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    color: var(--font-color);
+    text-shadow: var(--text-shadow);
+    background-color: rgb(34, 34, 34);
+    border: none;
+    outline: none;
+    width: 70px;
+    cursor: ew-resize;
+    text-align: left;
+    height: 18px;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: none;
+}
+
+.BlenderFieldNumber.editMode .BlenderFieldNumberIncrement,
+.BlenderFieldNumber.editMode .BlenderFieldNumberDecrement,
+.BlenderFieldNumber.editMode .BlenderFieldNumberNoEditable {
+    display: none;
+}
+
+.BlenderFieldNumber.editMode .BlenderFieldNumberInput {
+    display: flex;
+}
+
+.BlenderFieldNumber.dragging .BlenderFieldNumberIncrement,
+.BlenderFieldNumber.dragging .BlenderFieldNumberDecrement {
+    background-color: rgb(34, 34, 34);
+    display: flex;
+}
+
+.BlenderFieldNumber.dragging .BlenderFieldNumberNoEditable,
+.BlenderFieldNumber.dragging:hover .BlenderFieldNumberNoEditable {
+    background-color: rgb(41, 41, 41);
+}
+
+.NobucaButtonBarItem .BlenderFieldNumber {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+}

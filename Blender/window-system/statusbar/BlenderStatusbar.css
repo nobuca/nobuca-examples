@@ -1,0 +1,46 @@
+.BlenderStatusbar {
+  height: 22px;
+  background-color: rgb(22, 22, 22);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  opacity: .5;
+}
+
+.BlenderStatusbarMouseLeftButton,
+.BlenderStatusbarMouseMiddleButton,
+.BlenderStatusbarMouseRightButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.BlenderStatusbarMouseLeftButtonImg,
+.BlenderStatusbarMouseMiddleButtonImg,
+.BlenderStatusbarMouseRightButtonImg {
+    display: flex;
+    padding-left: 10px;
+}
+
+.BlenderStatusbarMouseLeftButtonLabel,
+.BlenderStatusbarMouseMiddleButtonLabel,
+.BlenderStatusbarMouseRightButtonLabel {
+    display: flex;
+    color: var(--font-color);
+    font-family: var(--font-family);
+	font-size: var(--font-size);
+	text-shadow: var(--text-shadow);
+    padding-right: 100px;
+    padding-left: 14px;
+}
+
+.BlenderStatusbarVersion {
+    display: flex;
+    flex-grow: 1;
+    color: var(--font-color);
+    font-family: var(--font-family);
+	font-size: var(--font-size);
+	text-shadow: var(--text-shadow);
+    justify-content: right;
+    padding-right: 8px;
+}

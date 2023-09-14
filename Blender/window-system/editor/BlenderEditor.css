@@ -23,11 +23,23 @@
     width: 100%;
 }
 
-.BlenderEditorRegionMain > .NobucaPanel > .NobucaTree {
-    margin-top: 30px;
+.BlenderEditorRegionMain > .NobucaTree {
+    padding-top: 30px;
     width: 100%;
     background-image: url("../icons/outliner-tree-background.png");
     background-repeat: repeat;
+}
+
+.BlenderEditorRegionMain > .BlenderControlProperties {
+    padding-top: 30px;
+    width: 100%;
+    background-color: rgb(29, 29, 29);
+}
+
+.BlenderEditorRegionMain > .BlenderControlTimeline {
+    padding-top: 30px;
+    width: 100%;
+    background-color: rgb(29, 29, 29);
 }
 
 .BlenderEditorRegionsOtherThanMain {
@@ -42,6 +54,7 @@
     left: 0px;
     height: 30px;
     min-width: 14px;
+    background-color: rgb(53, 53, 53);
 }
 
 .BlenderEditorRegionHeader .NobucaMenubar {

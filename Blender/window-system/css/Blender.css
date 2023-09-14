@@ -1,4 +1,6 @@
 @import "../../../../nobuca-core/Nobuca.css";
+@import "../topbar/BlenderTopbar.css";
+@import "../statusbar/BlenderStatusbar.css";
 @import "../control/data-block-menu/BlenderDataBlockMenu.css";
 @import "../editor/BlenderEditor.css";
 @import "../control/button-drop-down/BlenderControlButtonDropDown.css";
@@ -7,6 +9,8 @@
 @import "../control/button/BlenderControlButton.css";
 @import "../control/toolbar/BlenderControlToolbar.css";
 @import "../control/properties/BlenderControlProperties.css";
+@import "../field/number/BlenderFieldNumber.css";
+@import "../control/timeline/BlenderControlTimeline.css";
 html,
 body {
     margin: 0;
@@ -23,30 +27,9 @@ body {
     width: 100%;
 }
 
-#topbarPanel {
-    height: 30px;
-    display: flex;
-    align-items: end;
-    z-index: 1;
-}
-
-#scenesAndLayers {
-    display: flex;
-    position: absolute;
-    top: 1px;
-    right: 0;
-    padding-left: 8px;
-    background-color: var(--background-color-dark);
-}
-
 #areasPanel {
     display: flex;
     flex-grow: 1;
-    background-color: rgb(22, 22, 22);
-}
-
-#statusBarPanel {
-    height: 30px;
     background-color: rgb(22, 22, 22);
 }
 

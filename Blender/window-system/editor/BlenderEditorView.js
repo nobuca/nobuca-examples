@@ -27,16 +27,16 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.divRegionMain.className = "BlenderEditorRegionMain";
         this.getNativeElement().appendChild(this.divRegionMain);
         
-        this.regionMainView = this.createNewViewForModel(this.getModel().getRegionMain());
-        this.getDivRegionMain().appendChild(this.getRegionMainView().getNativeElement());
+        this.regionMainControlView = this.createNewViewForModel(this.getModel().getRegionMainControl());
+        this.getDivRegionMain().appendChild(this.getRegionMainControlView().getNativeElement());
     }
 
     getDivRegionMain() {
         return this.divRegionMain;
     }
 
-    getRegionMainView() {
-        return this.regionMainView;
+    getRegionMainControlView() {
+        return this.regionMainControlView;
     }
 
     createRegionHeader() {
@@ -121,7 +121,11 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.getNativeElement().style.width = editorWidth + "px";
         this.getDivRegionMain().style.height = editorHeight + "px";
         this.getDivRegionMain().style.width = editorWidth + "px";
-        
+        this.getRegionMainControlView().getNativeElement().style.height = editorHeight + "px";
+        this.getRegionMainControlView().getNativeElement().style.width = editorWidth + "px";
+
+        this.getRegionMainControlView().updateContentsPositionAndSize();
+
         this.getDivRegionHeader().style.left = margin;
         this.getDivRegionHeader().style.width = editorWidth + "px";
 

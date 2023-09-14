@@ -2,6 +2,11 @@ import NobucaComponentModel from "../../../../../nobuca-core/component/NobucaCom
 
 export default class BlenderControlButtonModel extends NobucaComponentModel {
 
+    constructor(imageSrc) {
+        super();
+        this.imageSrc = imageSrc;
+    }
+
     getClassName() {
         return "BlenderControlButtonModel";
     }

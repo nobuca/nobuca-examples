@@ -6,6 +6,7 @@ import BlenderControlButtonToggleItemModel from "../control/button-toggle/Blende
 import BlenderControlButtonToggleModel from "../control/button-toggle/BlenderControlButtonToggleModel.js";
 import BlenderControlToolbarModel from "../control/toolbar/BlenderControlToolbarModel.js";
 import NobucaMenuModel from "../../../../nobuca-core/menu/NobucaMenuModel.js";
+import NobucaPanelModel from "../../../../nobuca-core/panel/NobucaPanelModel.js";
 
 export default class Blender3dViewportEditorModel extends BlenderEditorModel {
 
@@ -238,5 +239,10 @@ export default class Blender3dViewportEditorModel extends BlenderEditorModel {
         var menuItemAddCube = menu.addMenuItem(new NobucaMenuItemModel("annotate"));
         menuItemAddCube.setIconImageSrc("./window-system/icons/toolbar-icon-add-mesh-cube.png");
     
+    }
+
+    createRegionMainControl() {
+        var control = new NobucaPanelModel();
+        this.setRegionMainControl(control);
     }
 }

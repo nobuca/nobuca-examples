@@ -84,4 +84,9 @@ export default class BlenderControlPropertiesView extends NobucaComponentView {
         });
     }
 
+    updateContentsPositionAndSize() {
+        this.getDivTabHandles().style.height = this.getNativeElement().offsetHeight + "px";
+        //this.getDivTabBodies().style.height = this.getNativeElement().offsetHeight + "px";
+    }
+
 }

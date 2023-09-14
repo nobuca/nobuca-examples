@@ -46,9 +46,9 @@ export default class BlenderOutlinerEditorModel extends BlenderEditorModel {
         this.getRegionHeader().getRightSide().addChild(control);
     }
 
-    createRegionMainControls() {
+    createRegionMainControl() {
         var outliner = new BlenderControlOutlinerModel();
-        this.getRegionMain().addChild(outliner);
+        this.setRegionMainControl(outliner);
 
         outliner.setExpandButtonIconSrc("./window-system/icons/icon-tree-node-expand.svg");
         outliner.setCollapseButtonIconSrc("./window-system/icons/icon-tree-node-collapse.svg");

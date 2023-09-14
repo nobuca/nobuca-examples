@@ -34,31 +34,31 @@ export default class BlenderPropertiesEditorModel extends BlenderEditorModel {
         this.getRegionHeader().getRightSide().addChild(control);
     }
 
-    createRegionMainControls() {
+    createRegionMainControl() {
         this.regionMainProperties = new BlenderControlPropertiesModel();
-        this.getRegionMain().addChild(this.regionMainProperties);
+        this.setRegionMainControl(this.regionMainProperties);
 
         this.createTabTool();
         this.createTabRender();
         this.createTabOutput();
 
-        this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-picture-stack.svg");
-        this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-data-block-scene.svg");
-        this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-world-red.svg");
-        this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-collection-outline.svg");
-        this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-object-orange.svg");
-        this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-wrench-blue.svg");
-        this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-particles-blue.svg");
-        this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-physics-blue.svg");
-        this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-constrains-blue.svg");
+        this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-picture-stack.svg");
+        this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-data-block-scene.svg");
+        this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-world-red.svg");
+        this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-collection-outline.svg");
+        this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-object-orange.svg");
+        this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-wrench-blue.svg");
+        this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-particles-blue.svg");
+        this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-physics-blue.svg");
+        this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel()).setIconSrc("./window-system/icons/icon-constrains-blue.svg");
     }
 
-    getReionMainProperties() {
+    getRegionMainProperties() {
         return this.regionMainProperties;
     }
 
     createTabTool() {
-        var tab = this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel());
+        var tab = this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel());
         tab.setIconSrc("./window-system/icons/icon-tool.svg");
 
         var header = tab.addChild(new NobucaPanelModel());
@@ -167,7 +167,7 @@ export default class BlenderPropertiesEditorModel extends BlenderEditorModel {
     }
 
     createTabRender() {
-        var tab = this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel());
+        var tab = this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel());
         tab.setIconSrc("./window-system/icons/icon-small-camera2.svg");
 
         var header = tab.addChild(new NobucaPanelModel());
@@ -235,7 +235,7 @@ export default class BlenderPropertiesEditorModel extends BlenderEditorModel {
     }
 
     createTabOutput() {
-        var tab = this.getReionMainProperties().addTab(new BlenderControlPropertiesTabModel());
+        var tab = this.getRegionMainProperties().addTab(new BlenderControlPropertiesTabModel());
         tab.setIconSrc("./window-system/icons/icon-printer.svg");
         tab.setActive(true);
 

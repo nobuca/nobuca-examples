@@ -11,19 +11,23 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
     constructor() {
         super();
         this.setId("topbarPanel");
-        this.createMenus();
+        this.createMenubar();
         this.createWorkspaces();
         this.createScenesAndLayers();
     }
 
-    createMenus() {
+    getClassName() {
+        return "BlenderTopbarModel";
+    }
+
+    createMenubar() {
         this.menubar = new NobucaMenubarModel();
-        this.addChild(this.menubar);
-        var blenderMenuItem = this.menubar.addMenuItem(new NobucaMenuItemModel("blender"));
+        
+        var blenderMenuItem = this.getMenubar().addMenuItem(new NobucaMenuItemModel("blender"));
         blenderMenuItem.setIconImageSrc("./window-system/icons/icon-blender.svg");
         blenderMenuItem.addMenuItem(new NobucaMenuItemModel("splashScreen", "Splash Screen"));
         blenderMenuItem.addMenuItem(new NobucaMenuItemModel("aboutBlender", "About Blender"));
-        var fileMenuItem = this.menubar.addMenuItem(new NobucaMenuItemModel("file", "File"));
+        var fileMenuItem = this.getMenubar().addMenuItem(new NobucaMenuItemModel("file", "File"));
         var fileNewMenuItem = fileMenuItem.addMenuItem(new NobucaMenuItemModel("new", "<u>N</u>ew"));
         fileNewMenuItem.setIconImageSrc("./window-system/icons/icon-file-new.svg");
         fileNewMenuItem.setShortcut("Ctrl N");
@@ -59,14 +63,14 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
         fileMenuItem.addMenuItem(new NobucaMenuItemModel("defaults", "Defaults"));
         fileMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
         fileMenuItem.addMenuItem(new NobucaMenuItemModel("quit", "Quit"));
-        var editMenuItem = this.menubar.addMenuItem(new NobucaMenuItemModel("edit", "Edit"));
+        var editMenuItem = this.getMenubar().addMenuItem(new NobucaMenuItemModel("edit", "Edit"));
         var editUndoMenuItem = editMenuItem.addMenuItem(new NobucaMenuItemModel("undo", "<u>U</u>ndo"));
         editUndoMenuItem.setShortcut("Ctrl Z");
         var editRedoMenuItem = editMenuItem.addMenuItem(new NobucaMenuItemModel("redo", "<u>R</u>edo"));
         editRedoMenuItem.setShortcut("Shift Ctrl Z");
         editRedoMenuItem.setDisabled(true);
-        this.menubar.addMenuItem(new NobucaMenuItemModel("render", "Render"));
-        var windowMenuItem = this.menubar.addMenuItem(new NobucaMenuItemModel("window", "Window"));
+        this.getMenubar().addMenuItem(new NobucaMenuItemModel("render", "Render"));
+        var windowMenuItem = this.getMenubar().addMenuItem(new NobucaMenuItemModel("window", "Window"));
         windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowNewWindow", "<u>N</u>ew Window"));
         windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowNewWindow", "New <u>M</u>ain Window"));
         windowMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
@@ -84,26 +88,36 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
         windowMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
         var windowtoggleSystemConsoleMenuItem = windowMenuItem.addMenuItem(new NobucaMenuItemModel("windowToggleSystemConsole", "Toggle System <u>C</u>console"));
         windowtoggleSystemConsoleMenuItem.setIconImageSrc("./window-system/icons/icon-window-toggle-system-console.svg");
-        this.menubar.addMenuItem(new NobucaMenuItemModel("help", "Help"));
-    }
-    
-    createWorkspaces() {
-        this.workspacesTabsHeader = this.addChild(new NobucaTabsHeaderModel());
+        this.getMenubar().addMenuItem(new NobucaMenuItemModel("help", "Help"));
     }
 
-    getWorkspacesTabsHeader() {
-        return this.workspacesTabsHeader;
+    getMenubar() {
+        return this.menubar;
+    }
+
+    createWorkspaces() {
+        this.workspaces = new NobucaTabsHeaderModel();
+    }
+
+    getWorkspaces() {
+        return this.workspaces;
     }
 
     addWorkspace(workspace) {
-        this.getWorkspacesTabsHeader().addTab(new NobucaTabModel(workspace.getId(), workspace.getTitle()));
+        this.getWorkspaces().addTab(new NobucaTabModel(workspace.getId(), workspace.getTitle()));
+    }
+
+    activateWorkspace(workspaceId) {
+        this.getWorkspaces().activateTab(workspaceId);
     }
 
     createScenesAndLayers() {
-        var scenesAndLayers = new NobucaPanelModel();
-        this.addChild(scenesAndLayers);
-        scenesAndLayers.setId("scenesAndLayers")
-        scenesAndLayers.addChild(new BlenderDataBlockMenuModel("scene"));
-        scenesAndLayers.addChild(new BlenderDataBlockMenuModel("viewLayer"))
+        this.scenesAndLayers = new NobucaPanelModel();
+        this.getScenesAndLayers().addChild(new BlenderDataBlockMenuModel("scene"));
+        this.getScenesAndLayers().addChild(new BlenderDataBlockMenuModel("viewLayer"))
+    }
+
+    getScenesAndLayers() {
+        return this.scenesAndLayers;
     }
 }

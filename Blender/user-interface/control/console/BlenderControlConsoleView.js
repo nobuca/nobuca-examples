@@ -7,4 +7,31 @@ export default class BlenderControlConsoleView extends NobucaComponentView {
         div.className = "BlenderControlConsole";
         this.setNativeElement(div);
     }
+
+    createEntry(entryModel) {
+        var divEntry = document.createElement("div");
+        divEntry.className = "BlenderControlConsoleEntry " + entryModel.getSeverity();;
+        this.getNativeElement().appendChild(divEntry);
+
+        var divEntryTimestamp = document.createElement("div");
+        divEntryTimestamp.className = "BlenderControlConsoleEntryTimestamp";
+        divEntryTimestamp.innerHTML = entryModel.getTimestamp().toLocaleDateString() + " " + entryModel.getTimestamp().toLocaleTimeString();
+        divEntry.appendChild(divEntryTimestamp);
+
+        var divEntrySeverity = document.createElement("div");
+        divEntrySeverity.className = "BlenderControlConsoleEntrySeverity";
+        divEntrySeverity.innerHTML = entryModel.getSeverity();
+        divEntry.appendChild(divEntrySeverity);
+
+        var divEntryText = document.createElement("div");
+        divEntryText.className = "BlenderControlConsoleEntryText";
+        divEntryText.innerHTML = entryModel.getText();
+        divEntry.appendChild(divEntryText);
+    }
+
+    listenModel() {
+        this.getModel().getEntryAddedEventEmitter().subscribe(entryModel =>{
+            this.createEntry(entryModel);
+        });
+    }
 }

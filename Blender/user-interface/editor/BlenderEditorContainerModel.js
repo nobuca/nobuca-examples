@@ -51,7 +51,6 @@ export default class BlenderEditorContainerModel extends NobucaComponentModel {
     }
 
     listenActiveEditor() {
-        console.log("listenActiveEditor");
         this.subscription = this.getActiveEditor().getEditorChangeRequestedEventEmitter().subscribe((type) => {
             var editor = this.createEditor(type);
             if (editor != null) {

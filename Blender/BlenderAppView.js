@@ -16,6 +16,7 @@ import BlenderTopbarView from "./user-interface/topbar/BlenderTopbarView.js";
 import BlenderStatusbarView from "./user-interface/statusbar/BlenderStatusbarView.js";
 import BlenderControlEditorSelectorPopoverView from "./user-interface/control/editor-selector/BlenderControlEditorSelectorPopoverView.js";
 import BlenderControlConsoleView from "./user-interface/control/console/BlenderControlConsoleView.js";
+import BlenderControl3DViewportView from "./user-interface/control/3d-viewport/BlenderControl3DViewportView.js";
 
 export default class BlenderAppView extends NobucaAppView {
 
@@ -53,6 +54,8 @@ export default class BlenderAppView extends NobucaAppView {
             function (model) { return new BlenderControlConsoleView(model); });
         this.registerViewConstructorForModelClassName("BlenderControlEditorSelectorPopoverModel",
             function (model) { return new BlenderControlEditorSelectorPopoverView(model); });
+            this.registerViewConstructorForModelClassName("BlenderControl3DViewportModel",
+            function (model) { return new BlenderControl3DViewportView(model); });
     }
 
     createNativeElement() {
@@ -68,8 +71,6 @@ export default class BlenderAppView extends NobucaAppView {
 
         this.areasView = this.createNewViewForModel(this.getModel().getAreas());
         this.getRootPanelView().getNativeElement().appendChild(this.getAreasView().getNativeElement());
-
-        console.log("createRootPanelView");
 
         this.statusbarView = this.createNewViewForModel(this.getModel().getStatusbar());
         this.getRootPanelView().getNativeElement().appendChild(this.getStatusView().getNativeElement());

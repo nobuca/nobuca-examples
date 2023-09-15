@@ -12,6 +12,8 @@
     flex-direction: column;
     user-select: none;
     overflow-y: auto;
+    scrollbar-width: none;
+    min-width: 30px;
 }
 
 .BlenderControlPropertiesTabHandles::-webkit-scrollbar {
@@ -59,6 +61,7 @@
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-width: thin;
 }
 
 .BlenderControlPropertiesTabBody>.NobucaPanel {

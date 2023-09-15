@@ -131,7 +131,6 @@ export default class BlenderEditorView extends NobucaComponentView {
 
         var toolSettingsTop = this.getDivRegionHeader().offsetTop;
         toolSettingsTop += this.getDivRegionHeader().offsetHeight;
-        toolSettingsTop += margin;
 
         this.getDivRegionToolSettings().style.top = toolSettingsTop + "px"; 
         this.getDivRegionToolSettings().style.width = editorWidth + "px";

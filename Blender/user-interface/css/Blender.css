@@ -13,6 +13,7 @@
 @import "../control/timeline/BlenderControlTimeline.css";
 @import "../control/editor-selector/BlenderControlEditorSelectorPopover.css";
 @import "../control/console/BlenderControlConsole.css";
+@import "../control/3d-viewport/BlenderControl3DViewport.css";
 html,
 body {
     margin: 0;
@@ -27,6 +28,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
+    overflow: hidden;
 }
 
 #areasPanel {

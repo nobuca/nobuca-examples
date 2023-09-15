@@ -6,6 +6,7 @@ import BlenderControlButtonToggleItemModel from "../control/button-toggle/Blende
 import BlenderControlButtonToggleModel from "../control/button-toggle/BlenderControlButtonToggleModel.js";
 import NobucaMenuModel from "../../../../nobuca-core/menu/NobucaMenuModel.js";
 import NobucaPanelModel from "../../../../nobuca-core/panel/NobucaPanelModel.js";
+import BlenderControl3DViewportModel from "../control/3d-viewport/BlenderControl3DViewportModel.js";
 
 export default class BlenderEditor3dViewportModel extends BlenderEditorModel {
     
@@ -245,7 +246,7 @@ export default class BlenderEditor3dViewportModel extends BlenderEditorModel {
     }
 
     createRegionMainControl() {
-        var control = new NobucaPanelModel();
+        var control = new BlenderControl3DViewportModel();
         this.setRegionMainControl(control);
     }
 }

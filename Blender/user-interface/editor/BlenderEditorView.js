@@ -111,14 +111,12 @@ export default class BlenderEditorView extends NobucaComponentView {
     }
 
     updateContentsPositionAndSize() {
-        var parent = this.getNativeElement().parentNode;
+
         var margin = 1;
-        var editorHeight = parent.offsetHeight - margin*2;
-        var editorWidth = parent.offsetWidth - margin*2;
-        this.getNativeElement().style.top = margin + "px";
-        this.getNativeElement().style.left = margin + "px";
-        this.getNativeElement().style.height = editorHeight + "px";
-        this.getNativeElement().style.width = editorWidth + "px";
+
+        var editorHeight = this.getNativeElement().offsetHeight - margin*2;
+        var editorWidth = this.getNativeElement().offsetWidth - margin*2;
+
         this.getDivRegionMain().style.height = editorHeight + "px";
         this.getDivRegionMain().style.width = editorWidth + "px";
         this.getRegionMainControlView().getNativeElement().style.height = editorHeight + "px";

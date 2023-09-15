@@ -1,3 +1,15 @@
 .BlenderControl3DViewport {
   background-color: rgb(65, 65, 65);
+  display: flex;
+}
+
+.BlenderControl3DViewportWebGpuNotSupported {
+  color: rgb(211, 111, 111);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  text-shadow: var(--text-shadow);
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
 }

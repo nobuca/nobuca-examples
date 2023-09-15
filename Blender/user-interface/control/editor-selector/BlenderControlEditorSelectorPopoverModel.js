@@ -37,6 +37,7 @@ export default class BlenderControlEditorSelectorPopoverModel extends NobucaPopo
 
         var data = this.createColumn("Data");
         data.addEntry("outliner", "./user-interface/icons/icon-editor-outliner.svg", "<u>O</u>utliner", "Shift F9");
+        data.addEntry("properties", "./user-interface/icons/icon-editor-properties.svg", "Properties", "Shift F7");
     }
 
     getColumns() {

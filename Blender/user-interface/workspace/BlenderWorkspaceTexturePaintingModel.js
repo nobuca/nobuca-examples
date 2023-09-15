@@ -12,25 +12,13 @@ export default class BlenderWorkspaceTexturePaintingModel extends BlenderWorkspa
         this.setId("texturePainting");
         this.setTitle("Texture Painting");
 
-        var uvEditor = new NobucaPanelModel();
-        uvEditor.setId("uvEditor");
-        uvEditor.addChild(new NobucaPanelModel());
+        var uvEditor =new NobucaPanelModel();
 
-        var threeDViewportEditor = new NobucaPanelModel();
-        threeDViewportEditor.setId("3dViewport");
-        threeDViewportEditor.addChild(new BlenderEditorContainerModel("3dViewport"));
+        var threeDViewportEditor = new BlenderEditorContainerModel("3dViewport");
 
-        var outlinerAndProperties = new NobucaPanelModel();
-        outlinerAndProperties.setId("outlinerAndProperties");
-        outlinerAndProperties.addChild(new NobucaPanelModel());
+        var outliner = new BlenderEditorContainerModel("outliner");
 
-        var outliner = new NobucaPanelModel();
-        outliner.setId("areaColumnRightTop");
-        outliner.addChild(new BlenderEditorContainerModel("outliner"));
-
-        var properties = new NobucaPanelModel();
-        properties.setId("areaColumnRightBottom");
-        properties.addChild(new BlenderEditorContainerModel("properties"));
+        var properties = new BlenderEditorContainerModel("properties");
 
         var splitOultineAndProperties = new NobucaPanelSplitTopBottomModel(outliner, properties, .35);
 

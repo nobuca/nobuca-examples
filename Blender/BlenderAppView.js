@@ -54,7 +54,7 @@ export default class BlenderAppView extends NobucaAppView {
             function (model) { return new BlenderControlConsoleView(model); });
         this.registerViewConstructorForModelClassName("BlenderControlEditorSelectorPopoverModel",
             function (model) { return new BlenderControlEditorSelectorPopoverView(model); });
-            this.registerViewConstructorForModelClassName("BlenderControl3DViewportModel",
+        this.registerViewConstructorForModelClassName("BlenderControl3DViewportModel",
             function (model) { return new BlenderControl3DViewportView(model); });
     }
 
@@ -105,17 +105,18 @@ export default class BlenderAppView extends NobucaAppView {
         this.getRootPanelView().getNativeElement().style.height = window.innerHeight + "px";
         this.getRootPanelView().getNativeElement().style.width = window.innerWidth + "px";
 
-        this.getTopbarView().updateContentsPositionAndSize();
-
         var areasHeight = this.getRootPanelView().getNativeElement().offsetHeight;
         areasHeight -= this.getTopbarView().getNativeElement().offsetHeight;
         areasHeight -= this.getStatusView().getNativeElement().offsetHeight;
 
-        this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.height = areasHeight + "px";
-        this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
-        this.getAreasView().getChildViews()[0].getChildViews()[0].updateContentsPositionAndSize();
+        var workspaceView = this.getAreasView().getChildViews()[0].getChildViews()[0];
 
-        this.getStatusView().updateContentsPositionAndSize();
+        if (workspaceView.getNativeElement().offsetHeight != areasHeight ||
+            workspaceView.getNativeElement().offsetWidth != this.getRootPanelView().getNativeElement().offsetWidth) {
+            workspaceView.getNativeElement().style.height = areasHeight + "px";
+            workspaceView.getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
+            workspaceView.updateContentsPositionAndSize();
+        }
     }
 
     listenModel() {

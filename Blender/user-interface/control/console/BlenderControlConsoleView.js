@@ -27,6 +27,8 @@ export default class BlenderControlConsoleView extends NobucaComponentView {
         divEntryText.className = "BlenderControlConsoleEntryText";
         divEntryText.innerHTML = entryModel.getText();
         divEntry.appendChild(divEntryText);
+
+        this.getNativeElement().scrollTop = divEntry.offsetTop;
     }
 
     listenModel() {

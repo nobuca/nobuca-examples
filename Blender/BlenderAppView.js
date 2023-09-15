@@ -1,19 +1,21 @@
 import NobucaAppView from "../../nobuca-core/app/NobucaAppView.js";
 import NobucaFactory from "../../nobuca-core/factory/NobucaFactory.js";
-import BlenderControlButtonDropDownView from "./window-system/control/button-drop-down/BlenderControlButtonDropDownView.js";
-import BlenderControlButtonToggleView from "./window-system/control/button-toggle/BlenderControlButtonToggleView.js";
-import BlenderDataBlockMenuView from "./window-system/control/data-block-menu/BlenderDataBlockMenuView.js";
-import BlenderControlSearchView from "./window-system/control/search/BlenderControlSearchView.js";
-import BlenderControlButtonView from "./window-system/control/button/BlenderControlButtonView.js";
-import BlenderControlToolbarView from "./window-system/control/toolbar/BlenderControlToolbarView.js";
-import BlenderControlOutlinerView from "./window-system/control/outliner/BlenderControlOutlinerView.js";
-import BlenderEditorContainerView from "./window-system/editor/BlenderEditorContainerView.js";
-import BlenderEditorView from "./window-system/editor/BlenderEditorView.js";
-import BlenderControlPropertiesView from "./window-system/control/properties/BlenderControlPropertiesView.js";
-import BlenderFieldNumberView from "./window-system/field/number/BlenderFieldNumberView.js";
-import BlenderControlTimelineView from "./window-system/control/timeline/BlenderControlTimelineView.js";
-import BlenderTopbarView from "./window-system/topbar/BlenderTopbarView.js";
-import BlenderStatusbarView from "./window-system/statusbar/BlenderStatusbarView.js";
+import BlenderControlButtonDropDownView from "./user-interface/control/button-drop-down/BlenderControlButtonDropDownView.js";
+import BlenderControlButtonToggleView from "./user-interface/control/button-toggle/BlenderControlButtonToggleView.js";
+import BlenderDataBlockMenuView from "./user-interface/control/data-block-menu/BlenderDataBlockMenuView.js";
+import BlenderControlSearchView from "./user-interface/control/search/BlenderControlSearchView.js";
+import BlenderControlButtonView from "./user-interface/control/button/BlenderControlButtonView.js";
+import BlenderControlToolbarView from "./user-interface/control/toolbar/BlenderControlToolbarView.js";
+import BlenderControlOutlinerView from "./user-interface/control/outliner/BlenderControlOutlinerView.js";
+import BlenderEditorContainerView from "./user-interface/editor/BlenderEditorContainerView.js";
+import BlenderEditorView from "./user-interface/editor/BlenderEditorView.js";
+import BlenderControlPropertiesView from "./user-interface/control/properties/BlenderControlPropertiesView.js";
+import BlenderFieldNumberView from "./user-interface/field/number/BlenderFieldNumberView.js";
+import BlenderControlTimelineView from "./user-interface/control/timeline/BlenderControlTimelineView.js";
+import BlenderTopbarView from "./user-interface/topbar/BlenderTopbarView.js";
+import BlenderStatusbarView from "./user-interface/statusbar/BlenderStatusbarView.js";
+import BlenderControlEditorSelectorPopoverView from "./user-interface/control/editor-selector/BlenderControlEditorSelectorPopoverView.js";
+import BlenderControlConsoleView from "./user-interface/control/console/BlenderControlConsoleView.js";
 
 export default class BlenderAppView extends NobucaAppView {
 
@@ -47,6 +49,10 @@ export default class BlenderAppView extends NobucaAppView {
             function (model) { return new BlenderFieldNumberView(model); });
         this.registerViewConstructorForModelClassName("BlenderControlTimelineModel",
             function (model) { return new BlenderControlTimelineView(model); });
+        this.registerViewConstructorForModelClassName("BlenderControlConsoleModel",
+            function (model) { return new BlenderControlConsoleView(model); });
+        this.registerViewConstructorForModelClassName("BlenderControlEditorSelectorPopoverModel",
+            function (model) { return new BlenderControlEditorSelectorPopoverView(model); });
     }
 
     createNativeElement() {
@@ -116,7 +122,7 @@ export default class BlenderAppView extends NobucaAppView {
             console.log("workspace activated");
             this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
             this.getAreasView().getChildViews()[0].getChildViews()[0].updateContentsPositionAndSize();
-    
+
         });
     }
 }

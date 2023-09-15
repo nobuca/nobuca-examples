@@ -1,0 +1,56 @@
+.BlenderControlEditorSelectorPopoverColumns {
+  color: rgb(211, 211, 211);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  text-shadow: var(--text-shadow);
+  display: flex;
+  flex-direction: row;
+}
+
+.BlenderControlEditorSelectorPopoverColumn {
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.BlenderControlEditorSelectorPopoverColumnName {
+  border-bottom: 1px solid rgb(47, 47, 47);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 16px;
+  padding-right: 10px;
+  opacity: 0.6;
+}
+
+.BlenderControlEditorSelectorPopoverColumnEntry {
+  margin-top: 4px;
+  margin-top: 4px;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.BlenderControlEditorSelectorPopoverColumnEntry:hover {
+  background-color: rgb(58, 89, 138);
+  border: 1px solid rgb(71, 114, 179);
+  border-radius: var(--menubar-border-radius);
+}
+
+.BlenderControlEditorSelectorPopoverColumnEntryIcon {
+  padding-right: 10px;
+}
+
+.BlenderControlEditorSelectorPopoverColumnEntryShortcut {
+  padding-left: 50px;
+  display: flex;
+  justify-content: right;
+  flex-grow: 1;
+  opacity: 0.4;
+}

@@ -1,16 +1,16 @@
 import NobucaAppModel from "../../nobuca-core/app/NobucaAppModel.js";
 import NobucaPanelModel from "../../nobuca-core/panel/NobucaPanelModel.js";
-import BlenderTopbarModel from "./window-system/topbar/BlenderTopbarModel.js";
-import BlenderWorkspaceModel from "./window-system/workspace/BlenderWorkspaceModel.js";
+import BlenderTopbarModel from "./user-interface/topbar/BlenderTopbarModel.js";
+import BlenderWorkspaceModel from "./user-interface/workspace/BlenderWorkspaceModel.js";
 import NobucaPanelSplitLeftRightModel from "../../nobuca-core/panel-split/NobucaPanelSplitLeftRightModel.js";
 import NobucaPanelSplitTopBottomModel from "../../nobuca-core/panel-split/NobucaPanelSplitTopBottomModel.js";
-import BlenderEditorContainerModel from "./window-system/editor/BlenderEditorContainerModel.js";
-import BlenderStatusbarModel from "./window-system/statusbar/BlenderStatusbarModel.js";
-import BlenderWorkspace3DViewportModel from "./window-system/workspace/BlenderWorkspace3DViewportModel.js";
-import BlenderWorkspaceModelingModel from "./window-system/workspace/BlenderWorkspaceModelingModel.js";
-import BlenderWorkspaceSculptingModel from "./window-system/workspace/BlenderWorkspaceSculptingModel.js";
-import BlenderWorkspaceUvEditingModel from "./window-system/workspace/BlenderWorkspaceUvEditingModel.js";
-import BlenderWorkspaceTexturePaintingModel from "./window-system/workspace/BlenderWorkspaceTexturePaintingModel.js";
+import BlenderEditorContainerModel from "./user-interface/editor/BlenderEditorContainerModel.js";
+import BlenderStatusbarModel from "./user-interface/statusbar/BlenderStatusbarModel.js";
+import BlenderWorkspaceLayoutModel from "./user-interface/workspace/BlenderWorkspaceLayoutModel.js";
+import BlenderWorkspaceModelingModel from "./user-interface/workspace/BlenderWorkspaceModelingModel.js";
+import BlenderWorkspaceSculptingModel from "./user-interface/workspace/BlenderWorkspaceSculptingModel.js";
+import BlenderWorkspaceUvEditingModel from "./user-interface/workspace/BlenderWorkspaceUvEditingModel.js";
+import BlenderWorkspaceTexturePaintingModel from "./user-interface/workspace/BlenderWorkspaceTexturePaintingModel.js";
 
 export default class BlenderAppModel extends NobucaAppModel {
 
@@ -32,7 +32,7 @@ export default class BlenderAppModel extends NobucaAppModel {
     createWorkspaces() {
         this.workspaces = [];
 
-        this.getWorkspaces().push(new BlenderWorkspace3DViewportModel());
+        this.getWorkspaces().push(new BlenderWorkspaceLayoutModel());
         this.getWorkspaces().push(new BlenderWorkspaceModelingModel());
         this.getWorkspaces().push(new BlenderWorkspaceSculptingModel());
         this.getWorkspaces().push(new BlenderWorkspaceUvEditingModel());

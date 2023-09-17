@@ -1,5 +1,6 @@
 import NobucaComponentView from "../../../../../nobuca-core/component/NobucaComponentView.js";
 import BlenderLogger from "../../../business-logic/logger/BlenderLogger.js";
+import BlenderMatrix4x4 from "../../../business-logic/math/BlenderMatrix4x4.js";
 import BlenderMatrix4 from "../../../business-logic/math/BlenderMatrix4.js";
 import BlenderVector3 from "../../../business-logic/math/BlenderVector3.js";
 
@@ -268,34 +269,15 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
         };
 
         const aspect = this.getCanvas().width / this.getCanvas().height;
-        const projectionMatrix = BlenderMatrix4.perspective(
+        this.projectionMatrix = new BlenderMatrix4x4();
+        this.projectionMatrix.perspective(
             (2 * Math.PI) / 5,
             aspect,
             1,
             100.0
         );
 
-        const modelViewProjectionMatrix = BlenderMatrix4.create();
-
-        function getTransformationMatrix(deltaTime) {
-            
-            const viewMatrix = BlenderMatrix4.identity();
-            
-            BlenderMatrix4.translate(viewMatrix, BlenderVector3.fromValues(0, 0, -4), viewMatrix);
-            
-            const now = Date.now() / 1000;
-            
-            BlenderMatrix4.rotate(
-                viewMatrix,
-                BlenderVector3.fromValues(Math.sin(now), Math.cos(now), 0),
-                1,
-                viewMatrix
-            );
-
-            BlenderMatrix4.multiply(projectionMatrix, viewMatrix, modelViewProjectionMatrix);
-
-            return modelViewProjectionMatrix;
-        }
+        this.modelViewProjectionMatrix = new BlenderMatrix4x4();
 
         // ~~ Define render loop ~~
         var frame = () => {
@@ -303,16 +285,21 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
             const now = Date.now();
             const deltaTime = (now - this.lastFrameMS) / 1000;
             this.lastFrameMS = now;
-            
+
+            this.getModel().getCamera().update(deltaTime);
+
             if (!BlenderControl3DViewportView.pageIsVisible) return;
 
-            const transformationMatrix = getTransformationMatrix(deltaTime);
+            var viewMatrix = this.getModel().getCamera().getViewMatrix();
+
+            this.modelViewProjectionMatrix.multiply(this.projectionMatrix.getValues(), viewMatrix.getValues());
+
             device.queue.writeBuffer(
                 uniformBuffer,
                 0,
-                transformationMatrix.buffer,
-                transformationMatrix.byteOffset,
-                transformationMatrix.byteLength
+                this.modelViewProjectionMatrix.getValues().buffer,
+                this.modelViewProjectionMatrix.getValues().byteOffset,
+                this.modelViewProjectionMatrix.getValues().byteLength
             );
 
             renderPassDescriptor.colorAttachments[0].view = context

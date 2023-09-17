@@ -1,4 +1,5 @@
 import NobucaComponentModel from "../../../../../nobuca-core/component/NobucaComponentModel.js"
+import BlenderCameraArcball from "../../../business-logic/camera/BlenderCameraArcball.js";
 import BlenderCameraRotating from "../../../business-logic/camera/BlenderCameraRotating.js";
 import BlenderMeshCube from "../../../business-logic/mesh/BlenderMeshCube.js";
 import BlenderMeshTriangle from "../../../business-logic/mesh/BlenderMeshTriangle.js";
@@ -16,7 +17,8 @@ export default class BlenderControl3DViewportModel extends NobucaComponentModel 
     }
 
     createCamera() {
-        this.camera = new BlenderCameraRotating();
+        //this.camera = new BlenderCameraRotating();
+        this.camera = new BlenderCameraArcball();
     }
 
     getCamera() {

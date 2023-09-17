@@ -253,7 +253,7 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
             colorAttachments: [
                 {
                     view: undefined, // Assigned later
-                    clearValue: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
+                    clearValue: { r: 0.23, g: 0.23, b: 0.23, a: 1.0 },
                     loadOp: "clear",
                     storeOp: "store",
                 },
@@ -277,20 +277,46 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
 
         this.modelViewProjectionMatrix = new BlenderMatrix4();
 
+        this.mouseState = new Object();
+        this.mouseState.x = 0;
+        this.mouseState.y = 0;
+        this.mouseState.wheel = 0;
+        this.mouseState.leftButtonDown = false;
+
+        this.getNativeElement().addEventListener("mousemove", event => {
+            this.mouseState.leftButtonDown = (event.buttons & 1) !== 0;
+            if (this.mouseState.leftButtonDown) {
+                this.mouseState.x += event.movementX;
+                this.mouseState.y += event.movementY;
+            }
+        });
+
+        this.getNativeElement().addEventListener("wheel", event => {
+            this.mouseState.wheel += Math.sign(event.deltaY);
+        });
+
+        this.deltaTime = 0;
+        this.lastFrameMS = Date.now();
+
         // ~~ Define render loop ~~
         var frame = () => {
 
             const now = Date.now();
-            const deltaTime = (now - this.lastFrameMS) / 1000;
+            this.deltaTime = (now - this.lastFrameMS) / 1000;
             this.lastFrameMS = now;
 
-            this.getModel().getCamera().update(deltaTime);
+            this.getModel().getCamera().update(this.deltaTime, this.mouseState);
+
+            this.mouseState.x = 0;
+            this.mouseState.y = 0;
+            this.mouseState.wheel = 0;
+            this.mouseState.leftButtonDown = false;
 
             if (!BlenderControl3DViewportView.pageIsVisible) return;
 
             var viewMatrix = this.getModel().getCamera().getViewMatrix();
 
-            this.modelViewProjectionMatrix.multiply(this.projectionMatrix.getValues(), viewMatrix.getValues());
+            this.modelViewProjectionMatrix.multiply(this.projectionMatrix, viewMatrix);
 
             device.queue.writeBuffer(
                 uniformBuffer,

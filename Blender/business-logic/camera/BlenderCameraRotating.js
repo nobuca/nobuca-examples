@@ -3,15 +3,19 @@ import BlenderCamera from "./BlenderCamera.js";
 
 export default class BlenderCameraRotating extends BlenderCamera {
 
+    constructor() {
+        super();
+    }
+
     update(deltaTime) {
 
-        this.viewMatrix.identity();
+        this.getViewMatrix().identity();
 
-        this.viewMatrix.translate(BlenderVector3.fromValues(0, 0, -4));
+        this.getViewMatrix().translate((new BlenderVector3()).fromXYZ(0, 0, -4));
 
         const now = Date.now() / 1000;
 
-        this.viewMatrix.rotate(BlenderVector3.fromValues(Math.sin(now), Math.cos(now), 0), 1);
+        this.getViewMatrix().rotate((new BlenderVector3()).fromXYZ(Math.sin(now), Math.cos(now), 0), 1);
     }
 
 }

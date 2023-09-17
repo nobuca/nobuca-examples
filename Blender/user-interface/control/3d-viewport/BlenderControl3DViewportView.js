@@ -1,8 +1,6 @@
 import NobucaComponentView from "../../../../../nobuca-core/component/NobucaComponentView.js";
 import BlenderLogger from "../../../business-logic/logger/BlenderLogger.js";
-import BlenderMatrix4x4 from "../../../business-logic/math/BlenderMatrix4x4.js";
 import BlenderMatrix4 from "../../../business-logic/math/BlenderMatrix4.js";
-import BlenderVector3 from "../../../business-logic/math/BlenderVector3.js";
 
 export default class BlenderControl3DViewportView extends NobucaComponentView {
 
@@ -269,7 +267,7 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
         };
 
         const aspect = this.getCanvas().width / this.getCanvas().height;
-        this.projectionMatrix = new BlenderMatrix4x4();
+        this.projectionMatrix = new BlenderMatrix4();
         this.projectionMatrix.perspective(
             (2 * Math.PI) / 5,
             aspect,
@@ -277,7 +275,7 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
             100.0
         );
 
-        this.modelViewProjectionMatrix = new BlenderMatrix4x4();
+        this.modelViewProjectionMatrix = new BlenderMatrix4();
 
         // ~~ Define render loop ~~
         var frame = () => {

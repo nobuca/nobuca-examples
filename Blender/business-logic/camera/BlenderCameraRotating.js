@@ -1,4 +1,3 @@
-import BlenderMatrix4 from "../math/BlenderMatrix4.js";
 import BlenderVector3 from "../math/BlenderVector3.js";
 import BlenderCamera from "./BlenderCamera.js";
 

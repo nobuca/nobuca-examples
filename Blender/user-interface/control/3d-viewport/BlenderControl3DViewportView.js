@@ -107,35 +107,61 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
 
         BlenderLogger.debug("WebGPU: Context configured.");
 
-        BlenderLogger.debug("WebGPU: Creating vertex buffer...");
+        BlenderLogger.debug("WebGPU: Creating vertex buffers...");
 
-        const vertexBuffer = device.createBuffer({
-            size: this.getModel().getMesh().getVertexArray().byteLength,
+        const vertexBufferTriangleList = device.createBuffer({
+            size: this.getModel().getTriangles().getVertexArray().byteLength,
             usage: GPUBufferUsage.VERTEX,
             mappedAtCreation: true,
         });
-        new Float32Array(vertexBuffer.getMappedRange()).set(this.getModel().getMesh().getVertexArray());
-        vertexBuffer.unmap();
+        new Float32Array(vertexBufferTriangleList.getMappedRange()).set(this.getModel().getTriangles().getVertexArray());
+        vertexBufferTriangleList.unmap();
 
-        const vertexBuffersDescriptors = [
+        const vertexBufferLineList = device.createBuffer({
+            size: this.getModel().getLines().getVertexArray().byteLength,
+            usage: GPUBufferUsage.VERTEX,
+            mappedAtCreation: true,
+        });
+        new Float32Array(vertexBufferLineList.getMappedRange()).set(this.getModel().getLines().getVertexArray());
+        vertexBufferLineList.unmap();
+
+        const vertexBuffersDescriptorsTriangleList = [
             {
                 attributes: [
                     {
                         shaderLocation: 0,
-                        offset: this.getModel().getMesh().getPositionOffset(),
+                        offset: this.getModel().getTriangles().getPositionOffset(),
                         format: "float32x4",
                     },
                     {
                         shaderLocation: 1,
-                        offset: this.getModel().getMesh().getUvOffset(),
+                        offset: this.getModel().getTriangles().getUvOffset(),
                         format: "float32x2",
                     },
                 ],
-                arrayStride: this.getModel().getMesh().getVertexSize()
+                arrayStride: this.getModel().getTriangles().getVertexSize()
             },
         ];
 
-        BlenderLogger.debug("WebGPU: Vertex buffer created.");
+        const vertexBuffersDescriptorsLineList = [
+            {
+                attributes: [
+                    {
+                        shaderLocation: 0,
+                        offset: this.getModel().getLines().getPositionOffset(),
+                        format: "float32x4",
+                    },
+                    {
+                        shaderLocation: 1,
+                        offset: this.getModel().getLines().getColorOffset(),
+                        format: "float32x4",
+                    },
+                ],
+                arrayStride: this.getModel().getLines().getVertexSize()
+            },
+        ];
+
+        BlenderLogger.debug("WebGPU: Vertex buffers created.");
 
         BlenderLogger.debug("WebGPU: Creating shaders...");
 
@@ -148,6 +174,8 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
         //const triangleVertWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/triangle.vert.wgsl');
         //const redFragWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/red.frag.wgsl');
         //const shaderModuleWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/shader-module.wgsl');
+        const linesVerWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/lines.vert.wgsl');
+        const linesFragWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/lines.frag.wgsl');
         //const cubeWgsl= await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/cube.wgsl');
         const basicVertWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/basic.vert.wgsl');
         //const vertexPositionColorFragWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/vertexPositionColor.frag.wgsl');
@@ -155,15 +183,16 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
 
         BlenderLogger.debug("WebGPU: Shaders created.");
 
-        BlenderLogger.debug("WebGPU: Creating render pipeline...");
+        BlenderLogger.debug("WebGPU: Creating render pipelines...");
 
-        // ~~ CREATE RENDER PIPELINE ~~
-        const pipeline = device.createRenderPipeline({
+        const sampleCount = 4;
+
+        const pipelineTriangleList = device.createRenderPipeline({
             layout: 'auto',
             vertex: {
                 module: basicVertWgsl,
                 entryPoint: "main",
-                buffers: vertexBuffersDescriptors,
+                buffers: vertexBuffersDescriptorsTriangleList,
             },
             fragment: {
                 module: sampleTextureMixColorFragWgsl,
@@ -183,12 +212,54 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
                 depthCompare: 'less',
                 format: 'depth24plus',
             },
+            multisample: {
+                count: sampleCount,
+            },
         });
 
-        BlenderLogger.debug("WebGPU: Render pipeline created.");
+        const pipelineLineList = device.createRenderPipeline({
+            layout: 'auto',
+            vertex: {
+                module: linesVerWgsl,
+                entryPoint: "main",
+                buffers: vertexBuffersDescriptorsLineList,
+            },
+            fragment: {
+                module: linesFragWgsl,
+                entryPoint: "main",
+                targets: [
+                    {
+                        format: presentationFormat,
+                    },
+                ],
+            },
+            primitive: {
+                topology: "line-list",
+                cullMode: 'back',
+            },
+            depthStencil: {
+                depthWriteEnabled: true,
+                depthCompare: 'less',
+                format: 'depth24plus',
+            },
+            multisample: {
+                count: sampleCount,
+            },
+        });
+
+        BlenderLogger.debug("WebGPU: Render pipelines created.");
+
+        const texture = device.createTexture({
+            size: [this.getCanvas().width, this.getCanvas().height],
+            sampleCount,
+            format: presentationFormat,
+            usage: GPUTextureUsage.RENDER_ATTACHMENT,
+        });
+        const view = texture.createView();
 
         const depthTexture = device.createTexture({
             size: [this.getCanvas().width, this.getCanvas().height],
+            sampleCount,
             format: 'depth24plus',
             usage: GPUTextureUsage.RENDER_ATTACHMENT,
         });
@@ -228,8 +299,10 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
             minFilter: 'linear',
         });
 
-        const uniformBindGroup = device.createBindGroup({
-            layout: pipeline.getBindGroupLayout(0),
+        BlenderLogger.debug("WebGPU: Creating binding groups...");
+
+        const uniformBindGroupTriangleList = device.createBindGroup({
+            layout: pipelineTriangleList.getBindGroupLayout(0),
             entries: [
                 {
                     binding: 0,
@@ -248,23 +321,19 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
             ],
         });
 
-        // ~~ CREATE RENDER PASS DESCRIPTOR ~~
-        const renderPassDescriptor = {
-            colorAttachments: [
+        const uniformBindGroupLineList = device.createBindGroup({
+            layout: pipelineLineList.getBindGroupLayout(0),
+            entries: [
                 {
-                    view: undefined, // Assigned later
-                    clearValue: { r: 0.23, g: 0.23, b: 0.23, a: 1.0 },
-                    loadOp: "clear",
-                    storeOp: "store",
+                    binding: 0,
+                    resource: {
+                        buffer: uniformBuffer,
+                    },
                 },
             ],
-            depthStencilAttachment: {
-                view: depthTexture.createView(),
-                depthClearValue: 1.0,
-                depthLoadOp: 'clear',
-                depthStoreOp: 'store',
-            },
-        };
+        });
+
+        BlenderLogger.debug("WebGPU: Binding groups created.");
 
         const aspect = this.getCanvas().width / this.getCanvas().height;
         this.projectionMatrix = new BlenderMatrix4();
@@ -326,17 +395,39 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
                 this.modelViewProjectionMatrix.getValues().byteLength
             );
 
-            renderPassDescriptor.colorAttachments[0].view = context
-                .getCurrentTexture()
-                .createView();
-
             const commandEncoder = device.createCommandEncoder();
 
+            // ~~ CREATE RENDER PASS DESCRIPTOR ~~
+            const renderPassDescriptor = {
+                colorAttachments: [
+                    {
+                        view,
+                        resolveTarget: context.getCurrentTexture().createView(),
+                        clearValue: { r: 0.23, g: 0.23, b: 0.23, a: 1.0 },
+                        loadOp: "clear",
+                        storeOp: "store",
+                    },
+                ],
+                depthStencilAttachment: {
+                    view: depthTexture.createView(),
+                    depthClearValue: 1.0,
+                    depthLoadOp: 'clear',
+                    depthStoreOp: 'store',
+                },
+            };
+
             const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
-            passEncoder.setPipeline(pipeline);
-            passEncoder.setBindGroup(0, uniformBindGroup);
-            passEncoder.setVertexBuffer(0, vertexBuffer);
-            passEncoder.draw(this.getModel().getMesh().getVertexCount());
+
+            passEncoder.setPipeline(pipelineTriangleList);
+            passEncoder.setBindGroup(0, uniformBindGroupTriangleList);
+            passEncoder.setVertexBuffer(0, vertexBufferTriangleList);
+            passEncoder.draw(this.getModel().getTriangles().getVertexCount());
+
+            passEncoder.setPipeline(pipelineLineList);
+            passEncoder.setBindGroup(0, uniformBindGroupLineList);
+            passEncoder.setVertexBuffer(0, vertexBufferLineList);
+            passEncoder.draw(this.getModel().getLines().getVertexCount());
+
             passEncoder.end();
 
             device.queue.submit([commandEncoder.finish()]);

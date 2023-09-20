@@ -11,11 +11,11 @@ export default class BlenderCameraRotating extends BlenderCamera {
 
         this.getViewMatrix().identity();
 
-        this.getViewMatrix().translate((new BlenderVector3()).fromXYZ(0, 0, -4));
+        this.getViewMatrix().translate((new BlenderVector3()).setXYZ(0, 0, -4));
 
         const now = Date.now() / 1000;
 
-        this.getViewMatrix().rotate((new BlenderVector3()).fromXYZ(Math.sin(now), Math.cos(now), 0), 1);
+        this.getViewMatrix().rotate((new BlenderVector3()).setXYZ(Math.sin(now), Math.cos(now), 0), 1);
     }
 
 }

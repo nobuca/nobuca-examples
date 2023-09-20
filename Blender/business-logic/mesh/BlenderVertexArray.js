@@ -1,6 +1,6 @@
 
 
-export default class BlenderMesh {
+export default class BlenderVertexArray {
 
     getVertexSize() {
         return this.vertexSize;

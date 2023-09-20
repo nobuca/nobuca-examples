@@ -1,13 +1,14 @@
 import BlenderMatrix4 from "../math/BlenderMatrix4.js";
 import BlenderVector3 from "../math/BlenderVector3.js";
-import BlenderVector4 from "../math/BlenderVector4.js";
 import BlenderCamera from "./BlenderCamera.js";
 
 export default class BlenderCameraArcball extends BlenderCamera {
 
     constructor() {
         super();
-        this.getPosition().fromXYZ(3, 2, 5);
+        this.axisY = new BlenderVector3();
+        this.axisY.setXYZ(0, 1, 0);
+        this.getPosition().setXYZ(3, 3, 3);
         this.distance = this.getPosition().length();
         this.angularVelocity = 0;
         this.axis = new BlenderVector3();
@@ -15,8 +16,8 @@ export default class BlenderCameraArcball extends BlenderCamera {
         this.zoomSpeed = 0.1;
         this.frictionCoefficient = 0;
         this.getBack().copyFrom(this.getPosition()).normalize();
-        this.recalcuateRight();
-        this.recalcuateUp();
+        this.getUp().setXYZ(0, 1, 0);
+        this.recalcuateRightAndUp();
         this.movement = new BlenderVector3();
         this.crossProduct = new BlenderVector3();
         this.rotationMatrix = new BlenderMatrix4();
@@ -33,7 +34,7 @@ export default class BlenderCameraArcball extends BlenderCamera {
             this.angularVelocity *= Math.pow(this.frictionCoefficient, deltaTime);
         }
 
-        this.movement.fromXYZ(0, 0, 0);
+        this.movement.setXYZ(0, 0, 0);
         this.movement.addScaled(this.getRight(), (mouseStatus.x) * 0.1);
         this.movement.addScaled(this.getUp(), (-mouseStatus.y) * 0.1);
 
@@ -62,8 +63,7 @@ export default class BlenderCameraArcball extends BlenderCamera {
 
             this.getBack().transformMat4Upper3x3(this.rotationMatrix).normalize();
 
-            this.recalcuateRight();
-            this.recalcuateUp();
+            this.recalcuateRightAndUp();
         }
 
         // recalculate `this.position` from `this.back` considering zoom
@@ -77,11 +77,9 @@ export default class BlenderCameraArcball extends BlenderCamera {
         this.getViewMatrix().copyFrom(this.matrix).invert();
     }
 
-    recalcuateRight() {
-        this.getRight().cross(this.getUp(), this.getBack()).normalize();
-    }
-
-    recalcuateUp() {
+    recalcuateRightAndUp() {
+        this.getRight().cross(this.axisY, this.getBack()).normalize();
         this.getUp().cross(this.getBack(), this.getRight()).normalize();
+
     }
 }

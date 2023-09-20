@@ -10,7 +10,7 @@ export default class BlenderVector3 {
         return this.values;
     }
 
-    fromXYZ(x, y, z) {
+    setXYZ(x, y, z) {
         if (x !== undefined) {
             this.values[0] = x;
             if (y !== undefined) {
@@ -23,7 +23,34 @@ export default class BlenderVector3 {
         return this;
     }
 
-    fromValues(values) {
+    setX(x) {
+        this.values[0] = x;
+        return this;
+    }
+
+    getX(x) {
+        return this.values[0];
+    }
+
+    setY(y) {
+        this.values[1] = y;
+        return this;
+    }
+
+    getY(y) {
+        return this.values[1];
+    }
+
+    setZ(z) {
+        this.values[2] = z;
+        return this;
+    }
+
+    getZ(z) {
+        return this.values[2];
+    }
+
+    setValues(values) {
         this.values = values;
         return this;
     }
@@ -46,7 +73,7 @@ export default class BlenderVector3 {
         return this;
     }
 
-    fromXYZ(x, y, z) {
+    setXYZ(x, y, z) {
         const dst = new Float32Array(3);
         if (x !== undefined) {
             this.values[0] = x;

@@ -1,6 +1,6 @@
-import BlenderMesh from "./BlenderMesh.js";
+import BlenderVertexArray from "./BlenderVertexArray.js";
 
-export default class BlenderMeshCube extends BlenderMesh {
+export default class BlenderMeshCube extends BlenderVertexArray {
 
     constructor() {
         super();

@@ -62,8 +62,8 @@ export default class BlenderWebGPU {
 
         BlenderLogger.debug("WebGPU: Checking if device is lost...");
 
-        const device = await adapter.requestDevice();
-        device.lost.then(() => {
+        this.device = await adapter.requestDevice();
+        this.getDevice().lost.then(() => {
             BlenderLogger.error("WebGPU: Device has been lost");
             this.initializingWebGPU = false;
             return null;
@@ -87,13 +87,13 @@ export default class BlenderWebGPU {
         const devicePixelRatio = window.devicePixelRatio || 1;
         this.getCanvas().width = this.getCanvas().clientWidth * devicePixelRatio;
         this.getCanvas().height = this.getCanvas().clientHeight * devicePixelRatio;
-        const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
+        this.presentationFormat = navigator.gpu.getPreferredCanvasFormat();
 
         BlenderLogger.debug("WebGPU: Configuring context...");
 
         context.configure({
-            device,
-            format: presentationFormat,
+            device: this.getDevice(),
+            format: this.getPresentationFormat(),
             alphaMode: 'premultiplied'
         });
 
@@ -101,234 +101,48 @@ export default class BlenderWebGPU {
 
         BlenderLogger.debug("WebGPU: Creating vertex buffers...");
 
-        const vertexBufferTriangleList = device.createBuffer({
-            size: this.getVertexArrayTriangles().getVertexArray().byteLength,
-            usage: GPUBufferUsage.VERTEX,
-            mappedAtCreation: true,
-        });
-        new Float32Array(vertexBufferTriangleList.getMappedRange()).set(this.getVertexArrayTriangles().getVertexArray());
-        vertexBufferTriangleList.unmap();
+        this.createVertexBufferLineList();
+        this.createVertexBufferTriangleList();
 
-        const vertexBufferLineList = device.createBuffer({
-            size: this.getVertexArrayLines().getVertexArray().byteLength,
-            usage: GPUBufferUsage.VERTEX,
-            mappedAtCreation: true,
-        });
-        new Float32Array(vertexBufferLineList.getMappedRange()).set(this.getVertexArrayLines().getVertexArray());
-        vertexBufferLineList.unmap();
-
-        const vertexBuffersDescriptorsTriangleList = [
-            {
-                attributes: [
-                    {
-                        shaderLocation: 0,
-                        offset: this.getVertexArrayTriangles().getPositionOffset(),
-                        format: "float32x4",
-                    },
-                    {
-                        shaderLocation: 1,
-                        offset: this.getVertexArrayTriangles().getColorOffset(),
-                        format: "float32x4",
-                    },
-                    {
-                        shaderLocation: 2,
-                        offset: this.getVertexArrayTriangles().getUvOffset(),
-                        format: "float32x2",
-                    },
-                ],
-                arrayStride: this.getVertexArrayTriangles().getNumberOfBytesPerVertex()
-            },
-        ];
-
-        const vertexBuffersDescriptorsLineList = [
-            {
-                attributes: [
-                    {
-                        shaderLocation: 0,
-                        offset: this.getVertexArrayLines().getPositionOffset(),
-                        format: "float32x4",
-                    },
-                    {
-                        shaderLocation: 1,
-                        offset: this.getVertexArrayLines().getColorOffset(),
-                        format: "float32x4",
-                    },
-                ],
-                arrayStride: this.getVertexArrayLines().getNumberOfBytesPerVertex()
-            },
-        ];
+        this.createVertexBufferDescriptorLineList();
+        this.createVertexBufferDescriptorTriangleList();
 
         BlenderLogger.debug("WebGPU: Vertex buffers created.");
 
         BlenderLogger.debug("WebGPU: Creating shaders...");
 
-        async function loadShaderModuleFromFile(device, url) {
-            const response = await fetch(url);
-            const code = await response.text();
-            return device.createShaderModule({ code });
-        }
-
-        //const triangleVertWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/triangle.vert.wgsl');
-        //const redFragWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/red.frag.wgsl');
-        //const shaderModuleWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/shader-module.wgsl');
-        const linesVerWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/lines.vert.wgsl');
-        const linesFragWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/lines.frag.wgsl');
-        //const cubeWgsl= await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/cube.wgsl');
-        const basicVertWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/basic.vert.wgsl');
-        //const vertexPositionColorFragWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/vertexPositionColor.frag.wgsl');
-        const sampleTextureMixColorFragWgsl = await loadShaderModuleFromFile(device, './user-interface/control/3d-viewport/shaders/sampleTextureMixColor.frag.wgsl');
-
         BlenderLogger.debug("WebGPU: Shaders created.");
 
         BlenderLogger.debug("WebGPU: Creating render pipelines...");
 
-        const sampleCount = 4;
-
-        const pipelineTexturedTriangleList = device.createRenderPipeline({
-            layout: 'auto',
-            vertex: {
-                module: basicVertWgsl,
-                entryPoint: "main",
-                buffers: vertexBuffersDescriptorsTriangleList,
-            },
-            fragment: {
-                module: sampleTextureMixColorFragWgsl,
-                entryPoint: "main",
-                targets: [
-                    {
-                        format: presentationFormat,
-                    },
-                ],
-            },
-            primitive: {
-                topology: "triangle-list",
-                cullMode: 'back',
-            },
-            depthStencil: {
-                depthWriteEnabled: true,
-                depthCompare: 'less',
-                format: 'depth24plus',
-            },
-            multisample: {
-                count: sampleCount,
-            },
-        });
-
-        const pipelineLineList = device.createRenderPipeline({
-            layout: 'auto',
-            vertex: {
-                module: linesVerWgsl,
-                entryPoint: "main",
-                buffers: vertexBuffersDescriptorsLineList,
-            },
-            fragment: {
-                module: linesFragWgsl,
-                entryPoint: "main",
-                targets: [
-                    {
-                        format: presentationFormat,
-                    },
-                ],
-            },
-            primitive: {
-                topology: "line-list",
-                cullMode: 'back',
-            },
-            depthStencil: {
-                depthWriteEnabled: true,
-                depthCompare: 'less',
-                format: 'depth24plus',
-            },
-            multisample: {
-                count: sampleCount,
-            },
-        });
+        await this.createPipelineLineList();
+        await this.createPipelineTriangleList();
+        await this.createPipelineTexturedTriangleList();
 
         BlenderLogger.debug("WebGPU: Render pipelines created.");
 
-        const texture = device.createTexture({
+        const texture = this.getDevice().createTexture({
             size: [this.getCanvas().width, this.getCanvas().height],
-            sampleCount,
-            format: presentationFormat,
+            sampleCount: this.getSampleCount(),
+            format: this.getPresentationFormat(),
             usage: GPUTextureUsage.RENDER_ATTACHMENT,
         });
         const view = texture.createView();
 
-        const depthTexture = device.createTexture({
+        const depthTexture = this.getDevice().createTexture({
             size: [this.getCanvas().width, this.getCanvas().height],
-            sampleCount,
+            sampleCount: this.getSampleCount(),
             format: 'depth24plus',
             usage: GPUTextureUsage.RENDER_ATTACHMENT,
         });
 
-        const uniformBufferSize = 4 * 16; // 4x4 matrix
-        const uniformBuffer = device.createBuffer({
-            size: uniformBufferSize,
-            usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
-        });
-
-        // Fetch the image and upload it into a GPUTexture.
-        let cubeTexture;
-        {
-            const response = await fetch(
-                new URL('../3d-viewport/shaders/Di-3d.png', import.meta.url).toString()
-            );
-            const imageBitmap = await createImageBitmap(await response.blob());
-
-            cubeTexture = device.createTexture({
-                size: [imageBitmap.width, imageBitmap.height, 1],
-                format: 'rgba8unorm',
-                usage:
-                    GPUTextureUsage.TEXTURE_BINDING |
-                    GPUTextureUsage.COPY_DST |
-                    GPUTextureUsage.RENDER_ATTACHMENT,
-            });
-            device.queue.copyExternalImageToTexture(
-                { source: imageBitmap },
-                { texture: cubeTexture },
-                [imageBitmap.width, imageBitmap.height]
-            );
-        }
-
-        // Create a sampler with linear filtering for smooth interpolation.
-        const sampler = device.createSampler({
-            magFilter: 'linear',
-            minFilter: 'linear',
-        });
+        this.createUniformBuffer();
 
         BlenderLogger.debug("WebGPU: Creating binding groups...");
 
-        const uniformBindGroupTexturedTriangleList = device.createBindGroup({
-            layout: pipelineTexturedTriangleList.getBindGroupLayout(0),
-            entries: [
-                {
-                    binding: 0,
-                    resource: {
-                        buffer: uniformBuffer,
-                    },
-                },
-                {
-                    binding: 1,
-                    resource: sampler,
-                },
-                {
-                    binding: 2,
-                    resource: cubeTexture.createView(),
-                },
-            ],
-        });
-
-        const uniformBindGroupLineList = device.createBindGroup({
-            layout: pipelineLineList.getBindGroupLayout(0),
-            entries: [
-                {
-                    binding: 0,
-                    resource: {
-                        buffer: uniformBuffer,
-                    },
-                },
-            ],
-        });
+        await this.createUniformBindGroupLineList();
+        await this.createUniformBindGroupTriangleList();
+        await this.createUniformBindGroupTexturedTriangleList();
 
         BlenderLogger.debug("WebGPU: Binding groups created.");
 
@@ -386,15 +200,15 @@ export default class BlenderWebGPU {
 
             this.modelViewProjectionMatrix.multiply(this.projectionMatrix, viewMatrix);
 
-            device.queue.writeBuffer(
-                uniformBuffer,
+            this.getDevice().queue.writeBuffer(
+                this.getUniformBuffer(),
                 0,
                 this.modelViewProjectionMatrix.getValues().buffer,
                 this.modelViewProjectionMatrix.getValues().byteOffset,
                 this.modelViewProjectionMatrix.getValues().byteLength
             );
 
-            const commandEncoder = device.createCommandEncoder();
+            const commandEncoder = this.getDevice().createCommandEncoder();
 
             // ~~ CREATE RENDER PASS DESCRIPTOR ~~
             const renderPassDescriptor = {
@@ -417,19 +231,19 @@ export default class BlenderWebGPU {
 
             const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
 
-            passEncoder.setPipeline(pipelineTexturedTriangleList);
-            passEncoder.setBindGroup(0, uniformBindGroupTexturedTriangleList);
-            passEncoder.setVertexBuffer(0, vertexBufferTriangleList);
+            passEncoder.setPipeline(this.getPipelineTriangleList());
+            passEncoder.setBindGroup(0, this.getUniformBindGroupTriangleList());
+            passEncoder.setVertexBuffer(0, this.getVertexBufferTriangleList());
             passEncoder.draw(this.getVertexArrayTriangles().getVertexCount());
 
-            passEncoder.setPipeline(pipelineLineList);
-            passEncoder.setBindGroup(0, uniformBindGroupLineList);
-            passEncoder.setVertexBuffer(0, vertexBufferLineList);
+            passEncoder.setPipeline(this.getPipelineLineList());
+            passEncoder.setBindGroup(0, this.getUniformBindGroupLineList());
+            passEncoder.setVertexBuffer(0, this.getVertexBufferLineList());
             passEncoder.draw(this.getVertexArrayLines().getVertexCount());
 
             passEncoder.end();
 
-            device.queue.submit([commandEncoder.finish()]);
+            this.getDevice().queue.submit([commandEncoder.finish()]);
 
             requestAnimationFrame(frame);
         }
@@ -438,14 +252,328 @@ export default class BlenderWebGPU {
 
         this.initializingWebGPU = false;
     }
+
+    getPresentationFormat() {
+        return this.presentationFormat;
+    }
+
+    getDevice() {
+        return this.device;
+    }
+
+    async loadShaderModuleFromFile(url) {
+        const response = await fetch(url);
+        const code = await response.text();
+        return this.getDevice().createShaderModule({ code });
+    }
+
+    createVertexBufferLineList() {
+        this.vertexBufferLineList = this.getDevice().createBuffer({
+            size: this.getVertexArrayLines().getVertexArray().byteLength,
+            usage: GPUBufferUsage.VERTEX,
+            mappedAtCreation: true,
+        });
+        new Float32Array(this.vertexBufferLineList.getMappedRange()).set(this.getVertexArrayLines().getVertexArray());
+        this.vertexBufferLineList.unmap();
+    }
+
+    getVertexBufferLineList() {
+        return this.vertexBufferLineList;
+    }
+
+    createVertexBufferTriangleList() {
+        this.vertexBufferTriangleList = this.getDevice().createBuffer({
+            size: this.getVertexArrayTriangles().getVertexArray().byteLength,
+            usage: GPUBufferUsage.VERTEX,
+            mappedAtCreation: true,
+        });
+        new Float32Array(this.vertexBufferTriangleList.getMappedRange()).set(this.getVertexArrayTriangles().getVertexArray());
+        this.vertexBufferTriangleList.unmap();
+    }
+
+    getVertexBufferTriangleList() {
+        return this.vertexBufferTriangleList;
+    }
+
+    createVertexBufferDescriptorLineList() {
+        this.vertexBuffersDescriptorsLineList = [
+            {
+                attributes: [
+                    {
+                        shaderLocation: 0,
+                        offset: this.getVertexArrayLines().getPositionOffset(),
+                        format: "float32x4",
+                    },
+                    {
+                        shaderLocation: 1,
+                        offset: this.getVertexArrayLines().getColorOffset(),
+                        format: "float32x4",
+                    },
+                ],
+                arrayStride: this.getVertexArrayLines().getNumberOfBytesPerVertex()
+            },
+        ];
+    }
+
+    getVertexBufferDescriptorLineList() {
+        return this.vertexBuffersDescriptorsLineList;
+    }
+
+    async createPipelineLineList() {
+        const linesVerWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/lines.vert.wgsl');
+        const linesFragWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/lines.frag.wgsl');
+        this.pipelineLineList = this.getDevice().createRenderPipeline({
+            layout: 'auto',
+            vertex: {
+                module: linesVerWgsl,
+                entryPoint: "main",
+                buffers: this.getVertexBufferDescriptorLineList(),
+            },
+            fragment: {
+                module: linesFragWgsl,
+                entryPoint: "main",
+                targets: [
+                    {
+                        format: this.getPresentationFormat(),
+                    },
+                ],
+            },
+            primitive: {
+                topology: "line-list",
+                cullMode: 'back',
+            },
+            depthStencil: {
+                depthWriteEnabled: true,
+                depthCompare: 'less',
+                format: 'depth24plus',
+            },
+            multisample: {
+                count: this.getSampleCount(),
+            },
+        });
+    }
+
+    getPipelineLineList() {
+        return this.pipelineLineList;
+    }
+
+    createVertexBufferDescriptorTriangleList() {
+        this.vertexBufferDescriptorTriangleList = [
+            {
+                attributes: [
+                    {
+                        shaderLocation: 0,
+                        offset: this.getVertexArrayTriangles().getPositionOffset(),
+                        format: "float32x4",
+                    },
+                    {
+                        shaderLocation: 1,
+                        offset: this.getVertexArrayTriangles().getColorOffset(),
+                        format: "float32x4",
+                    },
+                    {
+                        shaderLocation: 2,
+                        offset: this.getVertexArrayTriangles().getUvOffset(),
+                        format: "float32x2",
+                    },
+                ],
+                arrayStride: this.getVertexArrayTriangles().getNumberOfBytesPerVertex()
+            },
+        ];
+    }
+
+    getVertexBufferDescriptorTriangleList() {
+        return this.vertexBufferDescriptorTriangleList;
+    }
+
+    async createPipelineTriangleList() {
+        const basicVertWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/basic.vert.wgsl');
+        const basicFragWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/basic.frag.wgsl');
+
+        this.pipelineTriangleList = this.getDevice().createRenderPipeline({
+            layout: 'auto',
+            vertex: {
+                module: basicVertWgsl,
+                entryPoint: "main",
+                buffers: this.getVertexBufferDescriptorTriangleList(),
+            },
+            fragment: {
+                module: basicFragWgsl,
+                entryPoint: "main",
+                targets: [
+                    {
+                        format: this.getPresentationFormat(),
+                    },
+                ],
+            },
+            primitive: {
+                topology: "triangle-list",
+                cullMode: 'back',
+            },
+            depthStencil: {
+                depthWriteEnabled: true,
+                depthCompare: 'less',
+                format: 'depth24plus',
+            },
+            multisample: {
+                count: this.getSampleCount(),
+            },
+        });
+    }
+
+    getPipelineTriangleList() {
+        return this.pipelineTriangleList;
+    }
+
+    async createPipelineTexturedTriangleList() {
+        const basicVertWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/basic.vert.wgsl');
+        const sampleTextureMixColorFragWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/sampleTextureMixColor.frag.wgsl');
+        this.pipelineTexturedTriangleList = this.getDevice().createRenderPipeline({
+            layout: 'auto',
+            vertex: {
+                module: basicVertWgsl,
+                entryPoint: "main",
+                buffers: this.getVertexBufferDescriptorTriangleList(),
+            },
+            fragment: {
+                module: sampleTextureMixColorFragWgsl,
+                entryPoint: "main",
+                targets: [
+                    {
+                        format: this.getPresentationFormat(),
+                    },
+                ],
+            },
+            primitive: {
+                topology: "triangle-list",
+                cullMode: 'back',
+            },
+            depthStencil: {
+                depthWriteEnabled: true,
+                depthCompare: 'less',
+                format: 'depth24plus',
+            },
+            multisample: {
+                count: this.getSampleCount(),
+            },
+        });
+    }
+
+    getPipelineTexturedTriangleList() {
+        return this.pipelineTexturedTriangleList;
+    }
+
+    createUniformBuffer() {
+        const uniformBufferSize = 4 * 16; // 4x4 matrix
+        this.uniformBuffer = this.getDevice().createBuffer({
+            size: uniformBufferSize,
+            usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+        });
+    }
+
+    getUniformBuffer() {
+        return this.uniformBuffer;
+    }
+
+    createUniformBindGroupLineList() {
+        this.uniformBindGroupLineList = this.getDevice().createBindGroup({
+            layout: this.getPipelineLineList().getBindGroupLayout(0),
+            entries: [
+                {
+                    binding: 0,
+                    resource: {
+                        buffer: this.getUniformBuffer(),
+                    },
+                },
+            ],
+        });
+    }
+
+    getUniformBindGroupLineList() {
+        return this.uniformBindGroupLineList;
+    }
+
+    createUniformBindGroupTriangleList() {
+        this.uniformBindGroupTriangleList = this.getDevice().createBindGroup({
+            layout: this.getPipelineTriangleList().getBindGroupLayout(0),
+            entries: [
+                {
+                    binding: 0,
+                    resource: {
+                        buffer: this.getUniformBuffer(),
+                    },
+                },
+            ],
+        });
+    }
+
+    getUniformBindGroupTriangleList() {
+        return this.uniformBindGroupTriangleList;
+    }
+
+    async createUniformBindGroupTexturedTriangleList() {
+        
+        // Create a sampler with linear filtering for smooth interpolation.
+        const sampler = this.getDevice().createSampler({
+            magFilter: 'linear',
+            minFilter: 'linear',
+        });
+
+        // Fetch the image and upload it into a GPUTexture.
+        let cubeTexture;
+        {
+            const response = await fetch(
+                new URL('../3d-viewport/shaders/Di-3d.png', import.meta.url).toString()
+            );
+            const imageBitmap = await createImageBitmap(await response.blob());
+
+            cubeTexture = this.getDevice().createTexture({
+                size: [imageBitmap.width, imageBitmap.height, 1],
+                format: 'rgba8unorm',
+                usage:
+                    GPUTextureUsage.TEXTURE_BINDING |
+                    GPUTextureUsage.COPY_DST |
+                    GPUTextureUsage.RENDER_ATTACHMENT,
+            });
+            this.getDevice().queue.copyExternalImageToTexture(
+                { source: imageBitmap },
+                { texture: cubeTexture },
+                [imageBitmap.width, imageBitmap.height]
+            );
+        }
+
+        this.uniformBindGroupTexturedTriangleList = this.getDevice().createBindGroup({
+            layout: this.getPipelineTexturedTriangleList().getBindGroupLayout(0),
+            entries: [
+                {
+                    binding: 0,
+                    resource: {
+                        buffer: this.getUniformBuffer(),
+                    },
+                },
+                {
+                    binding: 1,
+                    resource: sampler,
+                },
+                {
+                    binding: 2,
+                    resource: cubeTexture.createView(),
+                },
+            ],
+        });
+    }
+
+    getUniformBindGroupTexturedTriangleList() {
+        return this.uniformBindGroupTexturedTriangleList;
+    }
 }
 
 document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
         BlenderLogger.debug("Document is hidden.");
-        BlenderControl3DViewportView.pageIsVisible = false;
+        BlenderWebGPU.pageIsVisible = false;
     } else {
         BlenderLogger.debug("Document is visible.");
-        BlenderControl3DViewportView.pageIsVisible = true;
+        BlenderWebGPU.pageIsVisible = true;
     }
 });

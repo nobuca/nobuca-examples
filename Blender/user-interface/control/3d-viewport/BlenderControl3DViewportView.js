@@ -1,10 +1,38 @@
 import NobucaComponentView from "../../../../../nobuca-core/component/NobucaComponentView.js";
 import BlenderLogger from "../../../business-logic/logger/BlenderLogger.js";
 import BlenderMatrix4 from "../../../business-logic/math/BlenderMatrix4.js";
+import BlenderVertexArrayLines from "./vertex-array/BlenderVertexArrayLines.js";
+import BlenderVertexArrayTriangles from "./vertex-array/BlenderVertexArrayTriangles.js";
 
 export default class BlenderControl3DViewportView extends NobucaComponentView {
 
     static pageIsVisible = true;
+
+    constructor(model) {
+        super(model);
+        this.vertexArrayLines = new BlenderVertexArrayLines();
+        this.vertexArrayTriangles = new BlenderVertexArrayTriangles();
+        this.addModelGeometryLinesToViewVertexArrayLines();
+        this.addModelGeometryTrianglesToViewVertexArrayTriangles();
+    }
+
+    getVertexArrayLines() {
+        return this.vertexArrayLines;
+    }
+
+    getVertexArrayTriangles() {
+        return this.vertexArrayTriangles;
+    }
+
+    addModelGeometryLinesToViewVertexArrayLines() {
+        this.getModel().getGeometryLines()
+            .forEach(geometryLine => this.getVertexArrayLines().addGeometryLine(geometryLine));
+    }
+
+    addModelGeometryTrianglesToViewVertexArrayTriangles() {
+        this.getModel().getGeometryTriangles()
+            .forEach(geometryTriangle => this.getVertexArrayTriangles().addGeometryTriangle(geometryTriangle));
+    }
 
     createNativeElement() {
         var div = document.createElement("div");
@@ -17,7 +45,10 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
             this.createCanvas();
         }
 
-        setTimeout(() => this.initWebGpu(), 500);
+        setTimeout(() => {
+            this.initWebGpu();
+            this.createTrianglesAndLines();
+        }, 500);
     }
 
     createCanvas() {
@@ -110,19 +141,19 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
         BlenderLogger.debug("WebGPU: Creating vertex buffers...");
 
         const vertexBufferTriangleList = device.createBuffer({
-            size: this.getModel().getTriangles().getVertexArray().byteLength,
+            size: this.getVertexArrayTriangles().getVertexArray().byteLength,
             usage: GPUBufferUsage.VERTEX,
             mappedAtCreation: true,
         });
-        new Float32Array(vertexBufferTriangleList.getMappedRange()).set(this.getModel().getTriangles().getVertexArray());
+        new Float32Array(vertexBufferTriangleList.getMappedRange()).set(this.getVertexArrayTriangles().getVertexArray());
         vertexBufferTriangleList.unmap();
 
         const vertexBufferLineList = device.createBuffer({
-            size: this.getModel().getLines().getVertexArray().byteLength,
+            size: this.getVertexArrayLines().getVertexArray().byteLength,
             usage: GPUBufferUsage.VERTEX,
             mappedAtCreation: true,
         });
-        new Float32Array(vertexBufferLineList.getMappedRange()).set(this.getModel().getLines().getVertexArray());
+        new Float32Array(vertexBufferLineList.getMappedRange()).set(this.getVertexArrayLines().getVertexArray());
         vertexBufferLineList.unmap();
 
         const vertexBuffersDescriptorsTriangleList = [
@@ -130,16 +161,16 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
                 attributes: [
                     {
                         shaderLocation: 0,
-                        offset: this.getModel().getTriangles().getPositionOffset(),
+                        offset: this.getVertexArrayTriangles().getPositionOffset(),
                         format: "float32x4",
                     },
                     {
                         shaderLocation: 1,
-                        offset: this.getModel().getTriangles().getUvOffset(),
+                        offset: this.getVertexArrayTriangles().getUvOffset(),
                         format: "float32x2",
                     },
                 ],
-                arrayStride: this.getModel().getTriangles().getVertexSize()
+                arrayStride: this.getVertexArrayTriangles().getNumberOfBytesPerVertex()
             },
         ];
 
@@ -148,16 +179,16 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
                 attributes: [
                     {
                         shaderLocation: 0,
-                        offset: this.getModel().getLines().getPositionOffset(),
+                        offset: this.getVertexArrayLines().getPositionOffset(),
                         format: "float32x4",
                     },
                     {
                         shaderLocation: 1,
-                        offset: this.getModel().getLines().getColorOffset(),
+                        offset: this.getVertexArrayLines().getColorOffset(),
                         format: "float32x4",
                     },
                 ],
-                arrayStride: this.getModel().getLines().getVertexSize()
+                arrayStride: this.getVertexArrayLines().getNumberOfBytesPerVertex()
             },
         ];
 
@@ -338,7 +369,7 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
         const aspect = this.getCanvas().width / this.getCanvas().height;
         this.projectionMatrix = new BlenderMatrix4();
         this.projectionMatrix.perspective(
-            (2 * Math.PI) / 5,
+            (2 * Math.PI) / 10,
             aspect,
             1,
             100.0
@@ -353,8 +384,10 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
         this.mouseState.leftButtonDown = false;
 
         this.getNativeElement().addEventListener("mousemove", event => {
+            this.mouseState.rightButtonDown = (event.buttons & 2) !== 0;
+            this.mouseState.wheelButtonDown = (event.buttons & 4) !== 0;
             this.mouseState.leftButtonDown = (event.buttons & 1) !== 0;
-            if (this.mouseState.leftButtonDown) {
+            if (this.mouseState.wheelButtonDown) {
                 this.mouseState.x += event.movementX;
                 this.mouseState.y += event.movementY;
             }
@@ -421,12 +454,12 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
             passEncoder.setPipeline(pipelineTriangleList);
             passEncoder.setBindGroup(0, uniformBindGroupTriangleList);
             passEncoder.setVertexBuffer(0, vertexBufferTriangleList);
-            passEncoder.draw(this.getModel().getTriangles().getVertexCount());
+            passEncoder.draw(this.getVertexArrayTriangles().getVertexCount());
 
             passEncoder.setPipeline(pipelineLineList);
             passEncoder.setBindGroup(0, uniformBindGroupLineList);
             passEncoder.setVertexBuffer(0, vertexBufferLineList);
-            passEncoder.draw(this.getModel().getLines().getVertexCount());
+            passEncoder.draw(this.getVertexArrayLines().getVertexCount());
 
             passEncoder.end();
 
@@ -438,6 +471,10 @@ export default class BlenderControl3DViewportView extends NobucaComponentView {
         requestAnimationFrame(frame);
 
         this.initializingWebGpu = false;
+    }
+
+    createTrianglesAndLines() {
+
     }
 }
 

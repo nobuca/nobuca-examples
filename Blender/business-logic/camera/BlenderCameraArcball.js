@@ -8,7 +8,7 @@ export default class BlenderCameraArcball extends BlenderCamera {
         super();
         this.axisY = new BlenderVector3();
         this.axisY.setXYZ(0, 1, 0);
-        this.getPosition().setXYZ(3, 3, 3);
+        this.getPosition().setXYZ(6, 6, 6);
         this.distance = this.getPosition().length();
         this.angularVelocity = 0;
         this.axis = new BlenderVector3();

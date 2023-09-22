@@ -2,12 +2,16 @@
 
 export default class BlenderVertexArray {
 
-    getVertexSize() {
-        return this.vertexSize;
+    setNumberOfFloat32PerVertex(numberOfFloat32PerVertex) {
+        this.numberOfFloat32PerVertex = numberOfFloat32PerVertex;
     }
 
-    setVertexSize(vertexSize) {
-        this.vertexSize = vertexSize;
+    getNumberOfFloat32PerVertex() {
+        return this.numberOfFloat32PerVertex;
+    }
+
+    getNumberOfBytesPerVertex() {
+        return this.getNumberOfFloat32PerVertex() * 4;
     }
 
     getPositionOffset() {

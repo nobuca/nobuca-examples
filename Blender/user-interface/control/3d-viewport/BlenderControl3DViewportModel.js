@@ -1,20 +1,14 @@
 import NobucaComponentModel from "../../../../../nobuca-core/component/NobucaComponentModel.js"
 import BlenderCameraArcball from "../../../business-logic/camera/BlenderCameraArcball.js";
-import BlenderCameraRotating from "../../../business-logic/camera/BlenderCameraRotating.js";
-import BlenderMeshCube from "../../../business-logic/mesh/BlenderMeshCube.js";
-import BlenderVertexArrayLines from "../../../business-logic/mesh/BlenderVertexArrayLines.js";
-import BlenderMeshTriangle from "../../../business-logic/mesh/BlenderMeshTriangle.js";
-import BlenderLine from "../../../business-logic/mesh/BlenderLine.js";
-import BlenderPoint from "../../../business-logic/mesh/BlenderPoint.js";
-import BlenderColor from "../../../business-logic/mesh/BlenderColor.js";
+import BlenderGeometry from "../../../business-logic/geometry/BlenderGeometry.js";
+import BlenderVertexArrayTriangles from "./vertex-array/BlenderVertexArrayTriangles.js";
 
 export default class BlenderControl3DViewportModel extends NobucaComponentModel {
 
     constructor() {
         super();
         this.createCamera();
-        this.createTriangles();
-        this.createLines();
+        this.createGeometryLinesAndTriangles()
     }
 
     getClassName() {
@@ -30,25 +24,32 @@ export default class BlenderControl3DViewportModel extends NobucaComponentModel 
         return this.camera;
     }
 
-    createTriangles() {
-        //this.mesh = new BlenderMeshTriangle();
-        this.triangles = new BlenderMeshCube();
+    createGeometryLinesAndTriangles() {
+        this.createGeometryLines();
+        this.createGeometryTriangles();
+    }
+    getGeometryTriangles() {
+        return this.geometryTriangles;
     }
 
-    getTriangles() {
-        return this.triangles;
+    addGeometryTriangle(geometryTriangle) {
+        this.getGeometryTriangles().push(geometryTriangle);
     }
 
-    createLines() {
-        this.lines = new BlenderVertexArrayLines();
+    createGeometryLines() {
+        this.geometryLines = [];
         this.createLinesAxisX();
         this.createLinesAxisY();
         this.createLinesAxisZ();
         this.createLinesGrid();
     }
 
-    getLines() {
-        return this.lines;
+    getGeometryLines() {
+        return this.geometryLines;
+    }
+
+    addGeometryLine(geometryLine) {
+        this.getGeometryLines().push(geometryLine);
     }
 
     getAxisMaxDistance() {
@@ -60,75 +61,77 @@ export default class BlenderControl3DViewportModel extends NobucaComponentModel 
     }
 
     createLinesAxisX() {
-        var pointA = new BlenderPoint();
-        pointA.setXYZ(-1 * this.getAxisMaxDistance(), 0, 0);
-        var pointB = new BlenderPoint();
-        pointB.setXYZ(this.getAxisMaxDistance(), 0, 0);
-        var color = new BlenderColor();
-        color.setRedGreenBlue(.5, .0, .0, 1);
-        var axis = new BlenderLine();
-        axis.setPointA(pointA);
-        axis.setPointB(pointB);
-        axis.setColor(color);
-        this.getLines().addLine(axis);
+        var axis = new BlenderGeometry("line");
+        axis.getData().getVertexA().setXYZ(-1 * this.getAxisMaxDistance(), 0, 0);;
+        axis.getData().getVertexB().setXYZ(this.getAxisMaxDistance(), 0, 0);
+        axis.getColor().setRedGreenBlue(.5, .0, .0, 1);
+        this.addGeometryLine(axis);
     }
 
     createLinesAxisY() {
-        var pointA = new BlenderPoint();
-        pointA.setXYZ(0, -1 * this.getAxisMaxDistance(), 0);
-        var pointB = new BlenderPoint();
-        pointB.setXYZ(0, this.getAxisMaxDistance(), 0);
-        var color = new BlenderColor();
-        color.setRedGreenBlue(.0, .5, .0, 1);
-        var axis = new BlenderLine();
-        axis.setPointA(pointA);
-        axis.setPointB(pointB);
-        axis.setColor(color);
-        this.getLines().addLine(axis);
+        var axis = new BlenderGeometry("line");
+        axis.getData().getVertexA().setXYZ(0, -1 * this.getAxisMaxDistance(), 0);
+        axis.getData().getVertexB().setXYZ(0, this.getAxisMaxDistance(), 0);
+        axis.getColor().setRedGreenBlue(.0, .5, .0, 1);
+        this.addGeometryLine(axis);
     }
 
     createLinesAxisZ() {
-        var pointA = new BlenderPoint();
-        pointA.setXYZ(0, 0, -1 * this.getAxisMaxDistance());
-        var pointB = new BlenderPoint();
-        pointB.setXYZ(0, 0, this.getAxisMaxDistance());
-        var color = new BlenderColor();
-        color.setRedGreenBlue(.0, .0, .5, 1);
-        var axis = new BlenderLine();
-        axis.setPointA(pointA);
-        axis.setPointB(pointB);
-        axis.setColor(color);
-        this.getLines().addLine(axis);
+        var axis = new BlenderGeometry("line");
+        axis.getData().getVertexA().setXYZ(0, 0, -1 * this.getAxisMaxDistance());
+        axis.getData().getVertexB().setXYZ(0, 0, this.getAxisMaxDistance());
+        axis.getColor().setRedGreenBlue(.0, .0, .5, 1);
+        this.addGeometryLine(axis);
     }
-
 
     createLinesGrid() {
         for (var x = -this.getAxisMaxDistance(); x < this.getAxisMaxDistance(); x += this.getGridSize()) {
-            var pointA = new BlenderPoint();
-            pointA.setXYZ(x, 0, -this.getAxisMaxDistance());
-            var pointB = new BlenderPoint();
-            pointB.setXYZ(x, 0, this.getAxisMaxDistance());
-            var color = new BlenderColor();
-            color.setRedGreenBlue(.5, .5, .5, 1);
-            var gridLine = new BlenderLine();
-            gridLine.setPointA(pointA);
-            gridLine.setPointB(pointB);
-            gridLine.setColor(color);
-            this.getLines().addLine(gridLine);
+            var gridLine = new BlenderGeometry("line");
+            gridLine.getData().getVertexA().setXYZ(x, 0, -this.getAxisMaxDistance());
+            gridLine.getData().getVertexB().setXYZ(x, 0, this.getAxisMaxDistance());
+            gridLine.getColor().setRedGreenBlue(.5, .5, .5, 1);
+            this.addGeometryLine(gridLine);
         }
         for (var y = -this.getAxisMaxDistance(); y < this.getAxisMaxDistance(); y += this.getGridSize()) {
-            var pointA = new BlenderPoint();
-            pointA.setXYZ(-1 * this.getAxisMaxDistance(), 0, y);
-            var pointB = new BlenderPoint();
-            pointB.setXYZ(this.getAxisMaxDistance(), 0, y);
-            var color = new BlenderColor();
-            color.setRedGreenBlue(.5, .5, .5, 1);
-            var gridLine = new BlenderLine();
-            gridLine.setPointA(pointA);
-            gridLine.setPointB(pointB);
-            gridLine.setColor(color);
-            this.getLines().addLine(gridLine);
+            var gridLine = new BlenderGeometry("line");
+            gridLine.getData().getVertexA().setXYZ(-1 * this.getAxisMaxDistance(), 0, y);
+            gridLine.getData().getVertexB().setXYZ(this.getAxisMaxDistance(), 0, y);
+            gridLine.getColor().setRedGreenBlue(.5, .5, .5, 1);
+            this.addGeometryLine(gridLine);
         }
     }
+
+    createGeometryTriangles() {
+        this.geometryTriangles = [];
+
+        var triangle1 = new BlenderGeometry("triangle");
+        triangle1.getData().getVertexA().setXYZ(1, -1, 1).setUV(0, 1);
+        triangle1.getData().getVertexB().setXYZ(-1, -1, 1).setUV(1, 1);
+        triangle1.getData().getVertexC().setXYZ(-1, -1, -1).setUV(1, 0);
+        triangle1.getColor().setRedGreenBlue(1, 1, 1, 1);
+        this.addGeometryTriangle(triangle1);
+
+        var triangle2 = new BlenderGeometry("triangle");
+        triangle2.getData().getVertexA().setXYZ(1, -1, -1).setUV(0, 0);
+        triangle2.getData().getVertexB().setXYZ(1, -1, 1).setUV(0, 1);
+        triangle2.getData().getVertexC().setXYZ(-1, -1, -1).setUV(1, 0);
+        triangle2.getColor().setRedGreenBlue(1, 1, 1, 1);
+        this.addGeometryTriangle(triangle2);
+
+        var triangle3 = new BlenderGeometry("triangle");
+        triangle3.getData().getVertexA().setXYZ(1, 1, 1).setUV(0, 1);
+        triangle3.getData().getVertexB().setXYZ(1, -1, 1).setUV(1, 1);
+        triangle3.getData().getVertexC().setXYZ( 1, -1, -1).setUV(1, 0);
+        triangle3.getColor().setRedGreenBlue(1, 1, 1, 1);
+        this.addGeometryTriangle(triangle3);
+
+        var triangle4 = new BlenderGeometry("triangle");
+        triangle4.getData().getVertexA().setXYZ(1, 1, -1).setUV(0, 0);
+        triangle4.getData().getVertexB().setXYZ(1, 1, 1).setUV(0, 1);
+        triangle4.getData().getVertexC().setXYZ(1, -1, -1).setUV(1, 0);
+        triangle4.getColor().setRedGreenBlue(1, 1, 1, 1);
+        this.addGeometryTriangle(triangle4);
+    }
+
 
 }

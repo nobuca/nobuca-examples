@@ -1,5 +1,5 @@
 
-export default class BlenderColor {
+export default class BlenderGeometryColor {
 
     setRed(red) {
         this.red = red;

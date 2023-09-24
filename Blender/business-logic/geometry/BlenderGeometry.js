@@ -24,6 +24,7 @@ export default class BlenderGeometry {
         else if (type == "triangle") this.data = new BlenderGeometryDataTriangle();
         else if (type == "cube") this.data = new BlenderGeometryDataCube();
         else throw "Type " + type + " is not a valid geometry data type";
+        return this;
     }
 
     getData() {
@@ -32,6 +33,7 @@ export default class BlenderGeometry {
 
     setColor(color) {
         this.color = color;
+        return this;
     }
 
     getColor() {
@@ -40,6 +42,7 @@ export default class BlenderGeometry {
 
     setMaterial(material) {
         this.material = material;
+        return this;
     }
 
     getMaterial() {

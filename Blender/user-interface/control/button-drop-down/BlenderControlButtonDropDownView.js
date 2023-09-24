@@ -64,6 +64,7 @@ export default class BlenderControlButtonDropDownView extends NobucaComponentVie
 
         div.addEventListener("mousedown", event => {
             this.showPopover();
+            event.stopPropagation();
         })
 
         this.updateView();

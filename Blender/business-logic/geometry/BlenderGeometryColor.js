@@ -3,6 +3,7 @@ export default class BlenderGeometryColor {
 
     setRed(red) {
         this.red = red;
+        return this;
     }
 
     getRed() {
@@ -11,6 +12,7 @@ export default class BlenderGeometryColor {
 
     setGreen(green) {
         this.green = green;
+        return this;
     }
 
     getGreen() {
@@ -19,16 +21,28 @@ export default class BlenderGeometryColor {
 
     setBlue(blue) {
         this.blue = blue;
+        return this;
     }
 
     getBlue() {
         return this.blue;
     }
 
-    setRedGreenBlue(red, green, blue) {
+    setAlpha() {
+        this.alpha = alpha;
+        return this;
+    }
+
+    getAlpha() {
+        return this.alpha;
+    }
+
+    setRedGreenBlueAlpha(red, green, blue, alpha) {
         this.red = red;
         this.green = green;
         this.blue = blue;
+        this.alpha = alpha;
+        return this;
     }
    
 }

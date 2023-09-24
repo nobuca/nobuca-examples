@@ -34,7 +34,7 @@ export default class BlenderVertexArrayTriangles extends BlenderVertexArray {
         newVertexArray[j + 4] = geometryTriangle.getColor().getRed();
         newVertexArray[j + 5] = geometryTriangle.getColor().getGreen();
         newVertexArray[j + 6] = geometryTriangle.getColor().getBlue();
-        newVertexArray[j + 7] = 1;
+        newVertexArray[j + 7] = geometryTriangle.getColor().getAlpha();
         newVertexArray[j + 8] = geometryTriangle.getData().getVertexA().getU();
         newVertexArray[j + 9] = geometryTriangle.getData().getVertexA().getV();
 
@@ -45,7 +45,7 @@ export default class BlenderVertexArrayTriangles extends BlenderVertexArray {
         newVertexArray[j + 14] = geometryTriangle.getColor().getRed();
         newVertexArray[j + 15] = geometryTriangle.getColor().getGreen();
         newVertexArray[j + 16] = geometryTriangle.getColor().getBlue();
-        newVertexArray[j + 17] = 1;
+        newVertexArray[j + 17] = geometryTriangle.getColor().getAlpha();
         newVertexArray[j + 18] = geometryTriangle.getData().getVertexB().getU();
         newVertexArray[j + 19] = geometryTriangle.getData().getVertexB().getV();
         
@@ -56,7 +56,7 @@ export default class BlenderVertexArrayTriangles extends BlenderVertexArray {
         newVertexArray[j + 24] = geometryTriangle.getColor().getRed();
         newVertexArray[j + 25] = geometryTriangle.getColor().getGreen();
         newVertexArray[j + 26] = geometryTriangle.getColor().getBlue();
-        newVertexArray[j + 27] = 1;
+        newVertexArray[j + 27] = geometryTriangle.getColor().getAlpha();
         newVertexArray[j + 28] = geometryTriangle.getData().getVertexC().getU();
         newVertexArray[j + 29] = geometryTriangle.getData().getVertexC().getV();
 

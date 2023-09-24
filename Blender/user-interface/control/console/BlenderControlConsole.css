@@ -1,8 +1,14 @@
 .BlenderControlConsole {
   background-color: rgb(29, 29, 29);
   display: flex;
+  box-sizing: content-box;
+}
+
+.BlenderControlConsoleEntries {
+  display: flex;
   flex-direction: column;
   overflow: auto;
+  flex-grow: 1;
 }
 
 .BlenderControlConsoleEntry {

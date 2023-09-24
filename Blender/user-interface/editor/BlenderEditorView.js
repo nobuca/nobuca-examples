@@ -119,7 +119,7 @@ export default class BlenderEditorView extends NobucaComponentView {
 
         this.getDivRegionMain().style.height = editorHeight + "px";
         this.getDivRegionMain().style.width = editorWidth + "px";
-        this.getRegionMainControlView().getNativeElement().style.height = editorHeight + "px";
+        //this.getRegionMainControlView().getNativeElement().style.height = editorHeight + "px";
         this.getRegionMainControlView().getNativeElement().style.width = editorWidth + "px";
 
         this.getRegionMainControlView().updateContentsPositionAndSize();

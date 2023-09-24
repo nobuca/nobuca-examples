@@ -7,8 +7,8 @@ export default class BlenderCameraArcball extends BlenderCamera {
     constructor() {
         super();
         this.axisY = new BlenderVector3();
-        this.axisY.setXYZ(0, 1, 0);
-        this.getPosition().setXYZ(6, 6, 6);
+        this.axisY.setXYZ(0, 0, 1);
+        this.getPosition().setXYZ(12, 12, 12);
         this.distance = this.getPosition().length();
         this.angularVelocity = 0;
         this.axis = new BlenderVector3();
@@ -16,7 +16,7 @@ export default class BlenderCameraArcball extends BlenderCamera {
         this.zoomSpeed = 0.1;
         this.frictionCoefficient = 0;
         this.getBack().copyFrom(this.getPosition()).normalize();
-        this.getUp().setXYZ(0, 1, 0);
+        this.getUp().setXYZ(0, 0, 1);
         this.recalcuateRightAndUp();
         this.movement = new BlenderVector3();
         this.crossProduct = new BlenderVector3();

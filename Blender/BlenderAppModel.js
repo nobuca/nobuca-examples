@@ -8,6 +8,9 @@ import BlenderWorkspaceModelingModel from "./user-interface/workspace/BlenderWor
 import BlenderWorkspaceSculptingModel from "./user-interface/workspace/BlenderWorkspaceSculptingModel.js";
 import BlenderWorkspaceUvEditingModel from "./user-interface/workspace/BlenderWorkspaceUvEditingModel.js";
 import BlenderWorkspaceTexturePaintingModel from "./user-interface/workspace/BlenderWorkspaceTexturePaintingModel.js";
+import BlenderFile from "./business-logic/file/BlenderFile.js";
+import BlenderFileCurrent from "./business-logic/file/BlenderFileCurrent.js";
+import BlenderSplashScreenModel from "./user-interface/splash-screen/BlenderSplashScreenModel.js";
 
 export default class BlenderAppModel extends NobucaAppModel {
 
@@ -20,6 +23,8 @@ export default class BlenderAppModel extends NobucaAppModel {
         this.createStatusbar();
         this.createWorkspaceActivatedEventEmitter();
         this.activateWorkspace("layout");
+        this.createDefaultFileAndMakeItTheCurrentFile();
+        this.createSplashScreen();
     }
 
     getClassName() {
@@ -86,6 +91,12 @@ export default class BlenderAppModel extends NobucaAppModel {
     }
 
     listenTopbar() {
+
+        this.getTopbar().getMenubar().getMenuItemClickedEventEmitter().subscribe(menuItemClicked => {
+            console.log(menuItemClicked);
+            if (menuItemClicked.getId() == "splashScreen") this.getShowSplashScreenEventEmitter().emit();
+        });
+
         this.getTopbar().getWorkspaceChangeRequestedEventEmitter().subscribe(workspaceId => {
             this.activateWorkspace(workspaceId);
         });
@@ -130,5 +141,23 @@ export default class BlenderAppModel extends NobucaAppModel {
 
     getWorkspaceActivatedRequestedEventEmitter() {
         return this.workspaceActivatedEventEmitter;
+    }
+
+    createDefaultFileAndMakeItTheCurrentFile() {
+        var file = new BlenderFile();
+        BlenderFileCurrent.setFile(file);
+    }
+
+    createSplashScreen() {
+        this.splashScreen = new BlenderSplashScreenModel();
+        this.showSplashScreenEventEmitter = this.createEventEmitter();
+    }
+
+    getSplashScreen() {
+        return this.splashScreen;
+    }
+
+    getShowSplashScreenEventEmitter() {
+        return this.showSplashScreenEventEmitter;
     }
 }

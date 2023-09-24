@@ -1,4 +1,4 @@
-import BlenderSceneObject from "./BlenderSceneObject";
+import BlenderSceneObject from "./BlenderSceneObject.js";
 
 
 export default class BlenderScene {

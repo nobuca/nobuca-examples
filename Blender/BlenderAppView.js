@@ -60,6 +60,7 @@ export default class BlenderAppView extends NobucaAppView {
 
     createNativeElement() {
         this.createRootPanelView();
+        this.createSplashScreen();
     }
 
     createRootPanelView() {
@@ -117,6 +118,24 @@ export default class BlenderAppView extends NobucaAppView {
             workspaceView.getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
             workspaceView.updateContentsPositionAndSize();
         }
+
+        if (this.getSplashScreenView() != null) {
+
+            var top = window.innerHeight / 2 - this.getSplashScreenView().getNativeElement().offsetHeight / 2;
+            var left = window.innerWidth / 2 - this.getSplashScreenView().getNativeElement().offsetWidth / 2;
+
+            this.getSplashScreenView().getNativeElement().style.top = top + "px";
+            this.getSplashScreenView().getNativeElement().style.left = left + "px";
+        }
+    }
+
+    createSplashScreen() {
+        this.splashScreenView = this.createNewViewForModel(this.getModel().getSplashScreen());
+        this.updateContentsPositionAndSize();
+    }
+
+    getSplashScreenView() {
+        return this.splashScreenView;
     }
 
     listenModel() {
@@ -124,7 +143,9 @@ export default class BlenderAppView extends NobucaAppView {
             console.log("workspace activated");
             this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
             this.getAreasView().getChildViews()[0].getChildViews()[0].updateContentsPositionAndSize();
-
+        });
+        this.getModel().getShowSplashScreenEventEmitter().subscribe(()=>{
+            this.createSplashScreen();
         });
     }
 }

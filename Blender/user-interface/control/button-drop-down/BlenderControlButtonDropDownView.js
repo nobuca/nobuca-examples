@@ -115,16 +115,6 @@ export default class BlenderControlButtonDropDownView extends NobucaComponentVie
         });
     }
 
-    getAbsoluteTop(element) {
-        if (element.offsetParent != null) return element.offsetTop + this.getAbsoluteTop(element.offsetParent);
-        return element.offsetTop;
-    }
-
-    getAbsoluteLeft(element) {
-        if (element.offsetParent != null) return element.offsetLeft + this.getAbsoluteLeft(element.offsetParent);
-        return element.offsetLeft;
-    }
-
     updateView() {
 
         if (!this.getModel().getEnabledDisabledBehaviour()) return;

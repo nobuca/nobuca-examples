@@ -31,11 +31,15 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
 
     createMenubar() {
         this.menubar = new NobucaMenubarModel();
-        
+
         var blenderMenuItem = this.getMenubar().addMenuItem(new NobucaMenuItemModel("blender"));
         blenderMenuItem.setIconImageSrc("./user-interface/icons/icon-blender.svg");
-        blenderMenuItem.addMenuItem(new NobucaMenuItemModel("splashScreen", "Splash Screen"));
-        blenderMenuItem.addMenuItem(new NobucaMenuItemModel("aboutBlender", "About Blender"));
+        blenderMenuItem.addMenuItem(new NobucaMenuItemModel("splashScreen", "<u>S</u>plash Screen"));
+        blenderMenuItem.addMenuItem(new NobucaMenuItemModel("aboutBlender", "<u>A</u>bout Blender"));
+        blenderMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
+        blenderMenuItem.addMenuItem(new NobucaMenuItemModel("installApplicationTemplate", "<u>I</u>ntall Application Template..."));
+        blenderMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
+        blenderMenuItem.addMenuItem(new NobucaMenuItemModel("system", "System"));
         var fileMenuItem = this.getMenubar().addMenuItem(new NobucaMenuItemModel("file", "File"));
         var fileNewMenuItem = fileMenuItem.addMenuItem(new NobucaMenuItemModel("new", "<u>N</u>ew"));
         fileNewMenuItem.setIconImageSrc("./user-interface/icons/icon-file-new.svg");
@@ -114,7 +118,7 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
     }
 
     listenWorkspaceChangeRequest() {
-        this.getWorkspaces().getActiveTabChangeEventEmitter().subscribe((workspaceTab)=>{
+        this.getWorkspaces().getActiveTabChangeEventEmitter().subscribe((workspaceTab) => {
             this.getWorkspaceChangeRequestedEventEmitter().emit(workspaceTab.getId());
         })
     }

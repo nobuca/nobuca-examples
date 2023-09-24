@@ -1,9 +1,7 @@
 import NobucaComponentModel from "../../../../../nobuca-core/component/NobucaComponentModel.js"
 import BlenderCameraArcball from "../../../business-logic/camera/BlenderCameraArcball.js";
-import BlenderCameraRotating from "../../../business-logic/camera/BlenderCameraRotating.js";
 import BlenderGeometry from "../../../business-logic/geometry/BlenderGeometry.js";
 import BlenderGeometryVertex from "../../../business-logic/geometry/BlenderGeometryVertex.js";
-import BlenderVertexArrayTriangles from "./vertex-array/BlenderVertexArrayTriangles.js";
 
 export default class BlenderControl3DViewportModel extends NobucaComponentModel {
 

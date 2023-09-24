@@ -59,7 +59,7 @@ export default class BlenderControlEditorSelectorPopoverView extends NobucaPopov
         divColumnEntryShortcut.innerHTML = entryModel.getShortcut();
 
         divColumnEntry.addEventListener("click", event => {
-            this.destroyPopover();
+            this.destroy();
             this.getModel().getEntryClickedEventEmitter().emit(entryModel.getId());
         });
     }

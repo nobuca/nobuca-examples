@@ -121,7 +121,7 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
         panelTop.getLayout().setDirectionRow();
 
         var panelLeft = panelTop.addChild(new NobucaPanelModel());
-        panelLeft.getLayout().setDirectionColumn().setJustifyContentsRight().setGrow();
+        panelLeft.getLayout().setDirectionColumn().setJustifyContentsRight().setGrow(true);
 
         var labelPinScene = new NobucaLabelModel("");
         panelLeft.addChild(labelPinScene);
@@ -131,7 +131,7 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
         panelLeft.addChild(labelMode);
 
         var panelRight = panelTop.addChild(new NobucaPanelModel());
-        panelRight.getLayout().setDirectionColumn().setGrow();
+        panelRight.getLayout().setDirectionColumn().setGrow(true);
 
         var pinScene = new NobucaPanelModel();
         pinScene.getLayout().setDirectionRow().setAlignContentsCenter();
@@ -140,7 +140,7 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
         panelRight.addChild(pinScene);
 
         var objectMode = new BlenderControlButtonDropDownModel();
-        objectMode.getLayout().setGrow();
+        objectMode.getLayout().setGrow(true);
         objectMode.setImageSrc("./user-interface/icons/icon-mode-object.svg");
         objectMode.setTitle("Object Mode")
         panelRight.addChild(objectMode);
@@ -168,7 +168,7 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
         tab.setIconSrc("./user-interface/icons/icon-small-camera2.svg");
 
         var header = tab.addChild(new NobucaPanelModel());
-        header.getLayout().setGrow();
+        header.getLayout().setGrow(true);
         header.getLayout().setAlignContentsCenter();
 
         var headerImage = new NobucaImageModel("./user-interface/icons/icon-data-block-scene.svg");
@@ -181,15 +181,15 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
         renderEngine.getLayout().setAlignContentsCenter();
 
         var panelLeft = renderEngine.addChild(new NobucaPanelModel());
-        panelLeft.getLayout().setDirectionColumn().setJustifyContentsRight().setGrow();
+        panelLeft.getLayout().setDirectionColumn().setJustifyContentsRight().setGrow(true);
 
         panelLeft.addChild(new NobucaLabelModel("Render Engine &nbsp;")).getLayout().setJustifyContentsRight();
 
         var panelRight = renderEngine.addChild(new NobucaPanelModel());
-        panelRight.getLayout().setDirectionColumn().setGrow();
+        panelRight.getLayout().setDirectionColumn().setGrow(true);
 
         var objectMode = new BlenderControlButtonDropDownModel();
-        objectMode.getLayout().setGrow();
+        objectMode.getLayout().setGrow(true);
         objectMode.setTitle("Eevee")
         panelRight.addChild(objectMode);
 
@@ -237,7 +237,7 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
         tab.setActive(true);
 
         var header = tab.addChild(new NobucaPanelModel());
-        header.getLayout().setGrow();
+        header.getLayout().setGrow(true);
         header.getLayout().setAlignContentsCenter();
 
         var headerImage = new NobucaImageModel("./user-interface/icons/icon-data-block-scene.svg");

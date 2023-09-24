@@ -175,7 +175,7 @@ export default class BlenderWebGPU {
 
         this.getCanvas().addEventListener("wheel", event => {
             this.mouseState.wheel += Math.sign(event.deltaY);
-        });
+        }, { passive: true });
 
         this.deltaTime = 0;
         this.lastFrameMS = Date.now();

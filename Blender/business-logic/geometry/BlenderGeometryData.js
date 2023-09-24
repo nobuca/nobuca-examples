@@ -1,7 +1,18 @@
 
 export default class BlenderGeometryData {
 
-    addToVertexArrayOfTriangles() {
+    constructor() {
+        this.geometryTriangles = [];
+    }
 
+    createGeometryTriangles() {
+    }
+
+    getGeometryTriangles() {
+        return this.geometryTriangles;
+    }
+
+    addGeometryTriangle(geometryTriangle) {
+        this.getGeometryTriangles().push(geometryTriangle);
     }
 }

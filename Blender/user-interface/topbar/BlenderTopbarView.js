@@ -23,7 +23,7 @@ export default class BlenderTopbarView extends NobucaPanelView {
 
         this.divMenusAndWorkspaces.addEventListener("wheel", (event) => {
             this.divMenusAndWorkspaces.scrollLeft += event.deltaY;
-        });
+        }, { passive: true });
     }
 
     getDivMenusAndWorkspaces() {

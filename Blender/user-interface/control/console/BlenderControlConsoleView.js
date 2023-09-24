@@ -39,11 +39,6 @@ export default class BlenderControlConsoleView extends NobucaComponentView {
         this.getNativeElement().scrollTop = divEntry.offsetTop;
     }
 
-    updateContentsPositionAndSize() {
-        console.log(this.getNativeElement().offsetHeight);
-        //this.getDivEntries().style.height = this.getNativeElement().offsetHeight + "px";
-    }
-
     listenModel() {
         this.getModel().getEntryAddedEventEmitter().subscribe(entryModel => {
             this.createEntry(entryModel);

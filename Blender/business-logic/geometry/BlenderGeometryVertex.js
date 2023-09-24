@@ -11,8 +11,18 @@ export default class BlenderGeometryVertex {
         return this.x;
     }
 
+    incrementX(x) {
+        this.x += x;
+        return this;
+    }
+
     setY(y) {
         this.y = y;
+        return this;
+    }
+
+    incrementY(y) {
+        this.y += y;
         return this;
     }
 
@@ -27,6 +37,11 @@ export default class BlenderGeometryVertex {
 
     getZ() {
         return this.z;
+    }
+
+    incrementZ(z) {
+        this.z += z;
+        return this;
     }
 
     setXYZ(x, y, z) {
@@ -58,5 +73,13 @@ export default class BlenderGeometryVertex {
 
     getV() {
         return this.v;
+    }
+
+    copyFromVertex(vertex) {
+        this.setX(vertex.getX());
+        this.setY(vertex.getY());
+        this.setZ(vertex.getZ());
+        this.setU(vertex.getU());
+        this.setV(vertex.getV());
     }
 }

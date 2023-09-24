@@ -101,8 +101,6 @@ export default class BlenderAppView extends NobucaAppView {
 
     updateContentsPositionAndSize() {
 
-        console.log("updateContentsPositionAndSize");
-
         this.getRootPanelView().getNativeElement().style.height = window.innerHeight + "px";
         this.getRootPanelView().getNativeElement().style.width = window.innerWidth + "px";
 
@@ -140,7 +138,6 @@ export default class BlenderAppView extends NobucaAppView {
 
     listenModel() {
         this.getModel().getWorkspaceActivatedRequestedEventEmitter().subscribe(() => {
-            console.log("workspace activated");
             this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
             this.getAreasView().getChildViews()[0].getChildViews()[0].updateContentsPositionAndSize();
         });

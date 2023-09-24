@@ -16,6 +16,7 @@ export default class BlenderAppModel extends NobucaAppModel {
 
     constructor() {
         super();
+        this.createDefaultFileAndMakeItTheCurrentFile();
         this.setTitle("Blender");
         this.createWorkspaces();
         this.createTopbar();
@@ -23,7 +24,6 @@ export default class BlenderAppModel extends NobucaAppModel {
         this.createStatusbar();
         this.createWorkspaceActivatedEventEmitter();
         this.activateWorkspace("layout");
-        this.createDefaultFileAndMakeItTheCurrentFile();
         this.createSplashScreen();
     }
 

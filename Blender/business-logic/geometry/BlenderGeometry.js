@@ -1,9 +1,9 @@
 import BlenderGeometryDataCube from "./BlenderGeometryDataCube.js";
 import BlenderGeometryDataLine from "./BlenderGeometryDataLine.js";
 import BlenderGeometryMaterial from "./BlenderGeometryMaterial.js";
-import BlenderGeometryTransform from "./BlenderGeometryTransform.js";
 import BlenderGeometryColor from "./BlenderGeometryColor.js"
 import BlenderGeometryDataTriangle from "./BlenderGeometryDataTriangle.js";
+import BlenderGeometryDataCone from "./BlenderGeometryDataCone.js";
 
 export default class BlenderGeometry {
 
@@ -11,7 +11,6 @@ export default class BlenderGeometry {
         this.setType(type);
         this.color = new BlenderGeometryColor();
         this.material = new BlenderGeometryMaterial();
-        this.transform = new BlenderGeometryTransform();
     }
 
     getType() {
@@ -19,11 +18,18 @@ export default class BlenderGeometry {
     }
 
     setType(type) {
+        
         if (type == this.getType()) return;
-        else if (type == "line") this.data = new BlenderGeometryDataLine();
+        this.type = type;
+
+        if (type == "line") this.data = new BlenderGeometryDataLine();
         else if (type == "triangle") this.data = new BlenderGeometryDataTriangle();
         else if (type == "cube") this.data = new BlenderGeometryDataCube();
+        else if (type == "cone") this.data = new BlenderGeometryDataCone();
         else throw "Type " + type + " is not a valid geometry data type";
+        
+        this.getData().createGeometryTriangles();
+
         return this;
     }
 
@@ -49,7 +55,7 @@ export default class BlenderGeometry {
         return this.material;
     }
 
-    addToVertexArrayOfTriangles(vertexArrayOfTriangles) {
-        this.getData().addToVertexArrayOfTriangles(vertexArrayOfTriangles);
+    getGeometryTriangles() {
+        return this.getData().getGeometryTriangles();
     }
 }

@@ -1,11 +1,30 @@
 
+import BlenderSceneObjectTransform from "./BlenderSceneObjectTransform.js";
 
 export default class BlenderSceneObject {
 
-     constructor(type, data) {
+     constructor(name, type, data) {
+        this.name = name;
         this.type = type;
         this.data = data;
+        this.transform = new BlenderSceneObjectTransform();
         this.objects = [];
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    getType() {
+        return this.type;
+    }
+
+    getData() {
+        return this.data;
+    }
+
+    getTransform() {
+        return this.transform;
     }
 
     getObjects() {
@@ -18,7 +37,4 @@ export default class BlenderSceneObject {
         return object;
     }
 
-    getType() {
-        return this.type;
-    }
 }

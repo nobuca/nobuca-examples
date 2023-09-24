@@ -174,7 +174,7 @@ export default class BlenderControlTimelineView extends NobucaComponentView {
             this.setColumnWidth(newColumnWidth);
 
             this.createNumbersAndColumns();
-        });
+        }, { passive: true });
 
         //this.createPlayhead();
         //this.createKeyframes();

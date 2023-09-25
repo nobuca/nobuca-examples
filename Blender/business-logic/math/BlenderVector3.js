@@ -123,6 +123,13 @@ export default class BlenderVector3 {
         return this;
     }
 
+    addVector(b) {
+        this.values[0] = this.values[0] + b.values[0];
+        this.values[1] = this.values[1] + b.values[1];
+        this.values[2] = this.values[2] + b.values[2];
+
+        return this;
+    }
 
     addScaled(b, scale) {
 

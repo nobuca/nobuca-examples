@@ -157,8 +157,10 @@ export default class BlenderWebGPU {
         this.modelViewProjectionMatrix = new BlenderMatrix4();
 
         this.mouseState = new Object();
-        this.mouseState.x = 0;
-        this.mouseState.y = 0;
+        this.mouseState.currentX = 0;
+        this.mouseState.currentY = 0;
+        this.mouseState.movementX = 0;
+        this.mouseState.movementY = 0;
         this.mouseState.wheel = 0;
         this.mouseState.wheelButtonDown = false;
         this.mouseState.shiftKey = false;
@@ -169,9 +171,11 @@ export default class BlenderWebGPU {
             this.mouseState.leftButtonDown = (event.buttons & 1) !== 0;
             this.mouseState.shiftKey = event.shiftKey;
             if (this.mouseState.wheelButtonDown) {
-                this.mouseState.x += event.movementX;
-                this.mouseState.y += event.movementY;
+                this.mouseState.movementX += event.movementX;
+                this.mouseState.movementY += event.movementY;
             }
+            this.mouseState.currentX = event.x;
+            this.mouseState.currentY = event.y;
         });
 
         this.getCanvas().addEventListener("wheel", event => {
@@ -513,8 +517,8 @@ export default class BlenderWebGPU {
 
         this.getCamera().update(this.deltaTime, this.mouseState);
 
-        this.mouseState.x = 0;
-        this.mouseState.y = 0;
+        this.mouseState.movementX = 0;
+        this.mouseState.movementY = 0;
         this.mouseState.wheel = 0;
 
         if (!BlenderWebGPU.pageIsVisible) return;

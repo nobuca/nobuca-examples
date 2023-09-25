@@ -3,7 +3,6 @@ import BlenderCameraArcball from "../../../business-logic/camera/BlenderCameraAr
 import BlenderFileCurrent from "../../../business-logic/file/BlenderFileCurrent.js";
 import BlenderGeometry from "../../../business-logic/geometry/BlenderGeometry.js";
 import BlenderGeometryColor from "../../../business-logic/geometry/BlenderGeometryColor.js";
-import BlenderGeometryDataTriangle from "../../../business-logic/geometry/BlenderGeometryDataTriangle.js";
 
 export default class BlenderControl3DViewportModel extends NobucaComponentModel {
 

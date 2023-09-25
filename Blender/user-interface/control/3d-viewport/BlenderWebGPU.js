@@ -160,12 +160,14 @@ export default class BlenderWebGPU {
         this.mouseState.x = 0;
         this.mouseState.y = 0;
         this.mouseState.wheel = 0;
-        this.mouseState.leftButtonDown = false;
+        this.mouseState.wheelButtonDown = false;
+        this.mouseState.shiftKey = false;
 
         this.getCanvas().addEventListener("mousemove", event => {
             this.mouseState.rightButtonDown = (event.buttons & 2) !== 0;
             this.mouseState.wheelButtonDown = (event.buttons & 4) !== 0;
             this.mouseState.leftButtonDown = (event.buttons & 1) !== 0;
+            this.mouseState.shiftKey = event.shiftKey;
             if (this.mouseState.wheelButtonDown) {
                 this.mouseState.x += event.movementX;
                 this.mouseState.y += event.movementY;
@@ -514,7 +516,6 @@ export default class BlenderWebGPU {
         this.mouseState.x = 0;
         this.mouseState.y = 0;
         this.mouseState.wheel = 0;
-        this.mouseState.leftButtonDown = false;
 
         if (!BlenderWebGPU.pageIsVisible) return;
 

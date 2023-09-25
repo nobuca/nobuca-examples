@@ -14,7 +14,7 @@ export default class BlenderScene {
         sceneObject2.getTransform().translate(4, 0, 0);
 
         var sceneObject3 = this.addObject("Cone", "geometry", new BlenderGeometry("cone"));
-        sceneObject3.getTransform().translate(-2, 0, 0);
+        sceneObject3.getTransform().translate(12, 0, 0);
     }
 
     getObjects() {

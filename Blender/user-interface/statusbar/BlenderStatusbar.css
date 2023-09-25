@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 250px;
 }
 
 .BlenderStatusbarMouseLeftButtonImg,
@@ -30,7 +31,7 @@
     font-family: var(--font-family);
 	font-size: var(--font-size);
 	text-shadow: var(--text-shadow);
-    padding-right: 100px;
+    padding-right: 14px;
     padding-left: 14px;
 }
 

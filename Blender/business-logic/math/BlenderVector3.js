@@ -114,6 +114,16 @@ export default class BlenderVector3 {
         return this;
     }
 
+    addXYZ(x, y, z) {
+
+        this.values[0] = this.values[0] + x;
+        this.values[1] = this.values[1] + y;
+        this.values[2] = this.values[2] + z;
+
+        return this;
+    }
+
+
     addScaled(b, scale) {
 
         this.values[0] = this.values[0] + b.values[0] * scale;
@@ -138,7 +148,7 @@ export default class BlenderVector3 {
         const y = this.values[1];
         const z = this.values[2];
         const w = (m.values[3] * x + m.values[7] * y + m.values[11] * z + m.values[15]) || 1;
-      
+
         this.values[0] = (m.values[0] * x + m.values[4] * y + m.values[8] * z + m.values[12]) / w;
         this.values[1] = (m.values[1] * x + m.values[5] * y + m.values[9] * z + m.values[13]) / w;
         this.values[2] = (m.values[2] * x + m.values[6] * y + m.values[10] * z + m.values[14]) / w;

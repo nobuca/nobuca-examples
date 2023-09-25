@@ -2,6 +2,8 @@ import NobucaComponentView from "../../../../nobuca-core/component/NobucaCompone
 
 export default class BlenderStatusbarView extends NobucaComponentView {
 
+    static shiftKey = false;
+
     createNativeElement() {
         var div = document.createElement("div");
         div.className = "BlenderStatusbar";
@@ -34,6 +36,7 @@ export default class BlenderStatusbarView extends NobucaComponentView {
         divMouseMiddleButtonLabel.className = "BlenderStatusbarMouseMiddleButtonLabel";
         divMouseMiddleButtonLabel.innerHTML = "Rotate View";
         divMouseMiddleButton.appendChild(divMouseMiddleButtonLabel);
+        BlenderStatusbarView.divMouseMiddleButtonLabel = divMouseMiddleButtonLabel;
 
         var divMouseRightButton = document.createElement("div");
         divMouseRightButton.className = "BlenderStatusbarMouseRightButton";
@@ -55,4 +58,27 @@ export default class BlenderStatusbarView extends NobucaComponentView {
         this.getNativeElement().appendChild(divVersion);
     }
 
+    static updateLabels() {
+        if(BlenderStatusbarView.shiftKey) {
+            BlenderStatusbarView.divMouseMiddleButtonLabel.innerHTML = "Pan View";
+        } else {
+            BlenderStatusbarView.divMouseMiddleButtonLabel.innerHTML = "Rotate View";
+        }
+    }
 }
+
+document.addEventListener("keydown", event=> {
+    BlenderStatusbarView.shiftKey = event.shiftKey;
+    BlenderStatusbarView.updateLabels();
+});
+
+document.addEventListener("keyup", event=> {
+    BlenderStatusbarView.shiftKey = event.shiftKey;
+    BlenderStatusbarView.updateLabels();
+});
+
+document.addEventListener("mousemove", event=> {
+    BlenderStatusbarView.shiftKey = event.shiftKey;
+    BlenderStatusbarView.updateLabels();
+});
+

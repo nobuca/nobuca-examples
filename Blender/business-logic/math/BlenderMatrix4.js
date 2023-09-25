@@ -363,4 +363,10 @@ export default class BlenderMatrix4 {
         return this;
     }
 
+    getTranslation(v) {
+        v.values[0] = this.values[12];
+        v.values[1] = this.values[13];
+        v.values[2] = this.values[14];
+    }
+
 }

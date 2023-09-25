@@ -1,6 +1,13 @@
 
 export default class BlenderGeometryColor {
 
+    constructor() {
+        this.red = .5;
+        this.green = .5;
+        this.blue = .5
+        this.alpha = 1;
+    }
+
     setRed(red) {
         this.red = red;
         return this;
@@ -45,4 +52,7 @@ export default class BlenderGeometryColor {
         return this;
     }
    
+    copyFromColor(color) {
+        this.setRedGreenBlueAlpha(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+    }
 }

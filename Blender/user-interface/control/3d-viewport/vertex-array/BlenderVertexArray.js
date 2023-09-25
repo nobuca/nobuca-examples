@@ -38,6 +38,14 @@ export default class BlenderVertexArray {
         this.uvOffset = uvOffset;
     }
 
+    getNormalOffset() {
+        return this.normalOffset;
+    }
+
+    setNormalOffset(normalOffset) {
+        this.normalOffset = normalOffset;
+    }
+
     getVertexCount() {
         return this.vertexCount;
     }

@@ -75,11 +75,52 @@ export default class BlenderGeometryVertex {
         return this.v;
     }
 
+    setNx(nx) {
+        this.nx = nx;
+        return this;
+    }
+
+    incrementNx(nx) {
+        this.nx += nx;
+        return this;
+    }
+
+    getNx() {
+        return this.nx;
+    }
+
+    setNy(ny) {
+        this.ny = ny;
+        return this;
+    }
+
+    getNy() {
+        return this.ny;
+    }
+
+    setNz(nz) {
+        this.nz = nz;
+        return this;
+    }
+
+    getNz() {
+        return this.nz;
+    }
+
+    setNormalXYZ(nx, ny, nz) {
+        this.nx = nx;
+        this.ny = ny;
+        this.nz = nz;
+    }
+
     copyFromVertex(vertex) {
         this.setX(vertex.getX());
         this.setY(vertex.getY());
         this.setZ(vertex.getZ());
         this.setU(vertex.getU());
         this.setV(vertex.getV());
+        this.setNx(vertex.getNx());
+        this.setNy(vertex.getNy());
+        this.setNz(vertex.getNz());
     }
 }

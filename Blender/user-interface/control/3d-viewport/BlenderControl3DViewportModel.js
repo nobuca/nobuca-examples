@@ -105,16 +105,24 @@ export default class BlenderControl3DViewportModel extends NobucaComponentModel 
         var scene = BlenderFileCurrent.getFile().getContents().getActiveScene();
         scene.getObjects().forEach(sceneObject => {
             if (sceneObject.getType() == "geometry") {
-                var geometryTriangles = sceneObject.getData().getGeometryTriangles();
+                var geometry = sceneObject.getData();
+                var geometryTriangles = geometry.getGeometryTriangles();
                 geometryTriangles.forEach(geometryTriangle => {
-                    var geometryTriangleTranformed = this.applyTranformation(geometryTriangle, sceneObject.getTransform());
-                    this.addGeometryTriangle(geometryTriangleTranformed)
+                    var geometryTriangleTransformed = this.applyTranformationToGeometryTriangle(geometryTriangle, sceneObject.getTransform());
+                    geometryTriangleTransformed.getColor().copyFromColor(geometry.getColor());
+                    this.addGeometryTriangle(geometryTriangleTransformed)
+                });
+                var geometryLines = geometry.getGeometryLines();
+                geometryLines.forEach(geometryLine => {
+                    var geometryLineTransformed = this.applyTranformationToGeometryLine(geometryLine, sceneObject.getTransform());
+                    //geometryLineTransformed.getColor().copyFromColor(geometry.getColor());
+                    this.addGeometryLine(geometryLineTransformed)
                 });
             }
         });
     }
 
-    applyTranformation(geometryTriangle, sceneObjectTransform) {
+    applyTranformationToGeometryTriangle(geometryTriangle, sceneObjectTransform) {
         var geometryTriangleTranformed = new BlenderGeometry("triangle");
         geometryTriangleTranformed.setColor(geometryTriangle.getColor());
         geometryTriangleTranformed.setMaterial(geometryTriangle.getMaterial());
@@ -128,5 +136,17 @@ export default class BlenderControl3DViewportModel extends NobucaComponentModel 
         geometryTriangleTranformed.getData().setVertexB(vertexBTranformed);
         geometryTriangleTranformed.getData().setVertexC(vertexCTranformed);
         return geometryTriangleTranformed;
+    }
+
+    applyTranformationToGeometryLine(geometryLine, sceneObjectTransform) {
+        var geometryLineTranformed = new BlenderGeometry("line");
+        geometryLineTranformed.setColor(geometryLine.getColor());
+        var vertexA = geometryLine.getData().getVertexA();
+        var vertexB = geometryLine.getData().getVertexB();
+        var vertexATranformed = sceneObjectTransform.createTransformedVertex(vertexA);
+        var vertexBTranformed = sceneObjectTransform.createTransformedVertex(vertexB);
+        geometryLineTranformed.getData().setVertexA(vertexATranformed);
+        geometryLineTranformed.getData().setVertexB(vertexBTranformed);
+        return geometryLineTranformed;
     }
 }

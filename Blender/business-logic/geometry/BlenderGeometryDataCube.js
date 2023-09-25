@@ -3,7 +3,7 @@ import BlenderGeometry from "./BlenderGeometry.js";
 import BlenderGeometryVertex from "./BlenderGeometryVertex.js";
 
 export default class BlenderGeometryDataCube extends BlenderGeometryData {
-   
+
     constructor() {
         super();
         this.width = 1;
@@ -13,8 +13,8 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         return this.width;
     }
 
-    createGeometryTriangles() {
-        
+    createGeometryLinesAndTriangles() {
+
         var width = this.getWidth();
 
         var vA = (new BlenderGeometryVertex()).setXYZ(width, -width, width);
@@ -32,13 +32,21 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle1.getData().getVertexA().setXYZ(vA.getX(), vA.getY(), vA.getZ()).setUV(0, 1);
         triangle1.getData().getVertexB().setXYZ(vB.getX(), vB.getY(), vB.getZ()).setUV(1, 1);
         triangle1.getData().getVertexC().setXYZ(vC.getX(), vC.getY(), vC.getZ()).setUV(1, 0);
+        triangle1.getData().recalculateVertexNormals();
         triangle1.getColor().setRedGreenBlueAlpha(.75, .75, .75, opacity);
         this.addGeometryTriangle(triangle1);
+
+        var triangle1NormalA = new BlenderGeometry("line");
+        triangle1NormalA.getData().getVertexA().setXYZ(vA.getX(), vA.getY(), vA.getZ());
+        triangle1NormalA.getData().getVertexB().setXYZ(vA.getX() + vA.getNx(), vA.getY() + vA.getNy(), vA.getZ() + vA.getNz());
+        triangle1NormalA.getColor().setRedGreenBlueAlpha(1, .6, 0, opacity);
+        this.addGeometryLine(triangle1NormalA);
 
         var triangle2 = new BlenderGeometry("triangle");
         triangle2.getData().getVertexA().setXYZ(vD.getX(), vD.getY(), vD.getZ()).setUV(0, 0);
         triangle2.getData().getVertexB().setXYZ(vA.getX(), vA.getY(), vA.getZ()).setUV(0, 1);
         triangle2.getData().getVertexC().setXYZ(vC.getX(), vC.getY(), vC.getZ()).setUV(1, 0);
+        triangle2.getData().recalculateVertexNormals();
         triangle2.getColor().setRedGreenBlueAlpha(.75, .75, .75, opacity);
         this.addGeometryTriangle(triangle2);
 
@@ -47,6 +55,7 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle3.getData().getVertexB().setXYZ(vA.getX(), vA.getY(), vA.getZ()).setUV(1, 1);
         triangle3.getData().getVertexC().setXYZ(vD.getX(), vD.getY(), vD.getZ()).setUV(1, 0);
         triangle3.getColor().setRedGreenBlueAlpha(.65, .65, .65, opacity);
+        triangle3.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle3);
 
         var triangle4 = new BlenderGeometry("triangle");
@@ -54,6 +63,7 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle4.getData().getVertexB().setXYZ(vE.getX(), vE.getY(), vE.getZ()).setUV(0, 1);
         triangle4.getData().getVertexC().setXYZ(vD.getX(), vD.getY(), vD.getZ()).setUV(1, 0);
         triangle4.getColor().setRedGreenBlueAlpha(.65, .65, .65, opacity);
+        triangle4.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle4);
 
         var triangle5 = new BlenderGeometry("triangle");
@@ -61,6 +71,7 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle5.getData().getVertexB().setXYZ(vE.getX(), vE.getY(), vE.getZ()).setUV(1, 1);
         triangle5.getData().getVertexC().setXYZ(vF.getX(), vF.getY(), vF.getZ()).setUV(1, 0);
         triangle5.getColor().setRedGreenBlueAlpha(.55, .55, .55, opacity);
+        triangle5.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle5);
 
         var triangle6 = new BlenderGeometry("triangle");
@@ -68,6 +79,7 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle6.getData().getVertexB().setXYZ(vG.getX(), vG.getY(), vG.getZ()).setUV(0, 1);
         triangle6.getData().getVertexC().setXYZ(vF.getX(), vF.getY(), vF.getZ()).setUV(1, 0);
         triangle6.getColor().setRedGreenBlueAlpha(.55, .55, .55, opacity);
+        triangle6.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle6);
 
         var triangle7 = new BlenderGeometry("triangle");
@@ -75,6 +87,7 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle7.getData().getVertexB().setXYZ(vG.getX(), vG.getY(), vG.getZ()).setUV(1, 1);
         triangle7.getData().getVertexC().setXYZ(vH.getX(), vH.getY(), vH.getZ()).setUV(1, 0);
         triangle7.getColor().setRedGreenBlueAlpha(.45, .45, .45, opacity);
+        triangle7.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle7);
 
         var triangle8 = new BlenderGeometry("triangle");
@@ -82,6 +95,7 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle8.getData().getVertexB().setXYZ(vB.getX(), vB.getY(), vB.getZ()).setUV(0, 1);
         triangle8.getData().getVertexC().setXYZ(vH.getX(), vH.getY(), vH.getZ()).setUV(1, 0);
         triangle8.getColor().setRedGreenBlueAlpha(.45, .45, .45, opacity);
+        triangle8.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle8);
 
         var triangle9 = new BlenderGeometry("triangle");
@@ -89,6 +103,7 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle9.getData().getVertexB().setXYZ(vG.getX(), vG.getY(), vG.getZ()).setUV(1, 1);
         triangle9.getData().getVertexC().setXYZ(vB.getX(), vB.getY(), vB.getZ()).setUV(1, 0);
         triangle9.getColor().setRedGreenBlueAlpha(.35, .35, .35, opacity);
+        triangle9.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle9);
 
         var triangle10 = new BlenderGeometry("triangle");
@@ -96,6 +111,7 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle10.getData().getVertexB().setXYZ(vA.getX(), vA.getY(), vA.getZ()).setUV(0, 0);
         triangle10.getData().getVertexC().setXYZ(vE.getX(), vE.getY(), vE.getZ()).setUV(0, 1);
         triangle10.getColor().setRedGreenBlueAlpha(.35, .35, .35, opacity);
+        triangle10.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle10);
 
         var triangle11 = new BlenderGeometry("triangle");
@@ -103,6 +119,7 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle11.getData().getVertexB().setXYZ(vC.getX(), vC.getY(), vC.getZ()).setUV(1, 1);
         triangle11.getData().getVertexC().setXYZ(vH.getX(), vH.getY(), vH.getZ()).setUV(1, 0);
         triangle11.getColor().setRedGreenBlueAlpha(.85, .85, .85, opacity);
+        triangle11.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle11);
 
         var triangle12 = new BlenderGeometry("triangle");
@@ -110,8 +127,11 @@ export default class BlenderGeometryDataCube extends BlenderGeometryData {
         triangle12.getData().getVertexB().setXYZ(vD.getX(), vD.getY(), vD.getZ()).setUV(0, 1);
         triangle12.getData().getVertexC().setXYZ(vH.getX(), vH.getY(), vH.getZ()).setUV(1, 0);
         triangle12.getColor().setRedGreenBlueAlpha(.85, .85, .85, opacity);
+        triangle12.getData().recalculateVertexNormals();
         this.addGeometryTriangle(triangle12);
 
+        this.createWireframeLines();
     }
+
 
 }

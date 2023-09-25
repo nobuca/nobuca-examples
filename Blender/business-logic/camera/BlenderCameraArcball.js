@@ -80,6 +80,5 @@ export default class BlenderCameraArcball extends BlenderCamera {
     recalcuateRightAndUp() {
         this.getRight().cross(this.axisY, this.getBack()).normalize();
         this.getUp().cross(this.getBack(), this.getRight()).normalize();
-
     }
 }

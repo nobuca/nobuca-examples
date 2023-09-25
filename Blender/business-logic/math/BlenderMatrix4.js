@@ -125,11 +125,11 @@ export default class BlenderMatrix4 {
         this.values[11] = r20 * m03 + r21 * m13 + r22 * m23;
     }
 
-    translate(v) {
+    translate(x, y, z) {
 
-        const v0 = v.values[0];
-        const v1 = v.values[1];
-        const v2 = v.values[2];
+        const v0 = x;
+        const v1 = y;
+        const v2 = z;
         const m00 = this.values[0];
         const m01 = this.values[1];
         const m02 = this.values[2];
@@ -331,4 +331,36 @@ export default class BlenderMatrix4 {
 
         return this;
     }
+
+    transpose() {
+
+        let t;
+
+        t = this.values[1];
+        this.values[1] = this.values[4];
+        this.values[4] = t;
+
+        t = this.values[2];
+        this.values[2] = this.values[8];
+        this.values[8] = t;
+
+        t = this.values[3];
+        this.values[3] = this.values[12];
+        this.values[12] = t;
+
+        t = this.values[6];
+        this.values[6] = this.values[9];
+        this.values[9] = t;
+
+        t = this.values[7];
+        this.values[7] = this.values[13];
+        this.values[13] = t;
+
+        t = this.values[11];
+        this.values[11] = this.values[14];
+        this.values[14] = t;
+
+        return this;
+    }
+
 }

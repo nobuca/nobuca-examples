@@ -28,7 +28,9 @@ export default class BlenderGeometry {
         else if (type == "cone") this.data = new BlenderGeometryDataCone();
         else throw "Type " + type + " is not a valid geometry data type";
         
-        this.getData().createGeometryTriangles();
+        this.getData().createGeometryLines();
+
+        this.getData().createGeometryLinesAndTriangles();
 
         return this;
     }
@@ -57,5 +59,9 @@ export default class BlenderGeometry {
 
     getGeometryTriangles() {
         return this.getData().getGeometryTriangles();
+    }
+
+    getGeometryLines() {
+        return this.getData().getGeometryLines();
     }
 }

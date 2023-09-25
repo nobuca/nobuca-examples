@@ -71,8 +71,8 @@ export default class BlenderWebGPU {
 
         BlenderLogger.debug("WebGPU: Checking if canvas supports WebGPU...");
 
-        const context = this.getCanvas().getContext("webgpu");
-        if (!context) {
+        this.context = this.getCanvas().getContext("webgpu");
+        if (!this.context) {
             BlenderLogger.error(
                 "WebGPU: Canvas does not support WebGPU"
             );
@@ -91,7 +91,7 @@ export default class BlenderWebGPU {
 
         BlenderLogger.debug("WebGPU: Configuring context...");
 
-        context.configure({
+        this.context.configure({
             device: this.getDevice(),
             format: this.getPresentationFormat(),
             alphaMode: 'premultiplied'
@@ -121,15 +121,14 @@ export default class BlenderWebGPU {
 
         BlenderLogger.debug("WebGPU: Render pipelines created.");
 
-        const texture = this.getDevice().createTexture({
+        this.viewTexture = this.getDevice().createTexture({
             size: [this.getCanvas().width, this.getCanvas().height],
             sampleCount: this.getSampleCount(),
             format: this.getPresentationFormat(),
             usage: GPUTextureUsage.RENDER_ATTACHMENT,
         });
-        const view = texture.createView();
 
-        const depthTexture = this.getDevice().createTexture({
+        this.depthTexture = this.getDevice().createTexture({
             size: [this.getCanvas().width, this.getCanvas().height],
             sampleCount: this.getSampleCount(),
             format: 'depth24plus',
@@ -180,75 +179,7 @@ export default class BlenderWebGPU {
         this.deltaTime = 0;
         this.lastFrameMS = Date.now();
 
-        // ~~ Define render loop ~~
-        var frame = () => {
-
-            const now = Date.now();
-            this.deltaTime = (now - this.lastFrameMS) / 1000;
-            this.lastFrameMS = now;
-
-            this.getCamera().update(this.deltaTime, this.mouseState);
-
-            this.mouseState.x = 0;
-            this.mouseState.y = 0;
-            this.mouseState.wheel = 0;
-            this.mouseState.leftButtonDown = false;
-
-            if (!BlenderWebGPU.pageIsVisible) return;
-
-            var viewMatrix = this.getCamera().getViewMatrix();
-
-            this.modelViewProjectionMatrix.multiply(this.projectionMatrix, viewMatrix);
-
-            this.getDevice().queue.writeBuffer(
-                this.getUniformBuffer(),
-                0,
-                this.modelViewProjectionMatrix.getValues().buffer,
-                this.modelViewProjectionMatrix.getValues().byteOffset,
-                this.modelViewProjectionMatrix.getValues().byteLength
-            );
-
-            const commandEncoder = this.getDevice().createCommandEncoder();
-
-            // ~~ CREATE RENDER PASS DESCRIPTOR ~~
-            const renderPassDescriptor = {
-                colorAttachments: [
-                    {
-                        view,
-                        resolveTarget: context.getCurrentTexture().createView(),
-                        clearValue: { r: 0.23, g: 0.23, b: 0.23, a: 1.0 },
-                        loadOp: "clear",
-                        storeOp: "store",
-                    },
-                ],
-                depthStencilAttachment: {
-                    view: depthTexture.createView(),
-                    depthClearValue: 1.0,
-                    depthLoadOp: 'clear',
-                    depthStoreOp: 'store',
-                },
-            };
-
-            const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
-
-            passEncoder.setPipeline(this.getPipelineTriangleList());
-            passEncoder.setBindGroup(0, this.getUniformBindGroupTriangleList());
-            passEncoder.setVertexBuffer(0, this.getVertexBufferTriangleList());
-            passEncoder.draw(this.getVertexArrayTriangles().getVertexCount());
-
-            passEncoder.setPipeline(this.getPipelineLineList());
-            passEncoder.setBindGroup(0, this.getUniformBindGroupLineList());
-            passEncoder.setVertexBuffer(0, this.getVertexBufferLineList());
-            passEncoder.draw(this.getVertexArrayLines().getVertexCount());
-
-            passEncoder.end();
-
-            this.getDevice().queue.submit([commandEncoder.finish()]);
-
-            requestAnimationFrame(frame);
-        }
-
-        requestAnimationFrame(frame);
+        requestAnimationFrame(this.frame);
 
         this.initializingWebGPU = false;
     }
@@ -376,6 +307,11 @@ export default class BlenderWebGPU {
                         offset: this.getVertexArrayTriangles().getUvOffset(),
                         format: "float32x2",
                     },
+                    {
+                        shaderLocation: 3,
+                        offset: this.getVertexArrayTriangles().getNormalOffset(),
+                        format: "float32x4",
+                    },
                 ],
                 arrayStride: this.getVertexArrayTriangles().getNumberOfBytesPerVertex()
             },
@@ -387,18 +323,18 @@ export default class BlenderWebGPU {
     }
 
     async createPipelineTriangleList() {
-        const basicVertWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/basic.vert.wgsl');
-        const basicFragWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/basic.frag.wgsl');
+        const trianglesVertWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/triangles.vert.wgsl');
+        const trianglesFragWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/triangles.frag.wgsl');
 
         this.pipelineTriangleList = this.getDevice().createRenderPipeline({
             layout: 'auto',
             vertex: {
-                module: basicVertWgsl,
+                module: trianglesVertWgsl,
                 entryPoint: "main",
                 buffers: this.getVertexBufferDescriptorTriangleList(),
             },
             fragment: {
-                module: basicFragWgsl,
+                module: trianglesFragWgsl,
                 entryPoint: "main",
                 targets: [
                     {
@@ -426,17 +362,17 @@ export default class BlenderWebGPU {
     }
 
     async createPipelineTexturedTriangleList() {
-        const basicVertWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/basic.vert.wgsl');
-        const sampleTextureMixColorFragWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/sampleTextureMixColor.frag.wgsl');
+        const trianglesVertWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/triangles.vert.wgsl');
+        const trianglesTexuredFragWgsl = await this.loadShaderModuleFromFile('./user-interface/control/3d-viewport/shaders/triangles-textured.frag.wgsl');
         this.pipelineTexturedTriangleList = this.getDevice().createRenderPipeline({
             layout: 'auto',
             vertex: {
-                module: basicVertWgsl,
+                module: trianglesVertWgsl,
                 entryPoint: "main",
                 buffers: this.getVertexBufferDescriptorTriangleList(),
             },
             fragment: {
-                module: sampleTextureMixColorFragWgsl,
+                module: trianglesTexuredFragWgsl,
                 entryPoint: "main",
                 targets: [
                     {
@@ -464,7 +400,7 @@ export default class BlenderWebGPU {
     }
 
     createUniformBuffer() {
-        const uniformBufferSize = 4 * 16; // 4x4 matrix
+        const uniformBufferSize = 2 * 4 * 16; // 4x4 matrix
         this.uniformBuffer = this.getDevice().createBuffer({
             size: uniformBufferSize,
             usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
@@ -512,7 +448,7 @@ export default class BlenderWebGPU {
     }
 
     async createUniformBindGroupTexturedTriangleList() {
-        
+
         // Create a sampler with linear filtering for smooth interpolation.
         const sampler = this.getDevice().createSampler({
             magFilter: 'linear',
@@ -565,6 +501,81 @@ export default class BlenderWebGPU {
 
     getUniformBindGroupTexturedTriangleList() {
         return this.uniformBindGroupTexturedTriangleList;
+    }
+
+    frame = () => {
+
+        const now = Date.now();
+        this.deltaTime = (now - this.lastFrameMS) / 1000;
+        this.lastFrameMS = now;
+
+        this.getCamera().update(this.deltaTime, this.mouseState);
+
+        this.mouseState.x = 0;
+        this.mouseState.y = 0;
+        this.mouseState.wheel = 0;
+        this.mouseState.leftButtonDown = false;
+
+        if (!BlenderWebGPU.pageIsVisible) return;
+
+        var modelViewMatrix = this.getCamera().getViewMatrix();
+
+        this.modelViewProjectionMatrix.multiply(this.projectionMatrix, modelViewMatrix);
+
+        this.getDevice().queue.writeBuffer(
+            this.getUniformBuffer(),
+            0,
+            this.modelViewProjectionMatrix.getValues().buffer,
+            this.modelViewProjectionMatrix.getValues().byteOffset,
+            this.modelViewProjectionMatrix.getValues().byteLength
+        );
+
+        this.getDevice().queue.writeBuffer(
+            this.getUniformBuffer(),
+            4 * 16,
+            modelViewMatrix.getValues().buffer,
+            modelViewMatrix.getValues().byteOffset,
+            modelViewMatrix.getValues().byteLength
+        );
+
+        const commandEncoder = this.getDevice().createCommandEncoder();
+
+        // ~~ CREATE RENDER PASS DESCRIPTOR ~~
+        const renderPassDescriptor = {
+            colorAttachments: [
+                {
+                    view: this.viewTexture.createView(),
+                    resolveTarget: this.context.getCurrentTexture().createView(),
+                    clearValue: { r: 0.23, g: 0.23, b: 0.23, a: 1.0 },
+                    loadOp: "clear",
+                    storeOp: "store",
+                },
+            ],
+            depthStencilAttachment: {
+                view: this.depthTexture.createView(),
+                depthClearValue: 1.0,
+                depthLoadOp: 'clear',
+                depthStoreOp: 'store',
+            },
+        };
+
+        const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
+
+        passEncoder.setPipeline(this.getPipelineTriangleList());
+        passEncoder.setBindGroup(0, this.getUniformBindGroupTriangleList());
+        passEncoder.setVertexBuffer(0, this.getVertexBufferTriangleList());
+        passEncoder.draw(this.getVertexArrayTriangles().getVertexCount());
+
+        passEncoder.setPipeline(this.getPipelineLineList());
+        passEncoder.setBindGroup(0, this.getUniformBindGroupLineList());
+        passEncoder.setVertexBuffer(0, this.getVertexBufferLineList());
+        passEncoder.draw(this.getVertexArrayLines().getVertexCount());
+
+        passEncoder.end();
+
+        this.getDevice().queue.submit([commandEncoder.finish()]);
+
+        requestAnimationFrame(this.frame);
     }
 }
 

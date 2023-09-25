@@ -8,13 +8,13 @@ export default class BlenderScene {
         this.objects = [];
 
         var sceneObject = this.addObject("Cube", "geometry", new BlenderGeometry("cube"));
-        sceneObject.getTransform().incrementX(6);
+        sceneObject.getTransform().translate(9, 0, 0);
 
-        var sceneObject2 = this.addObject("Cube", "geometry", new BlenderGeometry("cube"));
-        sceneObject2.getTransform().incrementX(2);
+        var sceneObject2 = this.addObject("Cube 2", "geometry", new BlenderGeometry("cube"));
+        sceneObject2.getTransform().translate(4, 0, 0);
 
         var sceneObject3 = this.addObject("Cone", "geometry", new BlenderGeometry("cone"));
-        sceneObject3.getTransform().incrementX(-2);
+        sceneObject3.getTransform().translate(-2, 0, 0);
     }
 
     getObjects() {

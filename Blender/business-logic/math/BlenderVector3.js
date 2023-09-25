@@ -132,6 +132,20 @@ export default class BlenderVector3 {
         return this;
     }
 
+    transformMat4(m) {
+
+        const x = this.values[0];
+        const y = this.values[1];
+        const z = this.values[2];
+        const w = (m.values[3] * x + m.values[7] * y + m.values[11] * z + m.values[15]) || 1;
+      
+        this.values[0] = (m.values[0] * x + m.values[4] * y + m.values[8] * z + m.values[12]) / w;
+        this.values[1] = (m.values[1] * x + m.values[5] * y + m.values[9] * z + m.values[13]) / w;
+        this.values[2] = (m.values[2] * x + m.values[6] * y + m.values[10] * z + m.values[14]) / w;
+
+        return this;
+    }
+
     transformMat4Upper3x3(m) {
 
         const v0 = this.values[0];

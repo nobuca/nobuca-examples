@@ -1,4 +1,5 @@
 import NobucaComponentView from "../../../../nobuca-core/component/NobucaComponentView.js";
+import NobucaFactory from "../../../../nobuca-core/factory/NobucaFactory.js";
 
 export default class BlenderEditorContainerView extends NobucaComponentView {
 
@@ -38,7 +39,7 @@ export default class BlenderEditorContainerView extends NobucaComponentView {
     }
 
     changeActiveEditorTo(editorModel) {
-        var editorView = this.createNewViewForModel(editorModel);
+        var editorView = NobucaFactory.createNewViewForModel(editorModel);
         if (this.getActiveEditorView() != null) {
             this.getNativeElement().removeChild(this.activeEditorView.getNativeElement());
         }

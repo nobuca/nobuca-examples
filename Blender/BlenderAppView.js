@@ -1,5 +1,4 @@
 import NobucaAppView from "../../nobuca-core/app/NobucaAppView.js";
-import NobucaFactory from "../../nobuca-core/factory/NobucaFactory.js";
 import BlenderControlButtonDropDownView from "./user-interface/control/button-drop-down/BlenderControlButtonDropDownView.js";
 import BlenderControlButtonToggleView from "./user-interface/control/button-toggle/BlenderControlButtonToggleView.js";
 import BlenderDataBlockMenuView from "./user-interface/control/data-block-menu/BlenderDataBlockMenuView.js";
@@ -17,11 +16,16 @@ import BlenderStatusbarView from "./user-interface/statusbar/BlenderStatusbarVie
 import BlenderControlEditorSelectorPopoverView from "./user-interface/control/editor-selector/BlenderControlEditorSelectorPopoverView.js";
 import BlenderControlConsoleView from "./user-interface/control/console/BlenderControlConsoleView.js";
 import BlenderControl3DViewportView from "./user-interface/control/3d-viewport/BlenderControl3DViewportView.js";
+import NobucaFactory from "../../nobuca-core/factory/NobucaFactory.js";
 
 export default class BlenderAppView extends NobucaAppView {
 
-    registerViewConstructors() {
-        NobucaFactory.registerDefaultViewConstructors();
+    constructor(model) {
+        super(model);
+        this.createSplashTopbarAreasStatusbar();
+    }
+
+    registerCustomViewConstructors() {
         this.registerViewConstructorForModelClassName("BlenderDataBlockMenuModel",
             function (model) { return new BlenderDataBlockMenuView(model); });
         this.registerViewConstructorForModelClassName("BlenderTopbarModel",
@@ -58,62 +62,71 @@ export default class BlenderAppView extends NobucaAppView {
             function (model) { return new BlenderControl3DViewportView(model); });
     }
 
-    createNativeElement() {
-        this.createRootPanelView();
-        this.createSplashScreen();
+    getClassName() {
+        return "BlenderApp";
     }
 
-    createRootPanelView() {
-        this.rootPanelView = this.createNewViewForModel(this.getModel().getRootPanel());
-        this.addRootPanelViewToDocumentBody(this.rootPanelView);
-
-        this.topbarView = this.createNewViewForModel(this.getModel().getTopbar());
-        this.getRootPanelView().getNativeElement().appendChild(this.getTopbarView().getNativeElement());
-
-        this.areasView = this.createNewViewForModel(this.getModel().getAreas());
-        this.getRootPanelView().getNativeElement().appendChild(this.getAreasView().getNativeElement());
-
-        this.statusbarView = this.createNewViewForModel(this.getModel().getStatusbar());
-        this.getRootPanelView().getNativeElement().appendChild(this.getStatusView().getNativeElement());
-
+    createSplashTopbarAreasStatusbar() {
+        this.createSplashScreen();
+        this.createTopbarView();
+        this.createAreasView();
+        this.createStatusbarView();
         this.updateContentsPositionAndSize();
+    }
 
-        window.addEventListener("resize", () => {
-            this.updateContentsPositionAndSize();
-        });
+    createSplashScreen() {
+        this.splashScreenView = NobucaFactory.createNewViewForModel(this.getModel().getSplashScreen());
+        this.updateContentsPositionAndSize();
+    }
+
+    getSplashScreenView() {
+        return this.splashScreenView;
+    }
+
+    createTopbarView() {
+        this.topbarView = NobucaFactory.createNewViewForModel(this.getModel().getTopbar());
+        this.getNativeElement().appendChild(this.getTopbarView().getNativeElement());
     }
 
     getTopbarView() {
         return this.topbarView;
     }
 
+    createAreasView() {
+        this.areasView = NobucaFactory.createNewViewForModel(this.getModel().getAreas());
+        this.getNativeElement().appendChild(this.getAreasView().getNativeElement());
+    }
+
     getAreasView() {
         return this.areasView;
+    }
+
+    createStatusbarView() {
+        this.statusbarView = NobucaFactory.createNewViewForModel(this.getModel().getStatusbar());
+        this.getNativeElement().appendChild(this.getStatusView().getNativeElement());
     }
 
     getStatusView() {
         return this.statusbarView;
     }
 
-    getRootPanelView() {
-        return this.rootPanelView;
-    }
-
     updateContentsPositionAndSize() {
 
-        this.getRootPanelView().getNativeElement().style.height = window.innerHeight + "px";
-        this.getRootPanelView().getNativeElement().style.width = window.innerWidth + "px";
+        this.getNativeElement().style.height = window.innerHeight + "px";
+        this.getNativeElement().style.width = window.innerWidth + "px";
 
-        var areasHeight = this.getRootPanelView().getNativeElement().offsetHeight;
+        if (this.getTopbarView() == null) return;
+
+        var areasHeight = this.getNativeElement().offsetHeight;
         areasHeight -= this.getTopbarView().getNativeElement().offsetHeight;
         areasHeight -= this.getStatusView().getNativeElement().offsetHeight;
 
         var workspaceView = this.getAreasView().getChildViews()[0].getChildViews()[0];
 
         if (workspaceView.getNativeElement().offsetHeight != areasHeight ||
-            workspaceView.getNativeElement().offsetWidth != this.getRootPanelView().getNativeElement().offsetWidth) {
+            workspaceView.getNativeElement().offsetWidth != this.getNativeElement().offsetWidth) {
             workspaceView.getNativeElement().style.height = areasHeight + "px";
-            workspaceView.getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
+            workspaceView.getNativeElement().style.width = this.getNativeElement().offsetWidth + "px";
             workspaceView.updateContentsPositionAndSize();
         }
 
@@ -127,21 +140,12 @@ export default class BlenderAppView extends NobucaAppView {
         }
     }
 
-    createSplashScreen() {
-        this.splashScreenView = this.createNewViewForModel(this.getModel().getSplashScreen());
-        this.updateContentsPositionAndSize();
-    }
-
-    getSplashScreenView() {
-        return this.splashScreenView;
-    }
-
     listenModel() {
         this.getModel().getWorkspaceActivatedRequestedEventEmitter().subscribe(() => {
-            this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.width = this.getRootPanelView().getNativeElement().offsetWidth + "px";
+            this.getAreasView().getChildViews()[0].getChildViews()[0].getNativeElement().style.width = this.getNativeElement().offsetWidth + "px";
             this.getAreasView().getChildViews()[0].getChildViews()[0].updateContentsPositionAndSize();
         });
-        this.getModel().getShowSplashScreenEventEmitter().subscribe(()=>{
+        this.getModel().getShowSplashScreenEventEmitter().subscribe(() => {
             this.createSplashScreen();
         });
     }

@@ -1,4 +1,5 @@
 import NobucaComponentView from "../../../../nobuca-core/component/NobucaComponentView.js";
+import NobucaFactory from "../../../../nobuca-core/factory/NobucaFactory.js";
 
 export default class BlenderEditorView extends NobucaComponentView {
 
@@ -27,7 +28,7 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.divRegionMain.className = "BlenderEditorRegionMain";
         this.getNativeElement().appendChild(this.divRegionMain);
         
-        this.regionMainControlView = this.createNewViewForModel(this.getModel().getRegionMainControl());
+        this.regionMainControlView = NobucaFactory.createNewViewForModel(this.getModel().getRegionMainControl());
         this.getDivRegionMain().appendChild(this.getRegionMainControlView().getNativeElement());
     }
 
@@ -44,7 +45,7 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.divRegionHeader.className = "BlenderEditorRegionHeader";
         this.getNativeElement().appendChild(this.divRegionHeader);
 
-        this.regionHeaderView = this.createNewViewForModel(this.getModel().getRegionHeader());
+        this.regionHeaderView = NobucaFactory.createNewViewForModel(this.getModel().getRegionHeader());
         this.getDivRegionHeader().appendChild(this.getRegionHeaderView().getNativeElement());
     }
 
@@ -61,7 +62,7 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.divRegionToolbar.className = "BlenderEditorRegionToolbar";
         this.getNativeElement().appendChild(this.divRegionToolbar);
         
-        this.regionToolbarView = this.createNewViewForModel(this.getModel().getRegionToolbar());
+        this.regionToolbarView = NobucaFactory.createNewViewForModel(this.getModel().getRegionToolbar());
         this.getDivRegionToolbar().appendChild(this.getRegionToolbarView().getNativeElement());
     }
 
@@ -78,7 +79,7 @@ export default class BlenderEditorView extends NobucaComponentView {
         this.divRegionToolSettings.className = "BlenderEditorRegionToolSettings";
         this.getNativeElement().appendChild(this.divRegionToolSettings);
         
-        this.regionToolSettingsView = this.createNewViewForModel(this.getModel().getRegionToolSettings());
+        this.regionToolSettingsView = NobucaFactory.createNewViewForModel(this.getModel().getRegionToolSettings());
         this.getDivRegionToolSettings().appendChild(this.getRegionToolSettingsView().getNativeElement());
     }
 

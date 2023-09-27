@@ -1,4 +1,5 @@
 import NobucaComponentView from "../../../../../nobuca-core/component/NobucaComponentView.js";
+import NobucaFactory from "../../../../../nobuca-core/factory/NobucaFactory.js";
 
 export default class BlenderControlButtonDropDownView extends NobucaComponentView {
 
@@ -100,7 +101,7 @@ export default class BlenderControlButtonDropDownView extends NobucaComponentVie
 
         this.getNativeElement().classList.add("showingPopover");
 
-        var popoverView = this.createNewViewForModel(this.getModel().getPopover());
+        var popoverView = NobucaFactory.createNewViewForModel(this.getModel().getPopover());
  
         var top = this.getAbsoluteTop(this.getNativeElement());
         top += this.getNativeElement().offsetHeight;

@@ -1,3 +1,4 @@
+import NobucaFactory from "../../../../nobuca-core/factory/NobucaFactory.js";
 import NobucaPanelView from "../../../../nobuca-core/panel/NobucaPanelView.js";
 
 export default class BlenderTopbarView extends NobucaPanelView {
@@ -15,10 +16,10 @@ export default class BlenderTopbarView extends NobucaPanelView {
         this.divMenusAndWorkspaces.className = "BlenderTopbarMenusAndWorkspaces";
         this.getNativeElement().appendChild(this.divMenusAndWorkspaces);
 
-        var menubarView = this.createNewViewForModel(this.getModel().getMenubar())
+        var menubarView = NobucaFactory.createNewViewForModel(this.getModel().getMenubar())
         this.getDivMenusAndWorkspaces().appendChild(menubarView.getNativeElement());
 
-        var workspacesView = this.createNewViewForModel(this.getModel().getWorkspaces())
+        var workspacesView = NobucaFactory.createNewViewForModel(this.getModel().getWorkspaces())
         this.getDivMenusAndWorkspaces().appendChild(workspacesView.getNativeElement());
 
         this.divMenusAndWorkspaces.addEventListener("wheel", (event) => {
@@ -35,7 +36,7 @@ export default class BlenderTopbarView extends NobucaPanelView {
         this.divScenesAndLayers.className = "BlenderTopbarScenesAndLayers";
         this.getNativeElement().appendChild(this.divScenesAndLayers);
 
-        var scenesAndLayersView = this.createNewViewForModel(this.getModel().getScenesAndLayers())
+        var scenesAndLayersView = NobucaFactory.createNewViewForModel(this.getModel().getScenesAndLayers())
         this.getDivScenesAndLayers().appendChild(scenesAndLayersView.getNativeElement());
     }
 

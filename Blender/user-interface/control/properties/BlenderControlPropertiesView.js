@@ -1,4 +1,5 @@
 import NobucaComponentView from "../../../../../nobuca-core/component/NobucaComponentView.js";
+import NobucaFactory from "../../../../../nobuca-core/factory/NobucaFactory.js";
 
 
 export default class BlenderControlPropertiesView extends NobucaComponentView {
@@ -59,7 +60,7 @@ export default class BlenderControlPropertiesView extends NobucaComponentView {
         divTabBody.style.display = "none";
         this.getDivTabBodies().appendChild(divTabBody);
 
-        var tabBodyView = this.createNewViewForModel(tabModel);
+        var tabBodyView = NobucaFactory.createNewViewForModel(tabModel);
         divTabBody.appendChild(tabBodyView.getNativeElement());
 
         tabModel.divTabBody = divTabBody;

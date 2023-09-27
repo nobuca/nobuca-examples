@@ -24,7 +24,7 @@ body {
     background-color: var(--background-color-dark);
 }
 
-#rootPanel {
+.BlenderApp {
     display: flex;
     flex-direction: column;
     width: 100%;

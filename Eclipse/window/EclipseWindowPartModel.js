@@ -3,7 +3,17 @@ import NobucaComponentModel from "../../../nobuca-core/component/NobucaComponent
 export default class EclipseWindowPartModel extends NobucaComponentModel {
 
     constructor() {
+        super();
+        this.title = "Test";
         this.dirty = false;
+    }
+
+    setTitle(title) {
+        this.title = title;
+    }
+
+    getTitle() {
+        return this.title;
     }
 
     getDirty() {
@@ -12,5 +22,13 @@ export default class EclipseWindowPartModel extends NobucaComponentModel {
 
     setDirty(dirty) {
         this.dirty = dirty;
+    }
+
+    getCloseable() {
+        return this.closeable;
+    }
+
+    setCloseable(closeable) {
+        this.closeable = closeable;
     }
 }

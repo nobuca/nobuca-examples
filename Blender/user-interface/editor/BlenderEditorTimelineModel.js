@@ -2,8 +2,8 @@ import BlenderEditorModel from "./BlenderEditorModel.js";
 import BlenderControlButtonDropDownModel from "../control/button-drop-down/BlenderControlButtonDropDownModel.js"
 import NobucaMenubarModel from "../../../../nobuca-core/menubar/NobucaMenubarModel.js";
 import NobucaMenuItemModel from "../../../../nobuca-core/menu/NobucaMenuItemModel.js";
-import NobucaButtonBarModel from "../../../../nobuca-core/button-bar/NobucaButtonBarModel.js";
-import NobucaButtonBarItemModel from "../../../../nobuca-core/button-bar/NobucaButtonBarItemModel.js";
+import NobucaButtonbarModel from "../../../../nobuca-core/buttonbar/NobucaButtonbarModel.js";
+import NobucaButtonbarItemModel from "../../../../nobuca-core/buttonbar/NobucaButtonbarItemModel.js";
 import BlenderFieldNumberModel from "../field/number/BlenderFieldNumberModel.js";
 import BlenderControlButtonModel from "../control/button/BlenderControlButtonModel.js";
 import BlenderControlTimelineModel from "../control/timeline/BlenderControlTimelineModel.js";
@@ -53,23 +53,23 @@ export default class BlenderEditorTimelineModel extends BlenderEditorModel {
     }
 
     createRegionHeaderTransportControls() {
-        var buttons = this.getRegionHeader().getCenterSide().addChild(new NobucaButtonBarModel());
-        buttons.addItem(new NobucaButtonBarItemModel("./user-interface/icons/icon-jump-to-start.svg"));
-        buttons.addItem(new NobucaButtonBarItemModel("./user-interface/icons/icon-jump-to-previous-keyframe.svg"));
-        buttons.addItem(new NobucaButtonBarItemModel("./user-interface/icons/icon-rewind.svg"));
-        buttons.addItem(new NobucaButtonBarItemModel("./user-interface/icons/icon-play.svg"));
-        buttons.addItem(new NobucaButtonBarItemModel("./user-interface/icons/icon-jump-to-next-keyframe.svg"));
-        buttons.addItem(new NobucaButtonBarItemModel("./user-interface/icons/icon-jump-to-end.svg"));
+        var buttons = this.getRegionHeader().getCenterSide().addChild(new NobucaButtonbarModel());
+        buttons.addItem(new NobucaButtonbarItemModel("./user-interface/icons/icon-jump-to-start.svg"));
+        buttons.addItem(new NobucaButtonbarItemModel("./user-interface/icons/icon-jump-to-previous-keyframe.svg"));
+        buttons.addItem(new NobucaButtonbarItemModel("./user-interface/icons/icon-rewind.svg"));
+        buttons.addItem(new NobucaButtonbarItemModel("./user-interface/icons/icon-play.svg"));
+        buttons.addItem(new NobucaButtonbarItemModel("./user-interface/icons/icon-jump-to-next-keyframe.svg"));
+        buttons.addItem(new NobucaButtonbarItemModel("./user-interface/icons/icon-jump-to-end.svg"));
     }
 
     createRegionHeaderCurrentFrame() {
         this.getRegionHeader().getRightSide().addChild(new BlenderFieldNumberModel(30));
    
-        var bar = this.getRegionHeader().getRightSide().addChild(new NobucaButtonBarModel());
+        var bar = this.getRegionHeader().getRightSide().addChild(new NobucaButtonbarModel());
         bar.addItem(new BlenderControlButtonModel("./user-interface/icons/icon-cronometer.svg"));
-        var firstFrame = bar.addItem(new NobucaButtonBarItemModel());
+        var firstFrame = bar.addItem(new NobucaButtonbarItemModel());
         firstFrame.addChild(new BlenderFieldNumberModel(0)).setLabel("Start");
-        var lastFrame = bar.addItem(new NobucaButtonBarItemModel());
+        var lastFrame = bar.addItem(new NobucaButtonbarItemModel());
         lastFrame.addChild(new BlenderFieldNumberModel(240)).setLabel("End");
     }
 

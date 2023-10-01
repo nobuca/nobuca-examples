@@ -5,6 +5,7 @@ export default class EclipseWindowPartModel extends NobucaComponentModel {
     constructor() {
         super();
         this.title = "Test";
+        this.imageSrc = null;
         this.dirty = false;
     }
 
@@ -14,6 +15,14 @@ export default class EclipseWindowPartModel extends NobucaComponentModel {
 
     getTitle() {
         return this.title;
+    }
+
+    setImageSrc(imageSrc) {
+        this.imageSrc = imageSrc;
+    }
+
+    getImageSrc() {
+        return this.imageSrc;
     }
 
     getDirty() {

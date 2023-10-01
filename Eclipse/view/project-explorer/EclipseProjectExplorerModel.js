@@ -8,6 +8,7 @@ export default class EclipseProjectExplorerModel extends EclipseWindowPartViewMo
         super();
         this.setTitle("Project Explorer");
         this.setCloseable("true");
+        this.setImageSrc("./icons/filenav_nav.svg");
         this.createButtonbar();
         this.createTree();
     }

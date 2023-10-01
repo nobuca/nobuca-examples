@@ -29,6 +29,7 @@ export default class EclipseWindowPartContainerStackModel extends EclipsePartCon
     addPart(part) {
         this.parts.push(part);
         var tab = new NobucaTabModel(part.getId(), part.getTitle());
+        tab.setImageSrc(part.getImageSrc());
         tab.setCloseable(part.getCloseable());
         this.getTabsHeader().addTab(tab);
         return part;

@@ -7,6 +7,7 @@ export default class EclipseOutlineModel extends EclipseWindowPartViewModel {
     constructor() {
         super();
         this.setTitle("Outline");
+        this.setImageSrc("./icons/outline_co.svg");
         this.setCloseable(true);
         this.createButtonbar();
         this.createTree();

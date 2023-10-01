@@ -73,13 +73,13 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
 
         var borderWidth = 1;
 
-        var tabHeaderViewHeight = 21;
-        var tabHeaderViewWidth = this.getNativeElement().offsetWidth - borderWidth*2;
-        //this.getTabsHeaderView().getNativeElement().style.height = tabHeaderViewHeight + "px"
+        var tabHeaderViewHeight = 32;
+        var tabHeaderViewWidth = this.getNativeElement().offsetWidth - borderWidth * 2;
+        this.getTabsHeaderView().getNativeElement().style.height = tabHeaderViewHeight + "px"
         this.getTabsHeaderView().getNativeElement().style.width = tabHeaderViewWidth + "px"
 
-        var contentHeight = this.getNativeElement().offsetHeight - tabHeaderViewHeight - borderWidth*2;
-        var contentWidth = this.getNativeElement().offsetWidth - borderWidth*2;
+        var contentHeight = this.getNativeElement().offsetHeight - tabHeaderViewHeight - borderWidth * 2;
+        var contentWidth = this.getNativeElement().offsetWidth - borderWidth * 2;
 
         this.getDivContent().style.height = contentHeight + "px";
         this.getDivContent().style.width = contentWidth + "px";

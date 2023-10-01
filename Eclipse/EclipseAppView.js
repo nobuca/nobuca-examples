@@ -61,25 +61,28 @@ export default class EclipseAppView extends NobucaAppView {
 
     updateContentsPositionAndSize() {
 
-        this.getNativeElement().style.height = window.innerHeight + "px";
-        this.getNativeElement().style.width = window.innerWidth + "px";
+        var parentHeight = window.innerHeight;
+        var parentWidth = window.innerWidth;
+
+        this.getNativeElement().style.height = parentHeight + "px";
+        this.getNativeElement().style.width = parentWidth + "px";
 
         if (this.getWindowView() == null) return;
 
         var menubarHeight = 24;
-        var menubarWidth = this.getNativeElement().offsetWidth;
+        var menubarWidth = parentWidth;
 
         this.getMenubarView().getNativeElement().style.height = menubarHeight + "px";
         this.getMenubarView().getNativeElement().style.width = menubarWidth + "px";
 
         var buttonbarContainerHeight = 30;
-        var buttonbarContainerWidth = this.getNativeElement().offsetWidth;
+        var buttonbarContainerWidth = parentWidth;
 
         this.getButtonbarContainerView().getNativeElement().style.height = buttonbarContainerHeight + "px";
         this.getButtonbarContainerView().getNativeElement().style.width = buttonbarContainerWidth + "px";
 
-        var windowWidth = this.getNativeElement().offsetWidth;
-        var windowHeight = this.getNativeElement().offsetHeight - menubarHeight - buttonbarContainerHeight;
+        var windowWidth = parentWidth;
+        var windowHeight = parentHeight - menubarHeight - buttonbarContainerHeight;
 
         this.getWindowView().getNativeElement().style.height = windowHeight + "px";
         this.getWindowView().getNativeElement().style.width = windowWidth + "px";

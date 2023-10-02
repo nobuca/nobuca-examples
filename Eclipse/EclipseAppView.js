@@ -61,6 +61,8 @@ export default class EclipseAppView extends NobucaAppView {
 
     updateContentsPositionAndSize() {
 
+        super.updateContentsPositionAndSize();
+
         var parentHeight = window.innerHeight;
         var parentWidth = window.innerWidth;
 

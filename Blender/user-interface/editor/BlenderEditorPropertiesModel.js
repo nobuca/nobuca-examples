@@ -70,6 +70,7 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
         header.addChild(labelTweak);
 
         var sections = tab.addChild(new NobucaAccordionModel());
+        sections.setDraggableSections(true);
 
         var sectionOptions = sections.addSection(new NobucaAccordionSectionModel("Options"));
         sectionOptions.setExpanded(true);
@@ -147,7 +148,7 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
 
         var sectionWorkspaceSections = new NobucaAccordionModel();
         sectionWorkspace.addChild(sectionWorkspaceSections);
-
+ 
         var sectionFilterAddOns = new NobucaAccordionSectionModel();
         sectionFilterAddOns.addHeaderComponent(new NobucaCheckboxModel());
         sectionFilterAddOns.addHeaderComponent(new NobucaLabelModel("Filter Add-ons"));
@@ -194,6 +195,7 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
         panelRight.addChild(objectMode);
 
         var sections = tab.addChild(new NobucaAccordionModel());
+        sections.setDraggableSections(true);
 
         var sectionSamplings = sections.addSection(new NobucaAccordionSectionModel("Sampling"));
 
@@ -247,6 +249,7 @@ export default class BlenderEditorPropertiesModel extends BlenderEditorModel {
         header.addChild(headerLabel);
 
         var sections = tab.addChild(new NobucaAccordionModel());
+        sections.setDraggableSections(true);
 
         sections.addSection(new NobucaAccordionSectionModel("Format"));
         sections.addSection(new NobucaAccordionSectionModel("Frame Range"));

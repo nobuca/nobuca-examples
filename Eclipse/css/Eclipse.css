@@ -167,6 +167,7 @@ body {
   opacity: 0.8;
   background-color: transparent;
   color: rgb(218, 218, 218);
+  text-shadow: var(--eclipse-text-shadow);
 }
 
 .NobucaTabHeaderCloseButton::before {
@@ -179,6 +180,7 @@ body {
 
 .NobucaTabHeaderCloseButton {
   color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
 }
 
 .NobucaTabHeaderCloseButton:hover {
@@ -207,4 +209,206 @@ body {
 
 .NobucaButtonbarItemImg {
   padding: 3px;
+}
+
+.NobucaDialogBackground {
+  background-color: transparent;
+  opacity: 1;
+}
+
+.NobucaDialog {
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+  border-radius: 0;
+  opacity: 1;
+  border: 1px solid rgb(112, 112, 112);
+}
+
+.NobucaDialogHeader {
+  background-color: rgb(255, 255, 255);
+}
+
+.NobucaDialogSubheader {
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(160, 160, 160);
+  padding: 10px;
+}
+
+.NobucaDialogHeaderIcon {
+  width: 16px;
+}
+
+.NobucaDialogHeaderTitle {
+  color: inherit;
+  text-shadow: inherit;
+}
+
+.NobucaDialogBody,
+.NobucaDialogButtons {
+  background-color: rgb(240, 240, 240);
+}
+
+.NobucaDialogBody {
+  padding: 16px;
+}
+
+.NobucaDialogButtons {
+  border-top: 1px solid transparent;
+}
+
+.NobucaLabel {
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+}
+
+.NobucaText {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(122, 122, 122);
+  border-radius: 0;
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+  box-shadow: none;
+  max-height: 24px;
+  min-height: 24px;
+  margin-bottom: 0px;
+}
+
+.NobucaText:active,
+.NobucaText:focus {
+  border: 1px solid rgb(0, 120, 215);
+}
+
+.NobucaSelect {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(122, 122, 122);
+  border-radius: 0;
+  box-shadow: none;
+  max-height: 24px;
+  min-height: 24px;
+  align-items: top;
+}
+
+.NobucaSelect:hover,
+.NobucaSelect:active,
+.NobucaSelect:focus {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(0, 120, 215);
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+}
+
+.NobucaSelectInput,
+.NobucaSelectInput:hover,
+.NobucaSelectInput:active,
+.NobucaSelectInput:focus {
+  display: flex;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  border: 0;
+  outline: 0;
+  flex-grow: 1;
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+}
+
+.NobucaSelectButton {
+  display: flex;
+  width: 20px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.NobucaSelectButton:hover {
+  background-color: rgb(229, 241, 251);
+  border-left: 1px solid rgb(0, 120, 215);
+}
+
+.NobucaSelectButton::after {
+  content: "🞃";
+}
+
+.NobucaSelect.expanded > .NobucaSelectOptions {
+  display: flex;
+}
+
+.NobucaSelectOptions {
+  display: none;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(0, 120, 215);
+  box-shadow: 1px 1px 1px 0px rgb(0 0 0 / 40%);
+  box-sizing: border-box;
+  user-select: none;
+  position: absolute;
+}
+
+.NobucaButton {
+  background-color: rgb(225, 225, 225);
+  border-radius: 0;
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+  box-shadow: none;
+  border: 1px solid rgb(173, 173, 173);
+  outline: 1px solid transparent;
+}
+
+.NobucaButton.enabled:focus {
+  background-color: rgb(225, 225, 225);
+  border: 1px solid rgb(0, 120, 215);
+  outline: 1px solid rgb(0, 120, 215);
+}
+
+.NobucaButton.enabled:active,
+.NobucaButton.enabled:hover:active {
+  background-color: rgb(201, 228, 247);
+  border: 1px solid rgb(0, 120, 215);
+  outline: 1px solid transparent;
+}
+
+.NobucaButton.enabled:hover {
+  background-color: rgb(229, 241, 251);
+  border: 1px solid rgb(0, 120, 215);
+  outline: 1px solid transparent;
+}
+
+.NobucaAccordionSectionHeader {
+  background-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.NobucaAccordionSectionHeaderTitle {
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+  font-weight: bold;
+}
+
+.NobucaAccordionSectionHeaderButton {
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+}
+
+.NobucaAccordionSectionBody {
+  background-color: transparent;
+}
+
+.NobucaCheckbox {
+  background-color: rgb(255, 255, 255);
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.NobucaCheckbox.checked,
+.NobucaCheckbox:active,
+.NobucaCheckbox:hover.checked,
+.NobucaCheckbox:hover,
+.NobucaCheckbox:focus {
+  border: 1px solid rgb(0, 120, 215);
+  background-color: rgb(255, 255, 255);
+}
+
+.NobucaCheckboxMark {
+  background-color: rgb(0, 0, 0);
 }

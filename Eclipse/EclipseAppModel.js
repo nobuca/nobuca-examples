@@ -7,6 +7,7 @@ import NobucaMenuItemModel from "../../nobuca-core/menu/NobucaMenuItemModel.js";
 import NobucaMenuItemSeparatorModel from "../../nobuca-core/menu/NobucaMenuItemSeparatorModel.js";
 import NobucaMenubarModel from "../../nobuca-core/menubar/NobucaMenubarModel.js";
 import NobucaPanelModel from "../../nobuca-core/panel/NobucaPanelModel.js";
+import EclipseDialogSelectWorkspaceModel from "./dialog/select-workspace/EclipseDialogSelectWorkspaceModel.js";
 import EclipseOutlineModel from "./view/outline/EclipseOutlineModel.js";
 import EclipseProjectExplorerModel from "./view/project-explorer/EclipseProjectExplorerModel.js";
 import EclipsePartContainerSashLeftRightModel from "./window/EclipsePartContainerSashLeftRightModel.js";
@@ -23,6 +24,7 @@ export default class EclipseAppModel extends NobucaAppModel {
         this.createMenubar();
         this.createButtonbarContainer();
         this.createWindow();
+        this.showDialogSelectWorkspace();
     }
 
     getClassName() {
@@ -89,5 +91,9 @@ export default class EclipseAppModel extends NobucaAppModel {
 
     getWindow() {
         return this.window;
+    }
+
+    showDialogSelectWorkspace() {
+        new EclipseDialogSelectWorkspaceModel();
     }
 }

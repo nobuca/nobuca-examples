@@ -1,5 +1,4 @@
-import NobucaComponentModel from "../../../nobuca-core/component/NobucaComponentModel.js";
-import NobucaMenuModel from "../../../nobuca-core/menu/NobucaMenuModel.js";
+import NobucaComponentModel from "../../../../nobuca-core/component/NobucaComponentModel.js";
 
 export default class EclipseWindowModel extends NobucaComponentModel {
 

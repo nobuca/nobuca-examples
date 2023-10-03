@@ -1,20 +1,20 @@
-import NobucaButtonbarModel from "../../../../nobuca-core/buttonbar/NobucaButtonbarModel.js";
-import NobucaTreeModel from "../../../../nobuca-core/tree/NobucaTreeModel.js";
+import NobucaButtonbarModel from "../../../../../nobuca-core/buttonbar/NobucaButtonbarModel.js";
+import NobucaTreeModel from "../../../../../nobuca-core/tree/NobucaTreeModel.js";
 import EclipseWindowPartViewModel from "../../window/EclipseWindowPartViewModel.js";
 
-export default class EclipseProjectExplorerModel extends EclipseWindowPartViewModel {
+export default class EclipseOutlineModel extends EclipseWindowPartViewModel {
 
     constructor() {
         super();
-        this.setTitle("Project Explorer");
-        this.setCloseable("true");
-        this.setImageSrc("./icons/filenav_nav.svg");
+        this.setTitle("Outline");
+        this.setImageSrc("./user-interface/icons/outline_co.svg");
+        this.setCloseable(true);
         this.createButtonbar();
         this.createTree();
     }
 
     getClassName() {
-        return "EclipseProjectExplorerModel";
+        return "EclipseOutlineModel";
     }
 
     createButtonbar() {
@@ -32,6 +32,4 @@ export default class EclipseProjectExplorerModel extends EclipseWindowPartViewMo
     getTree() {
         return this.tree;
     }
-
-
 }

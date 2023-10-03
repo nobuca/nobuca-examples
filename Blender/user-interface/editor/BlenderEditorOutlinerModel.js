@@ -51,50 +51,50 @@ export default class BlenderEditorOutlinerModel extends BlenderEditorModel {
         outliner.setCollapseButtonIconSrc("./user-interface/icons/icon-tree-node-collapse.svg");
 
         var nodeSceneCollection = outliner.addNode(new NobucaTreeNodeModel("Scene Collection"));
-        nodeSceneCollection.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-collection.svg"));
-        nodeSceneCollection.addRightSideComponent(new NobucaTreeNodeTextModel("Scene Collection"));
+        nodeSceneCollection.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-collection.svg"));
+        nodeSceneCollection.addLeftSideComponent(new NobucaTreeNodeTextModel("Scene Collection"));
         nodeSceneCollection.expand();
 
         var nodeCollection = nodeSceneCollection.addNode(new NobucaTreeNodeModel());
-        nodeCollection.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-collection.svg"));
-        nodeCollection.addRightSideComponent(new NobucaTreeNodeTextModel("Collection"));
-        nodeCollection.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-checked.svg"));
-        nodeCollection.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-eye-opened.svg"));
-        nodeCollection.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-small-camera.svg"));
+        nodeCollection.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-collection.svg"));
+        nodeCollection.addLeftSideComponent(new NobucaTreeNodeTextModel("Collection"));
+        nodeCollection.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-checked.svg"));
+        nodeCollection.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-eye-opened.svg"));
+        nodeCollection.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-small-camera.svg"));
         nodeCollection.expand();
 
         var nodeCameraObject = nodeCollection.addNode(new NobucaTreeNodeModel());
-        nodeCameraObject.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-big-camera-orange.svg"));
-        nodeCameraObject.addRightSideComponent(new NobucaTreeNodeTextModel("Camera"));
-        nodeCameraObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-eye-opened.svg"));
-        nodeCameraObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-small-camera.svg"));
+        nodeCameraObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-big-camera-orange.svg"));
+        nodeCameraObject.addLeftSideComponent(new NobucaTreeNodeTextModel("Camera"));
+        nodeCameraObject.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-eye-opened.svg"));
+        nodeCameraObject.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-small-camera.svg"));
  
         var nodeCameraData = nodeCameraObject.addNode(new NobucaTreeNodeModel());
-        nodeCameraData.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-big-camera-green.svg"));
-        nodeCameraData.addRightSideComponent(new NobucaTreeNodeTextModel("Camera"));
+        nodeCameraData.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-big-camera-green.svg"));
+        nodeCameraData.addLeftSideComponent(new NobucaTreeNodeTextModel("Camera"));
 
         var nodeMeshObject = nodeCollection.addNode(new NobucaTreeNodeModel());
-        nodeMeshObject.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-mesh-orange.svg"));
-        nodeMeshObject.addRightSideComponent(new NobucaTreeNodeTextModel("Cube"));
-        nodeMeshObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-eye-opened.svg"));
-        nodeMeshObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-small-camera.svg"));
+        nodeMeshObject.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-mesh-orange.svg"));
+        nodeMeshObject.addLeftSideComponent(new NobucaTreeNodeTextModel("Cube"));
+        nodeMeshObject.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-eye-opened.svg"));
+        nodeMeshObject.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-small-camera.svg"));
 
         var nodeMeshData = nodeMeshObject.addNode(new NobucaTreeNodeModel());
-        nodeMeshData.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-mesh-green.svg"));
-        nodeMeshData.addRightSideComponent(new NobucaTreeNodeTextModel("Cube"));
+        nodeMeshData.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-mesh-green.svg"));
+        nodeMeshData.addLeftSideComponent(new NobucaTreeNodeTextModel("Cube"));
 
         var nodeMaterialData = nodeMeshData.addNode(new NobucaTreeNodeModel());
-        nodeMaterialData.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-material-red.svg"));
-        nodeMaterialData.addRightSideComponent(new NobucaTreeNodeTextModel("Material"));
+        nodeMaterialData.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-material-red.svg"));
+        nodeMaterialData.addLeftSideComponent(new NobucaTreeNodeTextModel("Material"));
 
         var nodeLight = nodeCollection.addNode(new NobucaTreeNodeModel());
-        nodeLight.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-light-bulb-orange.svg"));
-        nodeLight.addRightSideComponent(new NobucaTreeNodeTextModel("Light"));
-        nodeLight.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-eye-opened.svg"));
-        nodeLight.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-small-camera.svg"));
+        nodeLight.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-light-bulb-orange.svg"));
+        nodeLight.addLeftSideComponent(new NobucaTreeNodeTextModel("Light"));
+        nodeLight.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-eye-opened.svg"));
+        nodeLight.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-small-camera.svg"));
 
         var nodeLightDataPoint = nodeLight.addNode(new NobucaTreeNodeModel("Light"));
-        nodeLightDataPoint.addRightSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-light-point-green.svg"));
-        nodeLightDataPoint.addRightSideComponent(new NobucaTreeNodeTextModel("Light"));
+        nodeLightDataPoint.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/icon-light-point-green.svg"));
+        nodeLightDataPoint.addLeftSideComponent(new NobucaTreeNodeTextModel("Light"));
     }
 }

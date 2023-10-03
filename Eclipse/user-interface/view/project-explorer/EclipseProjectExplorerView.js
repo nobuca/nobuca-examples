@@ -1,25 +1,15 @@
-import NobucaComponentView from "../../../../nobuca-core/component/NobucaComponentView.js";
-import NobucaFactory from "../../../../nobuca-core/factory/NobucaFactory.js";
+import NobucaFactory from "../../../../../nobuca-core/factory/NobucaFactory.js";
+import EclipseWindowPartViewView from "../../window/EclipseWindowPartViewView.js";
 
-export default class EclipseProjectExplorerView extends NobucaComponentView {
+export default class EclipseProjectExplorerView extends EclipseWindowPartViewView {
 
     constructor(model) {
         super(model);
-        this.createButtonbarView();
         this.createTreeView();
     }
 
     getClassName() {
         return "EclipseProjectExplorer";
-    }
-
-    createButtonbarView() {
-        this.buttonbarView = NobucaFactory.createNewViewForModel(this.getModel().getButtonbar());
-        this.getNativeElement().appendChild(this.buttonbarView.getNativeElement());
-    }
-
-    getButtonbarView() {
-        return this.buttonbarView;
     }
 
     createTreeView() {
@@ -36,9 +26,9 @@ export default class EclipseProjectExplorerView extends NobucaComponentView {
         var buttonbarHeight = 20;
         var buttonbarWidth = this.getNativeElement().offsetWidth;
 
-        this.getButtonbarView().getNativeElement().style.height = buttonbarHeight + "px";
-        this.getButtonbarView().getNativeElement().style.width = buttonbarWidth + "px";
-        this.getButtonbarView().updateContentsPositionAndSize();
+        //this.getSpecificButtonbarView().getNativeElement().style.height = buttonbarHeight + "px";
+        //this.getSpecificButtonbarView().getNativeElement().style.width = buttonbarWidth + "px";
+        //this.getSpecificButtonbarView().updateContentsPositionAndSize();
 
         var treeHeight = this.getNativeElement().offsetHeight - buttonbarHeight;
         var treeWidth = this.getNativeElement().offsetWidth;

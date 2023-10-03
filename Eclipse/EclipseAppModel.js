@@ -6,13 +6,14 @@ import NobucaMenuItemModel from "../../nobuca-core/menu/NobucaMenuItemModel.js";
 import NobucaMenuItemSeparatorModel from "../../nobuca-core/menu/NobucaMenuItemSeparatorModel.js";
 import NobucaMenubarModel from "../../nobuca-core/menubar/NobucaMenubarModel.js";
 import NobucaPanelModel from "../../nobuca-core/panel/NobucaPanelModel.js";
-import EclipseDialogSelectWorkspaceModel from "./dialog/select-workspace/EclipseDialogSelectWorkspaceModel.js";
-import EclipseOutlineModel from "./view/outline/EclipseOutlineModel.js";
-import EclipseProjectExplorerModel from "./view/project-explorer/EclipseProjectExplorerModel.js";
-import EclipsePartContainerSashLeftRightModel from "./window/EclipsePartContainerSashLeftRightModel.js";
-import EclipsePartContainerSashTopBottomModel from "./window/EclipsePartContainerSashTopBottomModel.js";
-import EclipseWindowModel from "./window/EclipseWindowModel.js";
-import EclipseWindowPartContainerStackModel from "./window/EclipseWindowPartContainerStackModel.js";
+import EclipseWorkspace from "./buiness-logic/EclipseWorkspace.js";
+import EclipseDialogSelectWorkspaceModel from "./user-interface/dialog/select-workspace/EclipseDialogSelectWorkspaceModel.js";
+import EclipseOutlineModel from "./user-interface/view/outline/EclipseOutlineModel.js";
+import EclipseProjectExplorerModel from "./user-interface/view/project-explorer/EclipseProjectExplorerModel.js";
+import EclipsePartContainerSashLeftRightModel from "./user-interface/window/EclipsePartContainerSashLeftRightModel.js";
+import EclipsePartContainerSashTopBottomModel from "./user-interface/window/EclipsePartContainerSashTopBottomModel.js";
+import EclipseWindowModel from "./user-interface/window/EclipseWindowModel.js";
+import EclipseWindowPartContainerStackModel from "./user-interface/window/EclipseWindowPartContainerStackModel.js";
 
 export default class EclipseAppModel extends NobucaAppModel {
 
@@ -32,7 +33,7 @@ export default class EclipseAppModel extends NobucaAppModel {
     }
 
     configureDefaultDialogIcon() {
-        NobucaDialogModel.setDefaultIconSrc("./icons/eclipse-icon.svg");
+        NobucaDialogModel.setDefaultIconSrc("./user-interface/icons/eclipse-icon.svg");
     }
 
     createMenubar() {
@@ -58,7 +59,7 @@ export default class EclipseAppModel extends NobucaAppModel {
         this.getMenubar().addMenuItem(new NobucaMenuItemModel("Window", "Window"));
         this.getMenubar().addMenuItem(new NobucaMenuItemModel("help", "Help"));
         this.getMenubar().getMenuItemClickedEventEmitter().subscribe(menuItem => {
-            if(menuItem.getId()=="fileSwitchWorkspace") {
+            if (menuItem.getId() == "fileSwitchWorkspace") {
                 this.showDialogSelectWorkspace();
             }
         });
@@ -72,12 +73,12 @@ export default class EclipseAppModel extends NobucaAppModel {
         this.buttonbarContainer = new NobucaPanelModel();
         var buttonbarFile = this.buttonbarContainer.addChild(new NobucaButtonbarModel());
         buttonbarFile.setMoveable(true);
-        buttonbarFile.addItem(new NobucaButtonbarItemModel("./icons/new_wiz.svg"));
-        buttonbarFile.addItem(new NobucaButtonbarItemModel("./icons/save_edit.svg"));
-        buttonbarFile.addItem(new NobucaButtonbarItemModel("./icons/saveall_edit.svg"));
+        buttonbarFile.addItem(new NobucaButtonbarItemModel("./user-interface/icons/new_wiz.svg"));
+        buttonbarFile.addItem(new NobucaButtonbarItemModel("./user-interface/icons/save_edit.svg"));
+        buttonbarFile.addItem(new NobucaButtonbarItemModel("./user-interface/icons/saveall_edit.svg"));
         var buttonbarSearch = this.buttonbarContainer.addChild(new NobucaButtonbarModel());
         buttonbarSearch.setMoveable(true);
-        buttonbarSearch.addItem(new NobucaButtonbarItemModel("./icons/search.svg"));
+        buttonbarSearch.addItem(new NobucaButtonbarItemModel("./user-interface/icons/search.svg"));
     }
 
     getButtonbarContainer() {

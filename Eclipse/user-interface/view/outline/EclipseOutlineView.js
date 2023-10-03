@@ -1,5 +1,5 @@
-import NobucaComponentView from "../../../../nobuca-core/component/NobucaComponentView.js";
-import NobucaFactory from "../../../../nobuca-core/factory/NobucaFactory.js";
+import NobucaComponentView from "../../../../../nobuca-core/component/NobucaComponentView.js";
+import NobucaFactory from "../../../../../nobuca-core/factory/NobucaFactory.js";
 
 export default class EclipseOutlineView extends NobucaComponentView {
 

@@ -1,10 +1,10 @@
-import NobucaAppView from "../../nobuca-core/app/NobucaAppView.js";
-import NobucaFactory from "../../nobuca-core/factory/NobucaFactory.js";
-import EclipseDialogView from "./dialog/EclipseDialogView.js";
-import EclipseOutlineView from "./view/outline/EclipseOutlineView.js";
-import EclipseProjectExplorerView from "./view/project-explorer/EclipseProjectExplorerView.js";
-import EclipseWindowPartContainerStackView from "./window/EclipseWindowPartContainerStackView.js";
-import EclipseWindowView from "./window/EclipseWindowView.js";
+import NobucaAppView from "../../../nobuca-core/app/NobucaAppView.js";
+import NobucaFactory from "../../../nobuca-core/factory/NobucaFactory.js";
+import EclipseDialogView from "./user-interface/dialog/EclipseDialogView.js";
+import EclipseOutlineView from "./user-interface/view/outline/EclipseOutlineView.js";
+import EclipseProjectExplorerView from "./user-interface/view/project-explorer/EclipseProjectExplorerView.js";
+import EclipseWindowPartContainerStackView from "./user-interface/window/EclipseWindowPartContainerStackView.js";
+import EclipseWindowView from "./user-interface/window/EclipseWindowView.js";
 
 export default class EclipseAppView extends NobucaAppView {
 

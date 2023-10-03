@@ -1,4 +1,4 @@
-@import "../../../nobuca-core/Nobuca.css";
+@import "../../../../nobuca-core/Nobuca.css";
 
 html,
 body {
@@ -124,6 +124,32 @@ body {
   box-sizing: border-box;
 }
 
+.EclipseWindowPartContainerStackHeader {
+  display: flex;
+  user-select: none;
+  box-sizing: border-box;
+  flex-direction: row;
+  background-color: rgb(231, 231, 231);
+}
+
+.EclipseWindowPartContainerStackCommonButtonbar {
+  display: flex;
+  padding-right: 2px;
+  align-items: center;
+}
+
+.EclipseWindowPartContainerStackSpecificButtonbar {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: right;
+}
+
+.EclipseWindowPartContainerStackHeader > .NobucaTabsHeader {
+  flex-grow: 1;
+}
+
 .EclipseWindowPartContainerStackContent {
   user-select: none;
   box-sizing: border-box;
@@ -199,6 +225,7 @@ body {
   opacity: 1;
   justify-content: center;
   height: auto;
+  padding: 1px;
 }
 
 .NobucaButtonbarItem:hover {
@@ -208,7 +235,7 @@ body {
 }
 
 .NobucaButtonbarItemImg {
-  padding: 3px;
+  width: 16px;
 }
 
 .NobucaDialogBackground {
@@ -411,4 +438,40 @@ body {
 
 .NobucaCheckboxMark {
   background-color: rgb(0, 0, 0);
+}
+
+.NobucaTree {
+  background-color: rgb(255, 255, 255);
+}
+
+.NobucaTreeNodeExpandCollapseButton {
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+}
+
+.NobucaTreeNodeWithoutChildrenLeftSideComponents,
+.NobucaTreeNodeWithoutChildrenRightSideComponents {
+  padding: 4px;
+}
+
+.NobucaTreeNodeText {
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+}
+
+.NobucaTreeNodeWithoutChildren:hover,
+.NobucaTreeNode.selected > .NobucaTreeNodeWithoutChildren:hover,
+.NobucaTreeNode.selected > .NobucaTreeNodeWithoutChildren {
+  background-color: transparent;
+}
+
+.NobucaTreeNodeWithoutChildren:hover
+  > .NobucaTreeNodeWithoutChildrenLeftSideComponents {
+  background-color: rgb(229, 243, 255);
+}
+
+.NobucaTreeNode.selected
+  > .NobucaTreeNodeWithoutChildren
+  > .NobucaTreeNodeWithoutChildrenLeftSideComponents {
+  background-color: rgb(205, 232, 255);
 }

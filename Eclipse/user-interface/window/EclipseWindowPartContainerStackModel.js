@@ -1,6 +1,8 @@
-import NobucaTabsHeaderModel from "../../../nobuca-core/tabs/NobucaTabsHeaderModel.js";
-import NobucaTabModel from "../../../nobuca-core/tabs/NobucaTabModel.js";
+import NobucaTabsHeaderModel from "../../../../nobuca-core/tabs/NobucaTabsHeaderModel.js";
+import NobucaTabModel from "../../../../nobuca-core/tabs/NobucaTabModel.js";
 import EclipsePartContainerModel from "./EclipseWindowPartContainerModel.js";
+import NobucaButtonbarItemModel from "../../../../nobuca-core/buttonbar/NobucaButtonbarItemModel.js";
+import NobucaButtonbarModel from "../../../../nobuca-core/buttonbar/NobucaButtonbarModel.js";
 
 export default class EclipseWindowPartContainerStackModel extends EclipsePartContainerModel {
 
@@ -8,6 +10,7 @@ export default class EclipseWindowPartContainerStackModel extends EclipsePartCon
         super();
         this.parts = [];
         this.createTabsHeader();
+        this.createButtonbar();
     }
 
     getClassName() {
@@ -20,6 +23,16 @@ export default class EclipseWindowPartContainerStackModel extends EclipsePartCon
 
     getTabsHeader() {
         return this.tabsHeader;
+    }
+
+    createButtonbar() {
+        this.buttonbar = new NobucaButtonbarModel();
+        this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_min_view.svg"));
+        this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_max_view.svg"));
+    }
+
+    getButtonbar() {
+        return this.buttonbar;
     }
 
     getParts() {

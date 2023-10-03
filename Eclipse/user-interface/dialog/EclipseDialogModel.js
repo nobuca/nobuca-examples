@@ -1,4 +1,4 @@
-import NobucaDialogModel from "../../../nobuca-core/dialog/NobucaDialogModel.js"
+import NobucaDialogModel from "../../../../nobuca-core/dialog/NobucaDialogModel.js"
 
 
 export default class EclipseDialogModel extends NobucaDialogModel {

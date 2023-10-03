@@ -1,13 +1,14 @@
-import NobucaAccordionModel from "../../../../nobuca-core/accordion/NobucaAccordionModel.js";
-import NobucaAccordionSectionModel from "../../../../nobuca-core/accordion/NobucaAccordionSectionModel.js";
-import NobucaButtonModel from "../../../../nobuca-core/button/NobucaButtonModel.js";
-import NobucaCheckboxModel from "../../../../nobuca-core/checkbox/NobucaCheckboxModel.js";
-import NobucaErrorDialogModel from "../../../../nobuca-core/dialog/NobucaErrorDialogModel.js";
-import NobucaImageModel from "../../../../nobuca-core/image/NobucaImageModel.js";
-import NobucaLabelModel from "../../../../nobuca-core/label/NobucaLabelModel.js";
-import NobucaPanelModel from "../../../../nobuca-core/panel/NobucaPanelModel.js";
-import NobucaSelectModel from "../../../../nobuca-core/select/NobucaSelectModel.js";
-import NobucaWhitespaceModel from "../../../../nobuca-core/whitespace/NobucaWhitespaceModel.js";
+import NobucaAccordionModel from "../../../../../nobuca-core/accordion/NobucaAccordionModel.js";
+import NobucaAccordionSectionModel from "../../../../../nobuca-core/accordion/NobucaAccordionSectionModel.js";
+import NobucaButtonModel from "../../../../../nobuca-core/button/NobucaButtonModel.js";
+import NobucaCheckboxModel from "../../../../../nobuca-core/checkbox/NobucaCheckboxModel.js";
+import NobucaErrorDialogModel from "../../../../../nobuca-core/dialog/NobucaErrorDialogModel.js";
+import NobucaImageModel from "../../../../../nobuca-core/image/NobucaImageModel.js";
+import NobucaLabelModel from "../../../../../nobuca-core/label/NobucaLabelModel.js";
+import NobucaPanelModel from "../../../../../nobuca-core/panel/NobucaPanelModel.js";
+import NobucaSelectModel from "../../../../../nobuca-core/select/NobucaSelectModel.js";
+import NobucaWhitespaceModel from "../../../../../nobuca-core/whitespace/NobucaWhitespaceModel.js";
+import EclipseWorkspace from "../../../buiness-logic/EclipseWorkspace.js";
 import EclipseDialogModel from "../EclipseDialogModel.js";
 
 
@@ -48,9 +49,9 @@ export default class EclipseDialogSelectWorkspaceModel extends EclipseDialogMode
                 return;
             }
             window.showDirectoryPicker().then(directory => {
-                console.log(directory);
                 select.setValue(directory.name);
                 select.getValueChangedEventEmitter().emit();
+                this.setDirectory(directory);
             });
         });
 
@@ -78,7 +79,7 @@ export default class EclipseDialogSelectWorkspaceModel extends EclipseDialogMode
 
         var left = buttons.addChild(new NobucaPanelModel());
         left.getLayout().setJustifyContentsLeft();
-        left.addChild(new NobucaImageModel("./icons/question-mark-circle-outline-icon.svg"));
+        left.addChild(new NobucaImageModel("./user-interface/icons/question-mark-circle-outline-icon.svg"));
 
 
         var right = buttons.addChild(new NobucaPanelModel());
@@ -89,6 +90,7 @@ export default class EclipseDialogSelectWorkspaceModel extends EclipseDialogMode
 
         this.buttonLaunch.getClickedEventEmitter().subscribe(() => {
             this.close();
+            EclipseWorkspace.getCurrentWorkspace().workspaceDirectorySelected(this.getDirectory());
         });
 
         buttonCancel.getClickedEventEmitter().subscribe(() => {
@@ -99,4 +101,13 @@ export default class EclipseDialogSelectWorkspaceModel extends EclipseDialogMode
     getButtonLaunch() {
         return this.buttonLaunch;
     }
+
+    setDirectory(directory) {
+        this.directory = directory;
+    }
+
+    getDirectory() {
+        return this.directory;
+    }
+
 }

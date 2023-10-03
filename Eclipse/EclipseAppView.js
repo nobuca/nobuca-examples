@@ -1,5 +1,6 @@
 import NobucaAppView from "../../nobuca-core/app/NobucaAppView.js";
 import NobucaFactory from "../../nobuca-core/factory/NobucaFactory.js";
+import EclipseDialogView from "./dialog/EclipseDialogView.js";
 import EclipseOutlineView from "./view/outline/EclipseOutlineView.js";
 import EclipseProjectExplorerView from "./view/project-explorer/EclipseProjectExplorerView.js";
 import EclipseWindowPartContainerStackView from "./window/EclipseWindowPartContainerStackView.js";
@@ -24,8 +25,10 @@ export default class EclipseAppView extends NobucaAppView {
             function (model) { return new EclipseWindowPartContainerStackView(model); });
         this.registerViewConstructorForModelClassName("EclipseProjectExplorerModel",
             function (model) { return new EclipseProjectExplorerView(model); });
-            this.registerViewConstructorForModelClassName("EclipseOutlineModel",
+        this.registerViewConstructorForModelClassName("EclipseOutlineModel",
             function (model) { return new EclipseOutlineView(model); });
+        this.registerViewConstructorForModelClassName("EclipseDialogModel",
+            function (model) { return new EclipseDialogView(model); });
     }
 
     getClassName() {

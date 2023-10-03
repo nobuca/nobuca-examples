@@ -1,8 +1,7 @@
 import NobucaAppModel from "../../nobuca-core/app/NobucaAppModel.js";
-import NobucaButtonModel from "../../nobuca-core/button/NobucaButtonModel.js";
 import NobucaButtonbarItemModel from "../../nobuca-core/buttonbar/NobucaButtonbarItemModel.js";
 import NobucaButtonbarModel from "../../nobuca-core/buttonbar/NobucaButtonbarModel.js";
-import NobucaImageModel from "../../nobuca-core/image/NobucaImageModel.js";
+import NobucaDialogModel from "../../nobuca-core/dialog/NobucaDialogModel.js";
 import NobucaMenuItemModel from "../../nobuca-core/menu/NobucaMenuItemModel.js";
 import NobucaMenuItemSeparatorModel from "../../nobuca-core/menu/NobucaMenuItemSeparatorModel.js";
 import NobucaMenubarModel from "../../nobuca-core/menubar/NobucaMenubarModel.js";
@@ -20,6 +19,7 @@ export default class EclipseAppModel extends NobucaAppModel {
     constructor() {
         super();
         this.setTitle("Eclipse");
+        this.configureDefaultDialogIcon();
         this.getLayout().setDirectionColumn();
         this.createMenubar();
         this.createButtonbarContainer();
@@ -29,6 +29,10 @@ export default class EclipseAppModel extends NobucaAppModel {
 
     getClassName() {
         return "EclipseAppModel";
+    }
+
+    configureDefaultDialogIcon() {
+        NobucaDialogModel.setDefaultIconSrc("./icons/eclipse-icon.svg");
     }
 
     createMenubar() {
@@ -42,6 +46,8 @@ export default class EclipseAppModel extends NobucaAppModel {
         fileMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
         fileMenuItem.addMenuItem(new NobucaMenuItemModel("fileCloseEditor", "Close Editor"));
         fileMenuItem.addMenuItem(new NobucaMenuItemModel("fileOpenRecentFiles", "Close All Editors"));
+        fileMenuItem.addMenuItem(new NobucaMenuItemSeparatorModel());
+        var fileSwitchWorkspace = fileMenuItem.addMenuItem(new NobucaMenuItemModel("fileSwitchWorkspace", "Switch Workspace..."));
         this.getMenubar().addMenuItem(new NobucaMenuItemModel("Edit", "Edit"));
         this.getMenubar().addMenuItem(new NobucaMenuItemModel("source", "Source"));
         this.getMenubar().addMenuItem(new NobucaMenuItemModel("refactor", "Refactor"));
@@ -51,6 +57,11 @@ export default class EclipseAppModel extends NobucaAppModel {
         this.getMenubar().addMenuItem(new NobucaMenuItemModel("Run", "Run"));
         this.getMenubar().addMenuItem(new NobucaMenuItemModel("Window", "Window"));
         this.getMenubar().addMenuItem(new NobucaMenuItemModel("help", "Help"));
+        this.getMenubar().getMenuItemClickedEventEmitter().subscribe(menuItem => {
+            if(menuItem.getId()=="fileSwitchWorkspace") {
+                this.showDialogSelectWorkspace();
+            }
+        });
     }
 
     getMenubar() {

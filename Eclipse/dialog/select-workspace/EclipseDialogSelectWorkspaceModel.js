@@ -1,35 +1,36 @@
 import NobucaAccordionModel from "../../../../nobuca-core/accordion/NobucaAccordionModel.js";
 import NobucaAccordionSectionModel from "../../../../nobuca-core/accordion/NobucaAccordionSectionModel.js";
-import NobucaAppModel from "../../../../nobuca-core/app/NobucaAppModel.js";
 import NobucaButtonModel from "../../../../nobuca-core/button/NobucaButtonModel.js";
 import NobucaCheckboxModel from "../../../../nobuca-core/checkbox/NobucaCheckboxModel.js";
-import NobucaDialogModel from "../../../../nobuca-core/dialog/NobucaDialogModel.js";
 import NobucaErrorDialogModel from "../../../../nobuca-core/dialog/NobucaErrorDialogModel.js";
 import NobucaImageModel from "../../../../nobuca-core/image/NobucaImageModel.js";
 import NobucaLabelModel from "../../../../nobuca-core/label/NobucaLabelModel.js";
 import NobucaPanelModel from "../../../../nobuca-core/panel/NobucaPanelModel.js";
 import NobucaSelectModel from "../../../../nobuca-core/select/NobucaSelectModel.js";
 import NobucaWhitespaceModel from "../../../../nobuca-core/whitespace/NobucaWhitespaceModel.js";
+import EclipseDialogModel from "../EclipseDialogModel.js";
 
 
-export default class EclipseDialogSelectWorkspaceModel extends NobucaDialogModel {
+export default class EclipseDialogSelectWorkspaceModel extends EclipseDialogModel {
 
     constructor() {
-        super(600, null, "Eclipse IDE Launcher", "./icons/eclipse-icon.svg");
-        this.createSubtitle();
+        super(600, null, "Eclipse IDE Launcher");
+        this.createSubheader();
         this.createBody();
         this.createButtons();
         this.show();
+        this.getButtonLaunch().focus();
     }
 
-    createSubtitle() {
-        var subtitle = this.getSubheader().addChild(new NobucaPanelModel());
-        subtitle.getLayout().setDirectionColumn();
+    createSubheader() {
+        var subheader = new NobucaPanelModel();
+        subheader.getLayout().setDirectionColumn();
+        this.setSubheader(subheader);
 
-        var label1 = subtitle.addChild(new NobucaLabelModel("Select a directory as workspace"));
+        var label1 = subheader.addChild(new NobucaLabelModel("Select a directory as workspace"));
         label1.setBold(true);
 
-        var label2 = subtitle.addChild(new NobucaLabelModel("Eclipse IDE uses the workspace diretory to store its preferences and development artifacts."));
+        var label2 = subheader.addChild(new NobucaLabelModel("Eclipse IDE uses the workspace diretory to store its preferences and development artifacts."));
         label2.getLayout().setPaddingTop("10px").setPaddingLeft("10px");
     }
 
@@ -82,8 +83,20 @@ export default class EclipseDialogSelectWorkspaceModel extends NobucaDialogModel
 
         var right = buttons.addChild(new NobucaPanelModel());
         right.getLayout().setJustifyContentsRight().setGrow(1);
-        right.addChild(new NobucaButtonModel("Launch"));
+        this.buttonLaunch = right.addChild(new NobucaButtonModel("Launch"));
         right.addChild(new NobucaWhitespaceModel());
-        right.addChild(new NobucaButtonModel("Cancel"));
+        var buttonCancel = right.addChild(new NobucaButtonModel("Cancel"));
+
+        this.buttonLaunch.getClickedEventEmitter().subscribe(() => {
+            this.close();
+        });
+
+        buttonCancel.getClickedEventEmitter().subscribe(() => {
+            this.close();
+        });
+    }
+
+    getButtonLaunch() {
+        return this.buttonLaunch;
     }
 }

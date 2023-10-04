@@ -28,7 +28,18 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
         this.getNativeElement().appendChild(this.divHeader);
         this.divHeader.className = "EclipseWindowPartContainerStackHeader";
         this.createTabsHeader();
+        this.createHeaderSpacer();
         this.createCommonButtonbar();
+    }
+
+    createHeaderSpacer() {
+        this.divHeaderSpacer = document.createElement("div");
+        this.getNativeElement().appendChild(this.divHeaderSpacer);
+        this.divHeaderSpacer.className = "EclipseWindowPartContainerStackHeaderSpacer";
+    }
+
+    getDivHeaderSpacer() {
+        return this.divHeaderSpacer;
     }
 
     getDivHeader() {
@@ -105,9 +116,7 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
         var borderWidth = 1;
 
         var tabHeaderViewHeight = 30;
-        var tabHeaderViewWidth = this.getNativeElement().offsetWidth - borderWidth * 2;
         this.getTabsHeaderView().getNativeElement().style.height = tabHeaderViewHeight + "px"
-        //this.getTabsHeaderView().getNativeElement().style.width = tabHeaderViewWidth + "px"
 
         var contentHeight = this.getNativeElement().offsetHeight - tabHeaderViewHeight - borderWidth * 2;
         var contentWidth = this.getNativeElement().offsetWidth - borderWidth * 2;
@@ -115,17 +124,55 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
         this.getDivContent().style.height = contentHeight + "px";
         this.getDivContent().style.width = contentWidth + "px";
 
-
         if (this.getActivePartView() != null) {
 
-            this.removeChildren(this.getDivHeader());
-            this.getDivHeader().appendChild(this.getTabsHeaderView().getNativeElement());
-            var divSpecificButtonbar = this.getActivePartView().getDivSpecificButtonbar();
-            this.getDivHeader().appendChild(divSpecificButtonbar);
-            this.getDivHeader().appendChild(this.getDivCommonButtonbar());
-    
-            this.getActivePartView().getNativeElement().style.height = contentHeight + "px";
-            this.getActivePartView().updateContentsPositionAndSize();
+            var neededHeaderWidth = this.getTabsHeaderView().getNativeElement().offsetWidth;
+            neededHeaderWidth += this.getActivePartView().getDivSpecificButtonbar().offsetWidth;
+            neededHeaderWidth += this.getDivCommonButtonbar().offsetWidth;
+
+            console.log(this.getTabsHeaderView().getNativeElement().offsetWidth,
+                this.getActivePartView().getDivSpecificButtonbar().offsetWidth,
+                this.getDivCommonButtonbar().offsetWidth);
+
+            console.log(neededHeaderWidth + " <= " + contentWidth);
+
+            if (neededHeaderWidth <= this.getNativeElement().offsetWidth) {
+                this.moveSpecificButtonbarBesidesCommonButtonbar();
+            } else {
+                this.moveSpecificButtonbarUnderTabsHeader();
+            }
         }
+    }
+
+    moveSpecificButtonbarBesidesCommonButtonbar() {
+        this.removeChildren(this.getDivHeader());
+        this.getDivHeader().appendChild(this.getTabsHeaderView().getNativeElement());
+        this.getDivHeader().appendChild(this.getDivHeaderSpacer());
+        var divSpecificButtonbar = this.getActivePartView().getDivSpecificButtonbar();
+        this.getDivHeader().appendChild(divSpecificButtonbar);
+        this.getDivHeader().appendChild(this.getDivCommonButtonbar());
+
+        var partHeight = this.getDivContent().offsetHeight;
+
+        this.getActivePartView().getNativeElement().style.height = partHeight + "px";
+
+        this.getActivePartView().updateContentsPositionAndSize();
+    }
+
+    moveSpecificButtonbarUnderTabsHeader() {
+        this.removeChildren(this.getDivHeader());
+        this.getDivHeader().appendChild(this.getTabsHeaderView().getNativeElement());
+        this.getDivHeader().appendChild(this.getDivHeaderSpacer());
+        this.getDivHeader().appendChild(this.getDivCommonButtonbar());
+        var divSpecificButtonbar = this.getActivePartView().getDivSpecificButtonbar();
+        this.getDivContent().appendChild(divSpecificButtonbar);
+        this.getDivContent().appendChild(this.getActivePartView().getNativeElement());
+
+        var partHeight = this.getDivContent().offsetHeight;
+        partHeight -= divSpecificButtonbar.offsetHeight;
+
+        this.getActivePartView().getNativeElement().style.height = partHeight + "px";
+
+        this.getActivePartView().updateContentsPositionAndSize();
     }
 }

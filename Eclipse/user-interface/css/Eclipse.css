@@ -142,11 +142,11 @@ body {
   display: flex;
   height: 30px;
   align-items: center;
-  flex-grow: 1;
+  width: min-content;
   justify-content: right;
 }
 
-.EclipseWindowPartContainerStackHeader > .NobucaTabsHeader {
+.EclipseWindowPartContainerStackHeaderSpacer {
   flex-grow: 1;
 }
 

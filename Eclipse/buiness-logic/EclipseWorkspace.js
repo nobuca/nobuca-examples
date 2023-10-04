@@ -10,10 +10,6 @@ export default class EclipseWorkspace {
         this.projects = [];
         this.nameChangedEventEmitter = new NobucaEventEmitter();
         this.projectAddedEventEmitter = new NobucaEventEmitter();
-
-        var project = new EclipseProject();
-        project.setName("test");
-        this.addProject(project);
     }
 
     static getCurrentWorkspace() {
@@ -64,17 +60,12 @@ export default class EclipseWorkspace {
         if (directory == null) return;
         if (directory.name == ".metadata") return;
         if (directory.kind != "directory") return;
-        if (await this.directoryContainsProjectFile(directory)) {
-            var project = new EclipseProject();
-            project.setName(directory.name);
-            project.setDirectory(directory);
-            this.addProject(project);
-            this.addProjectEntriesFromDirectory(project);
-            this.getProjectAddedEventEmitter().emit(project);
-            console.log(directory.name + " is a project dir");
-        } else {
-            console.log(directory.name + " isn't a project dir");
-        }
+        var project = new EclipseProject();
+        project.setName(directory.name);
+        project.setDirectory(directory);
+        this.addProject(project);
+        this.addProjectEntriesFromDirectory(project);
+        this.getProjectAddedEventEmitter().emit(project);
     }
 
     async directoryContainsProjectFile(directory) {
@@ -91,11 +82,27 @@ export default class EclipseWorkspace {
             if (value.name != ".settings" && value.name != ".project") {
                 if (value.kind == "directory") {
                     entry.setDirectory(value);
+                    await this.addEntryEntriesFromDirectory(entry);
                 } else {
                     entry.setFile(value);
                 }
                 project.addEntry(entry);
                 project.getEntryAddedEventEmitter().emit(entry);
+            }
+        }
+    }
+
+    async addEntryEntriesFromDirectory(parentEntry) {
+        for await (const [key, value] of parentEntry.getDirectory().entries()) {
+            var childEntry = new EclipseProjectEntry();
+            childEntry.setName(value.name);
+            if (value.name != ".settings" && value.name != ".project") {
+                if (value.kind == "directory") {
+                    childEntry.setDirectory(value);
+                } else {
+                    childEntry.setFile(value);
+                }
+                parentEntry.addEntry(childEntry);
             }
         }
     }

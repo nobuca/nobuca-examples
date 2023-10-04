@@ -49,16 +49,18 @@ export default class EclipseProjectExplorerModel extends EclipseWindowPartViewMo
         var nodeProject = this.getTree().addNode(new NobucaTreeNodeModel());
         nodeProject.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/prj_obj.svg"));
         nodeProject.addLeftSideComponent(new NobucaTreeNodeTextModel(project.getName()));
+        nodeProject.setData(project);
         project.getEntries().forEach(entry => {
-            this.addNodeProjectEntry(nodeProject, entry);
+            this.createChildEntryNodeUnderParentEntryNode(nodeProject, entry);
         });
         project.getEntryAddedEventEmitter().subscribe(entry => {
-            this.addNodeProjectEntry(nodeProject, entry);
+            this.createChildEntryNodeUnderParentEntryNode(nodeProject, entry);
         });
     }
 
-    addNodeProjectEntry(parentNode, entry) {
+    createChildEntryNodeUnderParentEntryNode(parentNode, entry) {
         var nodeEntry = parentNode.addNode(new NobucaTreeNodeModel());
+        nodeEntry.setData(entry);
         if (entry.isFile()) {
             nodeEntry.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/file_obj.svg"));
         }
@@ -66,5 +68,8 @@ export default class EclipseProjectExplorerModel extends EclipseWindowPartViewMo
             nodeEntry.addLeftSideComponent(new NobucaTreeNodeIconModel("./user-interface/icons/fldr_obj.svg"));
         }
         nodeEntry.addLeftSideComponent(new NobucaTreeNodeTextModel(entry.getName()));
+        entry.getEntries().forEach(childEntry => {
+            this.createChildEntryNodeUnderParentEntryNode(nodeEntry, childEntry);
+        });
     }
 }

@@ -28,7 +28,7 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
         this.getNativeElement().appendChild(this.divHeader);
         this.divHeader.className = "EclipseWindowPartContainerStackHeader";
         this.createTabsHeader();
-        this.createCommonMenubar();
+        this.createCommonButtonbar();
     }
 
     getDivHeader() {
@@ -44,16 +44,16 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
         return this.tabsHeaderView;
     }
 
-    createCommonMenubar() {
-        this.divCommonMenubar = document.createElement("div");
-        this.getDivHeader().appendChild(this.divCommonMenubar);
-        this.divCommonMenubar.className = "EclipseWindowPartContainerStackCommonButtonbar";
-        var menubarView = NobucaFactory.createNewViewForModel(this.getModel().getButtonbar());
-        this.getDivCommonMenubar().appendChild(menubarView.getNativeElement());
+    createCommonButtonbar() {
+        this.divCommonButtonbar = document.createElement("div");
+        this.getDivHeader().appendChild(this.divCommonButtonbar);
+        this.divCommonButtonbar.className = "EclipseWindowPartContainerStackCommonButtonbar";
+        var buttonView = NobucaFactory.createNewViewForModel(this.getModel().getButtonbar());
+        this.getDivCommonButtonbar().appendChild(buttonView.getNativeElement());
     }
 
-    getDivCommonMenubar() {
-        return this.divCommonMenubar;
+    getDivCommonButtonbar() {
+        return this.divCommonButtonbar;
     }
 
     createPartViews() {
@@ -118,8 +118,11 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
 
         if (this.getActivePartView() != null) {
 
-            var specificMenubarView = this.getActivePartView().getDivSpecificButtonbar();
-            this.getDivHeader().insertBefore(specificMenubarView, this.getDivCommonMenubar());
+            this.removeChildren(this.getDivHeader());
+            this.getDivHeader().appendChild(this.getTabsHeaderView().getNativeElement());
+            var divSpecificButtonbar = this.getActivePartView().getDivSpecificButtonbar();
+            this.getDivHeader().appendChild(divSpecificButtonbar);
+            this.getDivHeader().appendChild(this.getDivCommonButtonbar());
     
             this.getActivePartView().getNativeElement().style.height = contentHeight + "px";
             this.getActivePartView().updateContentsPositionAndSize();

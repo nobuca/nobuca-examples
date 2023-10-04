@@ -1,5 +1,4 @@
 import NobucaButtonbarItemModel from "../../../../../nobuca-core/buttonbar/NobucaButtonbarItemModel.js";
-import NobucaButtonbarModel from "../../../../../nobuca-core/buttonbar/NobucaButtonbarModel.js";
 import NobucaTreeModel from "../../../../../nobuca-core/tree/NobucaTreeModel.js";
 import NobucaTreeNodeIconModel from "../../../../../nobuca-core/tree/NobucaTreeNodeIconModel.js";
 import NobucaTreeNodeModel from "../../../../../nobuca-core/tree/NobucaTreeNodeModel.js";
@@ -18,10 +17,6 @@ export default class EclipseProjectExplorerModel extends EclipseWindowPartViewMo
         this.listenWorkspace();
     }
 
-    getClassName() {
-        return "EclipseProjectExplorerModel";
-    }
-
     customizeButtonbar() {
         this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/e_collapseall.svg"));
         this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/e_auto_synch_toc.svg"));
@@ -37,6 +32,10 @@ export default class EclipseProjectExplorerModel extends EclipseWindowPartViewMo
 
     getTree() {
         return this.tree;
+    }
+
+    getContent() {
+        return this.getTree();
     }
 
     listenWorkspace() {

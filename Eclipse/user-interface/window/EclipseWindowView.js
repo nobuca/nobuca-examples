@@ -47,17 +47,26 @@ export default class EclipseWindowView extends NobucaComponentView {
         var windowHeight = this.getNativeElement().offsetHeight;
         var windowWidth = this.getNativeElement().offsetWidth;
 
-        var minimizedPartContainerStackWidth = 28;
+        var leftMinimizedPartContainerStackWidth = 28;
+        if(this.getModel().getLeftMinimizedPartContainerStacks()==0) {
+            leftMinimizedPartContainerStackWidth = 0;
+        }
+        
+        var rightMinimizedPartContainerStackWidth = 28;
+        if(this.getModel().getRightMinimizedPartContainerStacks()==0) {
+            rightMinimizedPartContainerStackWidth = 0;
+        }
 
         this.getDivLeftMinimzedPartContainerStacks().style.height = windowHeight + "px";
-        this.getDivLeftMinimzedPartContainerStacks().style.width = minimizedPartContainerStackWidth + "px";
+        this.getDivLeftMinimzedPartContainerStacks().style.width = leftMinimizedPartContainerStackWidth + "px";
 
         this.getDivRightMinimizedPartContainerStacks().style.height = windowHeight + "px";
-        this.getDivRightMinimizedPartContainerStacks().style.width = minimizedPartContainerStackWidth + "px";
+        this.getDivRightMinimizedPartContainerStacks().style.width = rightMinimizedPartContainerStackWidth + "px";
 
         var partContainerHeight = windowHeight;
         var partContainerWidth = windowWidth;
-        partContainerWidth -= minimizedPartContainerStackWidth*2;
+        partContainerWidth -= leftMinimizedPartContainerStackWidth;
+        partContainerWidth -= rightMinimizedPartContainerStackWidth;
 
         this.getPartContainerView().getNativeElement().style.height = partContainerHeight + "px";
         this.getPartContainerView().getNativeElement().style.width = partContainerWidth + "px";

@@ -7,6 +7,11 @@ export default class EclipseWindowView extends NobucaComponentView {
         var div = document.createElement("div");
         div.className = "EclipseWindow";
         this.setNativeElement(div);
+        this.createComponents();
+        this.composeComponents();
+    }
+
+    createComponents() {
         this.createLeftMinimizedPartContainerStacks();
         this.createPartContainer();
         this.createRightMinimizedPartContainerStacks();
@@ -15,7 +20,6 @@ export default class EclipseWindowView extends NobucaComponentView {
     createLeftMinimizedPartContainerStacks() {
         this.divLeftMinimizedPartContainerStacks = document.createElement("div");
         this.divLeftMinimizedPartContainerStacks.className = "EclipseWindowLeftMinimizedPartContainerStacks";
-        this.getNativeElement().appendChild(this.divLeftMinimizedPartContainerStacks);
     }
 
     getDivLeftMinimzedPartContainerStacks() {
@@ -25,7 +29,6 @@ export default class EclipseWindowView extends NobucaComponentView {
     createRightMinimizedPartContainerStacks() {
         this.divRightMinimizedContainerStacks = document.createElement("div");
         this.divRightMinimizedContainerStacks.className = "EclipseWindowRightMinimizedPartContainerStacks";
-        this.getNativeElement().appendChild(this.divRightMinimizedContainerStacks);
     }
 
     getDivRightMinimizedPartContainerStacks() {
@@ -35,11 +38,16 @@ export default class EclipseWindowView extends NobucaComponentView {
     createPartContainer() {
         if (this.getModel().getPartContainer() == null) return;
         this.partContainerView = NobucaFactory.createNewViewForModel(this.getModel().getPartContainer());
-        this.getNativeElement().appendChild(this.getPartContainerView().getNativeElement());
     }
 
     getPartContainerView() {
         return this.partContainerView;
+    }
+
+    composeComponents() {
+        this.getNativeElement().appendChild(this.divLeftMinimizedPartContainerStacks);
+        this.getNativeElement().appendChild(this.getPartContainerView().getNativeElement());
+        this.getNativeElement().appendChild(this.divRightMinimizedContainerStacks);
     }
 
     updateContentsPositionAndSize() {
@@ -48,12 +56,12 @@ export default class EclipseWindowView extends NobucaComponentView {
         var windowWidth = this.getNativeElement().offsetWidth;
 
         var leftMinimizedPartContainerStackWidth = 28;
-        if(this.getModel().getLeftMinimizedPartContainerStacks()==0) {
+        if (this.getDivLeftMinimzedPartContainerStacks().childNodes.length == 0) {
             leftMinimizedPartContainerStackWidth = 0;
         }
-        
+
         var rightMinimizedPartContainerStackWidth = 28;
-        if(this.getModel().getRightMinimizedPartContainerStacks()==0) {
+        if (this.getDivRightMinimizedPartContainerStacks().childNodes.length == 0) {
             rightMinimizedPartContainerStackWidth = 0;
         }
 
@@ -68,14 +76,34 @@ export default class EclipseWindowView extends NobucaComponentView {
         partContainerWidth -= leftMinimizedPartContainerStackWidth;
         partContainerWidth -= rightMinimizedPartContainerStackWidth;
 
-        this.getPartContainerView().getNativeElement().style.height = partContainerHeight + "px";
-        this.getPartContainerView().getNativeElement().style.width = partContainerWidth + "px";
-
-        this.getPartContainerView().updateContentsPositionAndSize();
+        this.removeChildren(this.getNativeElement());
+        this.getNativeElement().appendChild(this.divLeftMinimizedPartContainerStacks);
+        if (this.getModel().getMaximizedPartContainerStack() != null) {
+            var maximizedPartContainerStackView = this.getModel().getMaximizedPartContainerStack().getView();
+            this.getNativeElement().appendChild(maximizedPartContainerStackView.getNativeElement());
+            maximizedPartContainerStackView.getNativeElement().style.height = partContainerHeight + "px";
+            maximizedPartContainerStackView.getNativeElement().style.width = partContainerWidth + "px";
+            maximizedPartContainerStackView.updateContentsPositionAndSize();
+        } else {
+            this.getNativeElement().appendChild(this.getPartContainerView().getNativeElement());
+            this.getPartContainerView().getNativeElement().style.height = partContainerHeight + "px";
+            this.getPartContainerView().getNativeElement().style.width = partContainerWidth + "px";
+            this.getPartContainerView().updateContentsPositionAndSize();
+        }
+        this.getNativeElement().appendChild(this.divRightMinimizedContainerStacks);
     }
 
     listenModel() {
-        this.getModel().getMinimizedPartContainerStacksChangedEventEmitter().subscribe(() => {
+        this.getModel().getPartContainerStackMinimizedEventEmitter().subscribe(() => {
+            this.refreshLeftMinimizedPartContainerStacks();
+            this.refreshRightMinimizedPartContainerStacks();
+            this.updateContentsPositionAndSize();
+        });
+        this.getModel().getPartContainerStackMaximizedEventEmitter().subscribe(() => {
+            this.addNonMaximizedPartContainerStacksToLeftAndRight();
+            this.updateContentsPositionAndSize();
+        });
+        this.getModel().getPartContainerStackRestoredEventEmitter().subscribe(() => {
             this.refreshLeftMinimizedPartContainerStacks();
             this.refreshRightMinimizedPartContainerStacks();
             this.updateContentsPositionAndSize();
@@ -93,6 +121,23 @@ export default class EclipseWindowView extends NobucaComponentView {
         this.removeChildren(this.getDivRightMinimizedPartContainerStacks());
         this.getModel().getRightMinimizedPartContainerStacks().forEach(partContainerStack => {
             this.createRightPartContainerStackButtonbar(partContainerStack);
+        });
+    }
+
+    addNonMaximizedPartContainerStacksToLeftAndRight() {
+        this.removeChildren(this.getDivLeftMinimzedPartContainerStacks());
+        this.removeChildren(this.getDivRightMinimizedPartContainerStacks());
+        var leftPartContainerStacks = this.getModel().collectLeftPartContainerStacks();
+        leftPartContainerStacks.forEach(partContainerStack => {
+            if (partContainerStack != this.getModel().getMaximizedPartContainerStack()) {
+                this.createLeftPartContainerStackButtonbar(partContainerStack);
+            }
+        });
+        var rightPartContainerStacks = this.getModel().collectRightPartContainerStacks();
+        rightPartContainerStacks.forEach(partContainerStack => {
+            if (partContainerStack != this.getModel().getMaximizedPartContainerStack()) {
+                this.createRightPartContainerStackButtonbar(partContainerStack);
+            }
         });
     }
 
@@ -128,9 +173,10 @@ export default class EclipseWindowView extends NobucaComponentView {
         img.src = "./user-interface/icons/thin_restore_view.svg";
         divButtonbar.appendChild(img);
         img.addEventListener("mousedown", () => {
+            this.getModel().setMaximizedPartContainerStack(null);
             this.getModel().removeLeftMinimizedPartContainerStack(partContainerStack);
             this.getModel().removeRightMinimizedPartContainerStack(partContainerStack);
-            this.getModel().getMinimizedPartContainerStacksChangedEventEmitter().emit();
+            this.getModel().getPartContainerStackMinimizedEventEmitter().emit();
             partContainerStack.setStateNormal();
             this.updateContentsPositionAndSize();
         });

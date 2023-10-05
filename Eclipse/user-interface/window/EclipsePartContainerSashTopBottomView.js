@@ -60,9 +60,6 @@ export default class EclipsePartContainerSashTopBottomView extends NobucaCompone
         this.getModel().getPartContainerStackMinimizedEventEmitter().subscribe(() => {
             this.updateContentsPositionAndSize();
         });
-        this.getModel().getPartContainerStackRestoredEventEmitter().subscribe(() => {
-            this.updateContentsPositionAndSize();
-        });
     }
 
 

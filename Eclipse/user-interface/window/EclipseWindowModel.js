@@ -6,11 +6,21 @@ export default class EclipseWindowModel extends NobucaComponentModel {
         super();
         this.leftMinimizedPartContainerStacks = [];
         this.rightMinimizedPartContainerStacks = [];
-        this.minimizedPartContainerStacksChangedEventEmitter = this.createEventEmitter();
+        this.partContainerStackMinimizedEventEmitter = this.createEventEmitter();
+        this.partContainerStackMaximizedEventEmitter = this.createEventEmitter();
+        this.partContainerStackRestoredEventEmitter = this.createEventEmitter();
     }
 
-    getMinimizedPartContainerStacksChangedEventEmitter() {
-        return this.minimizedPartContainerStacksChangedEventEmitter;
+    getPartContainerStackMinimizedEventEmitter() {
+        return this.partContainerStackMinimizedEventEmitter;
+    }
+
+    getPartContainerStackMaximizedEventEmitter() {
+        return this.partContainerStackMaximizedEventEmitter;
+    }
+
+    getPartContainerStackRestoredEventEmitter() {
+        return this.partContainerStackRestoredEventEmitter;
     }
 
     getClassName() {
@@ -29,13 +39,31 @@ export default class EclipseWindowModel extends NobucaComponentModel {
 
     listenPartContainer() {
         this.getPartContainer().getPartContainerStackLeftMinimizedEventEmitter().subscribe(partContainerStack => {
+            this.setMaximizedPartContainerStack(null);
             this.addLeftMinimizedPartContainerStack(partContainerStack);
-            this.getMinimizedPartContainerStacksChangedEventEmitter().emit();
+            this.getPartContainerStackMinimizedEventEmitter().emit();
         });
         this.getPartContainer().getPartContainerStackRightMinimizedEventEmitter().subscribe(partContainerStack => {
+            this.setMaximizedPartContainerStack(null);
             this.addRightMinimizedPartContainerStack(partContainerStack);
-            this.getMinimizedPartContainerStacksChangedEventEmitter().emit();
+            this.getPartContainerStackMinimizedEventEmitter().emit();
         });
+        this.getPartContainer().getPartContainerStackMaximizedEventEmitter().subscribe(partContainerStack => {
+            this.setMaximizedPartContainerStack(partContainerStack);
+            this.getPartContainerStackMaximizedEventEmitter().emit();
+        });
+        this.getPartContainer().getPartContainerStackRestoredEventEmitter().subscribe(partContainerStack => {
+            this.setMaximizedPartContainerStack(null);
+            this.getPartContainerStackRestoredEventEmitter().emit();
+        });
+    }
+
+    setMaximizedPartContainerStack(partContainerStack) {
+        this.maximizedPartContainerStack = partContainerStack;
+    }
+
+    getMaximizedPartContainerStack() {
+        return this.maximizedPartContainerStack;
     }
 
     getLeftMinimizedPartContainerStacks() {
@@ -62,6 +90,12 @@ export default class EclipseWindowModel extends NobucaComponentModel {
         this.rightMinimizedPartContainerStacks = this.rightMinimizedPartContainerStacks.filter(pcs => pcs != partContainerStack);
     }
 
+    collectLeftPartContainerStacks() {
+        return this.getPartContainer().collectLeftPartContainerStacks();
+    }
 
+    collectRightPartContainerStacks() {
+        return this.getPartContainer().collectRightPartContainerStacks();
+    }
 
 }

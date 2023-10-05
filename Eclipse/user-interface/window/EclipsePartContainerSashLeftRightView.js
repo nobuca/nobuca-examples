@@ -63,9 +63,6 @@ export default class EclipsePartContainerSashLeftRightView extends NobucaCompone
         this.getModel().getPartContainerStackRightMinimizedEventEmitter().subscribe(() => {
             this.updateContentsPositionAndSize();
         });
-        this.getModel().getPartContainerStackRestoredEventEmitter().subscribe(() => {
-            this.updateContentsPositionAndSize();
-        });
     }
 
 

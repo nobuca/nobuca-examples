@@ -12,13 +12,14 @@ export default class EclipsePartContainerSashLeftRightModel extends NobucaCompon
         this.listenRightPart();
         this.partContainerStackLeftMinimizedEventEmitter = this.createEventEmitter();
         this.partContainerStackRightMinimizedEventEmitter = this.createEventEmitter();
+        this.partContainerStackMaximizedEventEmitter = this.createEventEmitter();
         this.partContainerStackRestoredEventEmitter = this.createEventEmitter();
     }
 
     setSash(sash) {
         this.sash = sash;
     }
-    
+
     getSash() {
         return this.sash;
     }
@@ -43,6 +44,10 @@ export default class EclipsePartContainerSashLeftRightModel extends NobucaCompon
         return this.partContainerStackRightMinimizedEventEmitter;
     }
 
+    getPartContainerStackMaximizedEventEmitter() {
+        return this.partContainerStackMaximizedEventEmitter;
+    }
+
     getPartContainerStackRestoredEventEmitter() {
         return this.partContainerStackRestoredEventEmitter;
     }
@@ -52,6 +57,12 @@ export default class EclipsePartContainerSashLeftRightModel extends NobucaCompon
         this.getSplit().getLeftPanel().getPartContainerStackMinimizedEventEmitter().subscribe(partContainerStack => {
             this.getPartContainerStackLeftMinimizedEventEmitter().emit(partContainerStack);
         });
+        this.getSplit().getLeftPanel().getPartContainerStackMaximizedEventEmitter().subscribe(partContainerStack => {
+            this.getPartContainerStackMaximizedEventEmitter().emit(partContainerStack);
+        });
+        this.getSplit().getLeftPanel().getPartContainerStackRestoredEventEmitter().subscribe(partContainerStack => {
+            this.getPartContainerStackRestoredEventEmitter().emit(partContainerStack);
+        });
     }
 
     listenRightPart() {
@@ -59,5 +70,29 @@ export default class EclipsePartContainerSashLeftRightModel extends NobucaCompon
         this.getSplit().getRightPanel().getPartContainerStackMinimizedEventEmitter().subscribe(partContainerStack => {
             this.getPartContainerStackRightMinimizedEventEmitter().emit(partContainerStack);
         });
+        this.getSplit().getRightPanel().getPartContainerStackMaximizedEventEmitter().subscribe(partContainerStack => {
+            this.getPartContainerStackMaximizedEventEmitter().emit(partContainerStack);
+        });
+        this.getSplit().getRightPanel().getPartContainerStackRestoredEventEmitter().subscribe(partContainerStack => {
+            this.getPartContainerStackRestoredEventEmitter().emit(partContainerStack);
+        });
+    }
+
+    collectLeftPartContainerStacks() {
+        if (this.getSplit().getLeftPanel().getParts != null) {
+            var partContainerStacks = [];
+            partContainerStacks.push(this.getSplit().getLeftPanel());
+            return partContainerStacks;
+        }
+        return this.getSplit().getLeftPanel().collectLeftPartContainerStacks();
+    }
+
+    collectRightPartContainerStacks() {
+        if (this.getSplit().getRightPanel().getParts != null) {
+            var partContainerStacks = [];
+            partContainerStacks.push(this.getSplit().getRightPanel());
+            return partContainerStacks;
+        }
+        return this.getSplit().getRightPanel().collectRightPartContainerStacks();
     }
 }

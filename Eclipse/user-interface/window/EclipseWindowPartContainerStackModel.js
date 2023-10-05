@@ -1,5 +1,5 @@
 import NobucaTabsHeaderModel from "../../../../nobuca-core/tabs/NobucaTabsHeaderModel.js";
-import NobucaTabModel from "../../../../nobuca-core/tabs/NobucaTabModel.js";
+import NobucaTabHeaderModel from "../../../../nobuca-core/tabs/NobucaTabHeaderModel.js";
 import EclipsePartContainerModel from "./EclipseWindowPartContainerModel.js";
 import NobucaButtonbarItemModel from "../../../../nobuca-core/buttonbar/NobucaButtonbarItemModel.js";
 import NobucaButtonbarModel from "../../../../nobuca-core/buttonbar/NobucaButtonbarModel.js";
@@ -10,16 +10,18 @@ export default class EclipseWindowPartContainerStackModel extends EclipsePartCon
         super();
         this.parts = [];
         this.createTabsHeader();
-        this.createButtonbar();
+        this.createButtonbarNormal();
+        this.createButtonbarMaximized();
         this.setStateNormal();
         this.partContainerStackMinimizedEventEmitter = this.createEventEmitter();
         this.partContainerStackMaximizedEventEmitter = this.createEventEmitter();
+        this.partContainerStackRestoredEventEmitter = this.createEventEmitter();
     }
 
     setSash(sash) {
         this.sash = sash;
     }
-    
+
     getSash() {
         return this.sash;
     }
@@ -56,6 +58,10 @@ export default class EclipseWindowPartContainerStackModel extends EclipsePartCon
         return this.partContainerStackMaximizedEventEmitter;
     }
 
+    getPartContainerStackRestoredEventEmitter() {
+        return this.partContainerStackRestoredEventEmitter;
+    }
+
     getClassName() {
         return "EclipseWindowPartContainerStackModel";
     }
@@ -68,22 +74,40 @@ export default class EclipseWindowPartContainerStackModel extends EclipsePartCon
         return this.tabsHeader;
     }
 
-    createButtonbar() {
-        this.buttonbar = new NobucaButtonbarModel();
-        var buttonMinimize = this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_min_view.svg")).setTooltip("Minimize");
+    createButtonbarNormal() {
+        this.buttonbarNormal = new NobucaButtonbarModel();
+        var buttonMinimize = this.getButtonbarNormal().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_min_view.svg")).setTooltip("Minimize");
         buttonMinimize.getClickedEventEmitter().subscribe(() => {
             this.setStateMinimized();
             this.getPartContainerStackMinimizedEventEmitter().emit(this);
         });
-        var buttonMaximize = this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_max_view.svg")).setTooltip("Maximize");
+        var buttonMaximize = this.getButtonbarNormal().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_max_view.svg")).setTooltip("Maximize");
         buttonMaximize.getClickedEventEmitter().subscribe(() => {
             this.setStateMaximized();
             this.getPartContainerStackMaximizedEventEmitter().emit(this);
         });
     }
 
-    getButtonbar() {
-        return this.buttonbar;
+    getButtonbarNormal() {
+        return this.buttonbarNormal;
+    }
+
+    createButtonbarMaximized() {
+        this.buttonbarMaximized = new NobucaButtonbarModel();
+        var buttonMinimize = this.getButtonbarMaximized().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_min_view.svg")).setTooltip("Minimize");
+        buttonMinimize.getClickedEventEmitter().subscribe(() => {
+            this.setStateMinimized();
+            this.getPartContainerStackMinimizedEventEmitter().emit(this);
+        });
+        var buttonRestore = this.getButtonbarMaximized().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_restore_view.svg")).setTooltip("Restore");
+        buttonRestore.getClickedEventEmitter().subscribe(() => {
+            this.setStateNormal();
+            this.getPartContainerStackRestoredEventEmitter().emit(this);
+        });
+    }
+
+    getButtonbarMaximized() {
+        return this.buttonbarMaximized;
     }
 
     getParts() {
@@ -92,9 +116,18 @@ export default class EclipseWindowPartContainerStackModel extends EclipsePartCon
 
     addPart(part) {
         this.parts.push(part);
-        var tab = new NobucaTabModel(part.getId(), part.getTitle());
+        var tab = new NobucaTabHeaderModel(part.getId(), part.getTitle());
         tab.setImageSrc(part.getImageSrc());
         tab.setCloseable(part.getCloseable());
+        tab.getDoubleClickedEventEmitter().subscribe(() => {
+            if (this.getStateMaximized()) {
+                this.setStateNormal();
+                this.getPartContainerStackRestoredEventEmitter().emit(this);
+            } else {
+                this.setStateMaximized();
+                this.getPartContainerStackMaximizedEventEmitter().emit(this);
+            }
+        });
         this.getTabsHeader().addTab(tab);
         return part;
     }

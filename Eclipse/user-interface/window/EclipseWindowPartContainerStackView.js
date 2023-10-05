@@ -29,7 +29,7 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
         this.divHeader.className = "EclipseWindowPartContainerStackHeader";
         this.createTabsHeader();
         this.createHeaderSpacer();
-        this.createCommonButtonbar();
+        this.createCommonButtonbarNormal();
     }
 
     createHeaderSpacer() {
@@ -55,12 +55,31 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
         return this.tabsHeaderView;
     }
 
-    createCommonButtonbar() {
+    createCommonButtonbarNormal() {
         this.divCommonButtonbar = document.createElement("div");
         this.getDivHeader().appendChild(this.divCommonButtonbar);
         this.divCommonButtonbar.className = "EclipseWindowPartContainerStackCommonButtonbar";
-        var buttonView = NobucaFactory.createNewViewForModel(this.getModel().getButtonbar());
-        this.getDivCommonButtonbar().appendChild(buttonView.getNativeElement());
+        this.normalButtonbarView = NobucaFactory.createNewViewForModel(this.getModel().getButtonbarNormal());
+        this.maximizedButtonbarView = NobucaFactory.createNewViewForModel(this.getModel().getButtonbarMaximized());
+        this.showCommonButtonbarNormal();
+    }
+
+    getNormalButtonbarView() {
+        return this.normalButtonbarView;
+    }
+
+    getMaximizedButtonbarView() {
+        return this.maximizedButtonbarView;
+    }
+
+    showCommonButtonbarNormal() {
+        this.removeChildren(this.getDivCommonButtonbar());
+        this.getDivCommonButtonbar().appendChild(this.getNormalButtonbarView().getNativeElement());
+    }
+
+    showCommonButtonbarMaximized() {
+        this.removeChildren(this.getDivCommonButtonbar());
+        this.getDivCommonButtonbar().appendChild(this.getMaximizedButtonbarView().getNativeElement());
     }
 
     getDivCommonButtonbar() {
@@ -89,7 +108,7 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
     }
 
     listenModel() {
-        this.getModel().getTabsHeader().getActiveTabChangeEventEmitter().subscribe(tabHeaderModel => {
+        this.getModel().getTabsHeader().getActiveTabChangedEventEmitter().subscribe(tabHeaderModel => {
             this.activatePartView(tabHeaderModel.getIndex());
         });
     }
@@ -112,6 +131,12 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
     }
 
     updateContentsPositionAndSize() {
+
+        if(this.getModel().getStateNormal()) {
+            this.showCommonButtonbarNormal();
+        } else if(this.getModel().getStateMaximized()) {
+            this.showCommonButtonbarMaximized();
+        }
 
         var borderWidth = 1;
 

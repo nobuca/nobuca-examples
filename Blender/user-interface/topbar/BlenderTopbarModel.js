@@ -3,7 +3,7 @@ import NobucaMenubarModel from "../../../../nobuca-core/menubar/NobucaMenubarMod
 import NobucaMenuItemModel from "../../../../nobuca-core/menu/NobucaMenuItemModel.js";
 import NobucaMenuItemSeparatorModel from "../../../../nobuca-core/menu/NobucaMenuItemSeparatorModel.js";
 import NobucaTabsHeaderModel from "../../../../nobuca-core/tabs/NobucaTabsHeaderModel.js";
-import NobucaTabModel from "../../../../nobuca-core/tabs/NobucaTabModel.js";
+import NobucaTabHeaderModel from "../../../../nobuca-core/tabs/NobucaTabHeaderModel.js";
 import BlenderDataBlockMenuModel from "../control/data-block-menu/BlenderDataBlockMenuModel.js";
 
 export default class BlenderTopbarModel extends NobucaPanelModel {
@@ -118,13 +118,13 @@ export default class BlenderTopbarModel extends NobucaPanelModel {
     }
 
     listenWorkspaceChangeRequest() {
-        this.getWorkspaces().getActiveTabChangeEventEmitter().subscribe((workspaceTab) => {
+        this.getWorkspaces().getActiveTabChangedEventEmitter().subscribe((workspaceTab) => {
             this.getWorkspaceChangeRequestedEventEmitter().emit(workspaceTab.getId());
         })
     }
 
     addWorkspace(workspace) {
-        this.getWorkspaces().addTab(new NobucaTabModel(workspace.getId(), workspace.getTitle()));
+        this.getWorkspaces().addTab(new NobucaTabHeaderModel(workspace.getId(), workspace.getTitle()));
     }
 
     activateWorkspace(workspaceId) {

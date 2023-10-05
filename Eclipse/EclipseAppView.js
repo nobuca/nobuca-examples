@@ -1,6 +1,8 @@
 import NobucaAppView from "../../../nobuca-core/app/NobucaAppView.js";
 import NobucaFactory from "../../../nobuca-core/factory/NobucaFactory.js";
 import EclipseDialogView from "./user-interface/dialog/EclipseDialogView.js";
+import EclipsePartContainerSashLeftRightView from "./user-interface/window/EclipsePartContainerSashLeftRightView.js";
+import EclipsePartContainerSashTopBottomView from "./user-interface/window/EclipsePartContainerSashTopBottomView.js";
 import EclipseWindowPartContainerStackView from "./user-interface/window/EclipseWindowPartContainerStackView.js";
 import EclipseWindowPartViewView from "./user-interface/window/EclipseWindowPartViewView.js";
 import EclipseWindowView from "./user-interface/window/EclipseWindowView.js";
@@ -22,8 +24,12 @@ export default class EclipseAppView extends NobucaAppView {
             function (model) { return new EclipseWindowPartContainerStackView(model); });
         this.registerViewConstructorForModelClassName("EclipseWindowPartContainerStackModel",
             function (model) { return new EclipseWindowPartContainerStackView(model); });
-            this.registerViewConstructorForModelClassName("EclipseWindowPartViewModel",
+        this.registerViewConstructorForModelClassName("EclipseWindowPartViewModel",
             function (model) { return new EclipseWindowPartViewView(model); });
+        this.registerViewConstructorForModelClassName("EclipsePartContainerSashTopBottomModel",
+            function (model) { return new EclipsePartContainerSashTopBottomView(model); });
+        this.registerViewConstructorForModelClassName("EclipsePartContainerSashLeftRightModel",
+            function (model) { return new EclipsePartContainerSashLeftRightView(model); });
         this.registerViewConstructorForModelClassName("EclipseDialogModel",
             function (model) { return new EclipseDialogView(model); });
     }

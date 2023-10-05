@@ -11,6 +11,49 @@ export default class EclipseWindowPartContainerStackModel extends EclipsePartCon
         this.parts = [];
         this.createTabsHeader();
         this.createButtonbar();
+        this.setStateNormal();
+        this.partContainerStackMinimizedEventEmitter = this.createEventEmitter();
+        this.partContainerStackMaximizedEventEmitter = this.createEventEmitter();
+    }
+
+    setSash(sash) {
+        this.sash = sash;
+    }
+    
+    getSash() {
+        return this.sash;
+    }
+
+    setStateNormal() {
+        this.state = "normal";
+    }
+
+    getStateNormal() {
+        return this.state == "normal";
+    }
+
+    setStateMinimized() {
+        this.state = "minimized";
+    }
+
+    getStateMinimized() {
+        return this.state == "minimized";
+    }
+
+    setStateMaximized() {
+        this.state = "maximized";
+    }
+
+    getStateMaximized() {
+        return this.state == "maximized";
+    }
+
+    getPartContainerStackMinimizedEventEmitter() {
+        return this.partContainerStackMinimizedEventEmitter;
+    }
+
+    getPartContainerStackMaximizedEventEmitter() {
+        return this.partContainerStackMaximizedEventEmitter;
     }
 
     getClassName() {
@@ -27,8 +70,16 @@ export default class EclipseWindowPartContainerStackModel extends EclipsePartCon
 
     createButtonbar() {
         this.buttonbar = new NobucaButtonbarModel();
-        this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_min_view.svg"));
-        this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_max_view.svg"));
+        var buttonMinimize = this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_min_view.svg")).setTooltip("Minimize");
+        buttonMinimize.getClickedEventEmitter().subscribe(() => {
+            this.setStateMinimized();
+            this.getPartContainerStackMinimizedEventEmitter().emit(this);
+        });
+        var buttonMaximize = this.getButtonbar().addItem(new NobucaButtonbarItemModel("./user-interface/icons/thin_max_view.svg")).setTooltip("Maximize");
+        buttonMaximize.getClickedEventEmitter().subscribe(() => {
+            this.setStateMaximized();
+            this.getPartContainerStackMaximizedEventEmitter().emit(this);
+        });
     }
 
     getButtonbar() {

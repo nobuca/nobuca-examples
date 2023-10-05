@@ -34,7 +34,7 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
 
     createHeaderSpacer() {
         this.divHeaderSpacer = document.createElement("div");
-        this.getNativeElement().appendChild(this.divHeaderSpacer);
+        this.getDivHeader().appendChild(this.divHeaderSpacer);
         this.divHeaderSpacer.className = "EclipseWindowPartContainerStackHeaderSpacer";
     }
 
@@ -129,12 +129,6 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
             var neededHeaderWidth = this.getTabsHeaderView().getNativeElement().offsetWidth;
             neededHeaderWidth += this.getActivePartView().getDivSpecificButtonbar().offsetWidth;
             neededHeaderWidth += this.getDivCommonButtonbar().offsetWidth;
-
-            console.log(this.getTabsHeaderView().getNativeElement().offsetWidth,
-                this.getActivePartView().getDivSpecificButtonbar().offsetWidth,
-                this.getDivCommonButtonbar().offsetWidth);
-
-            console.log(neededHeaderWidth + " <= " + contentWidth);
 
             if (neededHeaderWidth <= this.getNativeElement().offsetWidth) {
                 this.moveSpecificButtonbarBesidesCommonButtonbar();

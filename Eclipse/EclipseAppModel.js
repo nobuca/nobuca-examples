@@ -14,6 +14,7 @@ import EclipsePartContainerSashLeftRightModel from "./user-interface/window/Ecli
 import EclipsePartContainerSashTopBottomModel from "./user-interface/window/EclipsePartContainerSashTopBottomModel.js";
 import EclipseWindowModel from "./user-interface/window/EclipseWindowModel.js";
 import EclipseWindowPartContainerStackModel from "./user-interface/window/EclipseWindowPartContainerStackModel.js";
+import EclipseWindowPartViewModel from "./user-interface/window/EclipseWindowPartViewModel.js";
 
 export default class EclipseAppModel extends NobucaAppModel {
 
@@ -93,12 +94,14 @@ export default class EclipseAppModel extends NobucaAppModel {
         left.addPart(new EclipseOutlineModel());
 
         var rightTop = new EclipseWindowPartContainerStackModel();
+        rightTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top"));
 
         var rightBottom = new EclipseWindowPartContainerStackModel();
+        rightBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom"));
 
         var right = new EclipsePartContainerSashTopBottomModel(rightTop, rightBottom, .7);
 
-        this.getWindow().setPartContiner(new EclipsePartContainerSashLeftRightModel(left, right, .3));
+        this.getWindow().setPartContainer(new EclipsePartContainerSashLeftRightModel(left, right, .3));
     }
 
     getWindow() {

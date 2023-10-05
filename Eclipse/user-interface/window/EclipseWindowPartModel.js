@@ -4,13 +4,14 @@ export default class EclipseWindowPartModel extends NobucaComponentModel {
 
     constructor() {
         super();
-        this.title = "Test";
-        this.imageSrc = null;
-        this.dirty = false;
+        this.setTitle("Default");
+        this.setCloseable("true");
+        this.setImageSrc("./user-interface/icons/defaultview_misc.svg");
     }
 
     setTitle(title) {
         this.title = title;
+        return this;
     }
 
     getTitle() {
@@ -19,6 +20,7 @@ export default class EclipseWindowPartModel extends NobucaComponentModel {
 
     setImageSrc(imageSrc) {
         this.imageSrc = imageSrc;
+        return this;
     }
 
     getImageSrc() {
@@ -31,6 +33,7 @@ export default class EclipseWindowPartModel extends NobucaComponentModel {
 
     setDirty(dirty) {
         this.dirty = dirty;
+        return this;
     }
 
     getCloseable() {
@@ -39,5 +42,6 @@ export default class EclipseWindowPartModel extends NobucaComponentModel {
 
     setCloseable(closeable) {
         this.closeable = closeable;
+        return this;
     }
 }

@@ -48,29 +48,39 @@ export default class EclipsePartContainerSashTopBottomModel extends NobucaCompon
     }
 
     listenTopPart() {
-        if (this.getSplit().getTopPanel().getPartContainerStackMinimizedEventEmitter == null) return;
-        this.getSplit().getTopPanel().getPartContainerStackMinimizedEventEmitter().subscribe(partContainerStack => {
-            this.getPartContainerStackMinimizedEventEmitter().emit(partContainerStack);
-        });
-        this.getSplit().getTopPanel().getPartContainerStackMaximizedEventEmitter().subscribe(partContainerStack => {
-            this.getPartContainerStackMaximizedEventEmitter().emit(partContainerStack);
-        });
-        this.getSplit().getTopPanel().getPartContainerStackRestoredEventEmitter().subscribe(partContainerStack => {
-            this.getPartContainerStackRestoredEventEmitter().emit(partContainerStack);
-        });
+        if (this.getSplit().getTopPanel().getPartContainerStackMinimizedEventEmitter != null) {
+            this.getSplit().getTopPanel().getPartContainerStackMinimizedEventEmitter().subscribe(partContainerStack => {
+                this.getPartContainerStackMinimizedEventEmitter().emit(partContainerStack);
+            });
+        }
+        if (this.getSplit().getTopPanel().getPartContainerStackMaximizedEventEmitter != null) {
+            this.getSplit().getTopPanel().getPartContainerStackMaximizedEventEmitter().subscribe(partContainerStack => {
+                this.getPartContainerStackMaximizedEventEmitter().emit(partContainerStack);
+            });
+        }
+        if (this.getSplit().getTopPanel().getPartContainerStackRestoredEventEmitter != null) {
+            this.getSplit().getTopPanel().getPartContainerStackRestoredEventEmitter().subscribe(partContainerStack => {
+                this.getPartContainerStackRestoredEventEmitter().emit(partContainerStack);
+            });
+        }
     }
 
     listenBottomPart() {
-        if (this.getSplit().getBottomPanel().getPartContainerStackMinimizedEventEmitter == null) return;
-        this.getSplit().getBottomPanel().getPartContainerStackMinimizedEventEmitter().subscribe(partContainerStack => {
-            this.getPartContainerStackMinimizedEventEmitter().emit(partContainerStack);
-        });
-        this.getSplit().getBottomPanel().getPartContainerStackMaximizedEventEmitter().subscribe(partContainerStack => {
-            this.getPartContainerStackMaximizedEventEmitter().emit(partContainerStack);
-        });
-        this.getSplit().getBottomPanel().getPartContainerStackRestoredEventEmitter().subscribe(partContainerStack => {
-            this.getPartContainerStackRestoredEventEmitter().emit(partContainerStack);
-        });
+        if (this.getSplit().getBottomPanel().getPartContainerStackMinimizedEventEmitter != null) {
+            this.getSplit().getBottomPanel().getPartContainerStackMinimizedEventEmitter().subscribe(partContainerStack => {
+                this.getPartContainerStackMinimizedEventEmitter().emit(partContainerStack);
+            });
+        }
+        if (this.getSplit().getBottomPanel().getPartContainerStackMaximizedEventEmitter != null) {
+            this.getSplit().getBottomPanel().getPartContainerStackMaximizedEventEmitter().subscribe(partContainerStack => {
+                this.getPartContainerStackMaximizedEventEmitter().emit(partContainerStack);
+            });
+        }
+        if (this.getSplit().getBottomPanel().getPartContainerStackRestoredEventEmitter != null) {
+            this.getSplit().getBottomPanel().getPartContainerStackRestoredEventEmitter().subscribe(partContainerStack => {
+                this.getPartContainerStackRestoredEventEmitter().emit(partContainerStack);
+            });
+        }
     }
 
     getStateMinimized() {

@@ -77,7 +77,7 @@ export default class EclipseWindowView extends NobucaComponentView {
         partContainerWidth -= rightMinimizedPartContainerStackWidth;
 
         this.removeChildren(this.getNativeElement());
-        this.getNativeElement().appendChild(this.divLeftMinimizedPartContainerStacks);
+        this.getNativeElement().appendChild(this.getDivLeftMinimzedPartContainerStacks());
         if (this.getModel().getMaximizedPartContainerStack() != null) {
             var maximizedPartContainerStackView = this.getModel().getMaximizedPartContainerStack().getView();
             this.getNativeElement().appendChild(maximizedPartContainerStackView.getNativeElement());
@@ -90,7 +90,7 @@ export default class EclipseWindowView extends NobucaComponentView {
             this.getPartContainerView().getNativeElement().style.width = partContainerWidth + "px";
             this.getPartContainerView().updateContentsPositionAndSize();
         }
-        this.getNativeElement().appendChild(this.divRightMinimizedContainerStacks);
+        this.getNativeElement().appendChild(this.getDivRightMinimizedPartContainerStacks());
     }
 
     listenModel() {

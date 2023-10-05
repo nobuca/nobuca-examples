@@ -1,5 +1,5 @@
 import NobucaComponentModel from "../../../../nobuca-core/component/NobucaComponentModel.js";
-import NobucaPanelSplitTopBottomModel from "../../../../nobuca-core/panel-split/NobucaPanelSplitTopBottomModel.js";
+import NobucaPanelSplitTopBottomModel from "../../../../nobuca-core/split/NobucaPanelSplitTopBottomModel.js";
 
 export default class EclipsePartContainerSashTopBottomModel extends NobucaComponentModel {
 

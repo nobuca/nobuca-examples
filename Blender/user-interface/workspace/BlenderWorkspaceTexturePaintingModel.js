@@ -1,7 +1,7 @@
 import BlenderWorkspaceModel from "./BlenderWorkspaceModel.js";
 import NobucaPanelModel from "../../../../nobuca-core/panel/NobucaPanelModel.js";
-import NobucaPanelSplitLeftRightModel from "../../../../nobuca-core/panel-split/NobucaPanelSplitLeftRightModel.js";
-import NobucaPanelSplitTopBottomModel from "../../../../nobuca-core/panel-split/NobucaPanelSplitTopBottomModel.js";
+import NobucaPanelSplitLeftRightModel from "../../../../nobuca-core/split/NobucaPanelSplitLeftRightModel.js";
+import NobucaPanelSplitTopBottomModel from "../../../../nobuca-core/split/NobucaPanelSplitTopBottomModel.js";
 import BlenderEditorContainerModel from "../editor/BlenderEditorContainerModel.js";
 
 export default class BlenderWorkspaceTexturePaintingModel extends BlenderWorkspaceModel {

@@ -1,5 +1,5 @@
 import NobucaComponentModel from "../../../../nobuca-core/component/NobucaComponentModel.js";
-import NobucaPanelSplitLeftRightModel from "../../../../nobuca-core/panel-split/NobucaPanelSplitLeftRightModel.js";
+import NobucaPanelSplitLeftRightModel from "../../../../nobuca-core/split/NobucaPanelSplitLeftRightModel.js";
 
 export default class EclipsePartContainerSashLeftRightModel extends NobucaComponentModel {
 

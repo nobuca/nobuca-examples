@@ -78,6 +78,12 @@ export default class EclipsePartContainerSashLeftRightModel extends NobucaCompon
         });
     }
 
+    getStateMinimized() {
+        var leftSideMinimized = this.getSplit().getLeftPanel().getStateMinimized();
+        var rightSideMinimized = this.getSplit().getRightPanel().getStateMinimized();
+        return leftSideMinimized && rightSideMinimized;
+    }
+
     collectLeftPartContainerStacks() {
         if (this.getSplit().getLeftPanel().getParts != null) {
             var partContainerStacks = [];

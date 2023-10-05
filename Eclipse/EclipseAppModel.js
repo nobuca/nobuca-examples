@@ -91,15 +91,25 @@ export default class EclipseAppModel extends NobucaAppModel {
 
         var left = new EclipseWindowPartContainerStackModel();
         left.addPart(new EclipseProjectExplorerModel());
-        left.addPart(new EclipseOutlineModel());
 
-        var rightTop = new EclipseWindowPartContainerStackModel();
-        rightTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top"));
+        var rightLeftTop = new EclipseWindowPartContainerStackModel();
+        rightLeftTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top 1"));
+        rightLeftTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top 2"));
+        rightLeftTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top 3"));
+        rightLeftTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top 4"));
 
-        var rightBottom = new EclipseWindowPartContainerStackModel();
-        rightBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom"));
+        var rightLeftBottom = new EclipseWindowPartContainerStackModel();
+        rightLeftBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom 1"));
+        rightLeftBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom 2"));
+        rightLeftBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom 3"));
+        rightLeftBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom 4"));
 
-        var right = new EclipsePartContainerSashTopBottomModel(rightTop, rightBottom, .7);
+        var rightLeft = new EclipsePartContainerSashTopBottomModel(rightLeftTop, rightLeftBottom, .7);
+
+        var rightRight = new EclipseWindowPartContainerStackModel();
+        rightRight.addPart(new EclipseOutlineModel());
+
+        var right = new EclipsePartContainerSashLeftRightModel(rightLeft, rightRight, .7);
 
         this.getWindow().setPartContainer(new EclipsePartContainerSashLeftRightModel(left, right, .3));
     }

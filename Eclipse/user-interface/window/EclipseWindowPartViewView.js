@@ -43,11 +43,12 @@ export default class EclipseWindowPartViewView extends NobucaComponentView {
 
     updateContentsPositionAndSize() {
 
-        var contentHeight = this.getNativeElement().offsetHeight ;
+        var contentHeight = this.getNativeElement().offsetHeight;
         var contentWidth = this.getNativeElement().offsetWidth;
 
         this.getContentView().getNativeElement().style.height = contentHeight + "px";
         this.getContentView().getNativeElement().style.width = contentWidth + "px";
+
         this.getContentView().updateContentsPositionAndSize();
     }
 

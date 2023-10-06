@@ -160,6 +160,8 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
             } else {
                 this.moveSpecificButtonbarUnderTabsHeader();
             }
+
+            this.getActivePartView().updateContentsPositionAndSize();
         }
     }
 
@@ -172,10 +174,10 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
         this.getDivHeader().appendChild(this.getDivCommonButtonbar());
 
         var partHeight = this.getDivContent().offsetHeight;
+        var partWidth = this.getDivContent().offsetWidth;
 
         this.getActivePartView().getNativeElement().style.height = partHeight + "px";
-
-        this.getActivePartView().updateContentsPositionAndSize();
+        this.getActivePartView().getNativeElement().style.width = partWidth + "px";
     }
 
     moveSpecificButtonbarUnderTabsHeader() {
@@ -190,8 +192,9 @@ export default class EclipseWindowPartContainerStackView extends NobucaComponent
         var partHeight = this.getDivContent().offsetHeight;
         partHeight -= divSpecificButtonbar.offsetHeight;
 
-        this.getActivePartView().getNativeElement().style.height = partHeight + "px";
+        var partWidth = this.getDivContent().offsetWidth;
 
-        this.getActivePartView().updateContentsPositionAndSize();
+        this.getActivePartView().getNativeElement().style.height = partHeight + "px";
+        this.getActivePartView().getNativeElement().style.width = partWidth + "px";
     }
 }

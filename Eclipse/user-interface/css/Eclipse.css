@@ -208,6 +208,13 @@ body {
 }
 
 .EclipseWindowPartContainerStackContent {
+  display: flex;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.EclipseWindowPartView {
+  display: flex;
   user-select: none;
   box-sizing: border-box;
 }
@@ -241,6 +248,10 @@ body {
 }
 
 .NobucaTabHeader.active {
+  background-color: rgb(242, 242, 242);
+}
+
+.NobucaTabHeader:hover {
   background-color: rgb(242, 242, 242);
 }
 
@@ -540,4 +551,19 @@ body {
   > .NobucaTreeNodeWithoutChildren
   > .NobucaTreeNodeWithoutChildrenLeftSideComponents {
   background-color: rgb(205, 232, 255);
+}
+
+.NobucaTextArea,
+.NobucaTextArea:active,
+.NobucaTextArea:hover,
+.NobucaTextArea:focus {
+  background-color: rgb(255, 255, 255);
+  color: var(--eclipse-font-color);
+  text-shadow: var(--eclipse-text-shadow);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  outline: none;
+  border: none;
+  box-shadow: none;
+  margin: 0;
 }

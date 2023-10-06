@@ -1,5 +1,5 @@
 import EclipseWindowPartModel from "./EclipseWindowPartModel.js";
 
-export default class EclipseWindowPartViewModel extends EclipseWindowPartModel{
+export default class EclipseWindowPartViewModel extends EclipseWindowPartModel {
 
 }

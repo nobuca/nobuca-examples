@@ -10,6 +10,7 @@ import EclipseWorkspace from "./buiness-logic/EclipseWorkspace.js";
 import EclipseDialogSelectWorkspaceModel from "./user-interface/dialog/select-workspace/EclipseDialogSelectWorkspaceModel.js";
 import EclipseOutlineModel from "./user-interface/view/outline/EclipseOutlineModel.js";
 import EclipseProjectExplorerModel from "./user-interface/view/project-explorer/EclipseProjectExplorerModel.js";
+import EclipseTextEditorModel from "./user-interface/view/text-editor/EclipseTextEditorModel.js";
 import EclipsePartContainerSashLeftRightModel from "./user-interface/window/EclipsePartContainerSashLeftRightModel.js";
 import EclipsePartContainerSashTopBottomModel from "./user-interface/window/EclipsePartContainerSashTopBottomModel.js";
 import EclipseWindowModel from "./user-interface/window/EclipseWindowModel.js";
@@ -93,13 +94,13 @@ export default class EclipseAppModel extends NobucaAppModel {
         left.addPart(new EclipseProjectExplorerModel());
 
         var rightLeftTop = new EclipseWindowPartContainerStackModel();
-        rightLeftTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top 1"));
+        rightLeftTop.addPart((new EclipseTextEditorModel()).setTitle("Top 1"));
         rightLeftTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top 2"));
         rightLeftTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top 3"));
         rightLeftTop.addPart((new EclipseWindowPartViewModel()).setTitle("Top 4"));
 
         var rightLeftBottom = new EclipseWindowPartContainerStackModel();
-        rightLeftBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom 1"));
+        rightLeftBottom.addPart((new EclipseTextEditorModel()).setTitle("Bottom 1"));
         rightLeftBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom 2"));
         rightLeftBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom 3"));
         rightLeftBottom.addPart((new EclipseWindowPartViewModel()).setTitle("Bottom 4"));

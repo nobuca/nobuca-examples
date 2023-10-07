@@ -233,9 +233,10 @@ body {
   background-color: transparent;
   border: 1px solid transparent;
   border-top: 0;
+  border-right: 0;
   border-radius: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .NobucaTabHeader:first-child,
@@ -260,7 +261,8 @@ body {
 .NobucaTabHeaderText {
   color: var(--eclipse-font-color);
   text-shadow: var(--eclipse-text-shadow);
-  padding-right: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .NobucaTabHeaderCloseButton {
